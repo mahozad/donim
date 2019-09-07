@@ -24,7 +24,7 @@
         <!-- </MenuBar>-->
 
         <!-- Height of the menu bar (and thus the title bar) is 25 so top anchor should be difference / 2 -->
-        <Region fx:id="logo" AnchorPane.topAnchor="5" AnchorPane.leftAnchor="4"/>
+        <Region fx:id="logo" AnchorPane.topAnchor="5.5" AnchorPane.leftAnchor="4"/>
 
         <Label fx:id="title" prefHeight="25" text="Chop chop" AnchorPane.leftAnchor="30"/>
 
