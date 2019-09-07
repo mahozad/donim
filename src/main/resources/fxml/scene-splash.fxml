@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="/css/styles.css"
+      fx:id="splashRoot"
+      styleClass="dark"
+      prefWidth="252" prefHeight="330"
+      alignment="CENTER"
+      fx:controller="com.pleon.chopchop.controller.SplashController">
+
+    <Region fx:id="brand"/>
+
+</VBox>

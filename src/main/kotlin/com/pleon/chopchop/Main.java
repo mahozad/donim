@@ -32,7 +32,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         SvgImageLoaderFactory.install(); // enable svg wherever other formats are acceptable
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
+        // Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-splash.fxml"));
         createTrayIcon(primaryStage);
         firstTime = true;
         primaryStage.initStyle(StageStyle.TRANSPARENT);
