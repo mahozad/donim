@@ -35,6 +35,11 @@ public class MainController {
     private float DELTA = -0.04f;
     private boolean paused = true;
 
+    // @FXML // required if method is not public
+    public void initialize() {
+        // do initialization here
+    }
+
     private void startTimer() {
         remainingTime = type.getLength();
         timeline.setCycleCount(remainingTime);

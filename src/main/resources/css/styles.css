@@ -22,6 +22,15 @@
     -fx-background-color: #383838;
 }
 
+#brand {
+    -fx-shape: "m 16,19 c 7,0 11,-5 10,-11 7,8 1,21 -10,21 m -5,-5 a 5,5 0 0 1 5,-5 5,5 0 0 1 5,5 5,5 0 0 1 -5,5 5,5 0 0 1 -5,-5 z M 16,13 C 9,13 5,18 6,24 -1,16 5,3 16,3 m 5,5 a 5,5 0 0 1 -5,5 5,5 0 0 1 -5,-5 5,5 0 0 1 5,-5 5,5 0 0 1 5,5 z";
+    -fx-pref-width: 86;
+    -fx-max-width: 86;
+    -fx-pref-height: 64;
+    -fx-max-height: 64;
+    -fx-background-color: linear-gradient(to right, #003978, #1985ff, #003978);
+}
+
 #logo {
     /* The path height/width ratio is 0.xxx so consider that in the following width and height */
     -fx-pref-width: 18;
