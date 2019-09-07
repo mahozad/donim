@@ -86,7 +86,7 @@ public class Main extends Application {
             showItem.addActionListener(showListener);
             popup.add(showItem);
 
-            MenuItem closeItem = new MenuItem("Close");
+            MenuItem closeItem = new MenuItem("Exit");
             closeItem.addActionListener(e -> System.exit(0));
             popup.add(closeItem);
 
