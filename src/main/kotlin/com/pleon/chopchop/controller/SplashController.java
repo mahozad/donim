@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.Region;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -19,7 +18,7 @@ import java.io.IOException;
 public class SplashController {
 
     @FXML
-    private Region brand;
+    private Node brand;
     @FXML
     private Node splashRoot;
 
@@ -39,21 +38,13 @@ public class SplashController {
         } catch (IOException e) {
             System.err.println(e);
         }
-        // rotate.setOnFinished(event -> {
-        //     try {
-        //         Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
-        //         fadeOut(splashRoot, event1 -> { brand.getScene().setRoot(root); });
-        //     } catch (IOException e) {
-        //         System.err.println(e);
-        //     }
-        // });
     }
 
     private void fadeOut(Node root, EventHandler<ActionEvent> onFinished) {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(2),
                 new EventHandler<>() {
-                    //
+
                     float opacity = 1f;
 
                     @Override
