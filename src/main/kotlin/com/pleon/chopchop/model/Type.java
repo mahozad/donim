@@ -6,7 +6,7 @@ import static javafx.scene.paint.Color.hsb;
 
 public enum Type {
 
-    WORK(35 * 60,
+    WORK(25 * 60,
             "You are free to use the system now",
             hsb(0.0, 0.85, 1.0)),
     BREAK(5 * 60, "Please take a break and return later",
