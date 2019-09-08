@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.awt.TrayIcon.MessageType;
 
 import static com.pleon.chopchop.ImageUtil.getImage;
 
@@ -71,12 +72,20 @@ public class MainController {
                     }
                 }));
         trayAnimation.setCycleCount(Timeline.INDEFINITE);
-
     }
 
-    private void startTimer() {
+    private void startTimer(boolean showNotification) {
         remainingTime = type.getLength();
         timeline.setCycleCount(remainingTime);
+        TrayIcon trayIcon = SystemTray.getSystemTray().getTrayIcons()[0];
+        MessageType messageType;
+        if (type == Type.WORK) {
+            messageType = MessageType.INFO;
+        } else {
+            messageType = MessageType.WARNING;
+        }
+        if (showNotification) trayIcon.displayMessage(type.toString(), type.getMessage(), messageType);
+        trayIcon.setToolTip("Chop chop: " + type.toString());
         timeline.play();
     }
 
@@ -152,7 +161,7 @@ public class MainController {
     }
 
     public void restart() {
-        startTimer();
+        startTimer(false);
     }
 
     public void pauseResume() {
@@ -166,12 +175,12 @@ public class MainController {
 
             timeline.setOnFinished(event -> {
                 type = (type == Type.WORK) ? Type.BREAK : Type.WORK;
-                startTimer();
+                startTimer(true);
             });
 
             restart.setDisable(false);
             skip.setDisable(false);
-            startTimer();
+            startTimer(false);
         }
 
         if (paused) {
@@ -191,7 +200,7 @@ public class MainController {
         setPauseString("Pause"); // in case timer was paused while the skip pressed
         type = (type == Type.WORK) ? Type.BREAK : Type.WORK;
         timeline.stop();
-        startTimer();
+        startTimer(false);
     }
 
     public void changeTheme() {
