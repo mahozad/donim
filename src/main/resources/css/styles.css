@@ -26,6 +26,27 @@
     -fx-fill: linear-gradient(to right, #003978, #1985ff, #003978);
 }
 
+.about {
+    -fx-fill: #333;
+    -fx-font-size: 12;
+}
+
+.dark .about {
+    -fx-fill: #ccc;
+}
+
+#site_link {
+    -fx-border-width: 0;
+}
+
+#site_link:pressed{
+    -fx-text-fill: #D437FF;
+}
+
+#site_link:visited {
+    -fx-text-fill: #D437FF;
+}
+
 .time {
     -fx-font-size: 36;
     -fx-fill: #555;
