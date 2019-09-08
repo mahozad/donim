@@ -1,12 +1,8 @@
 package com.pleon.chopchop;
 
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,13 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import static com.pleon.chopchop.ImageUtil.getImage;
 
 public class Main extends Application {
 
@@ -79,11 +73,6 @@ public class Main extends Application {
 
     private void createTrayIcon(final Stage stage) throws AWTException {
         if (SystemTray.isSupported()) {
-            SystemTray tray = SystemTray.getSystemTray();
-            java.awt.Image trayImage = Toolkit.getDefaultToolkit().createImage(
-                    getImage("/tray/1.png")
-            );
-
             ActionListener showListener = e -> Platform.runLater(stage::show);
 
             PopupMenu popup = new PopupMenu();
@@ -96,62 +85,17 @@ public class Main extends Application {
             closeItem.addActionListener(e -> System.exit(0));
             popup.add(closeItem);
 
-            /// ... add other items
-
-            // construct a TrayIcon
+            java.awt.Image trayImage = Toolkit.getDefaultToolkit().createImage(
+                    getImage("/tray/1.png")
+            );
             trayIcon = new TrayIcon(trayImage, "Chop chop", popup);
             trayIcon.addActionListener(showListener);
 
-            tray.add(trayIcon);
+            SystemTray.getSystemTray().add(trayIcon);
 
             trayIcon.displayMessage("Some message.", "Some other message.",
                     TrayIcon.MessageType.INFO);
-
-            java.awt.Image[] trayImages = new java.awt.Image[53];
-            for (int i = 0; i < 53; i++) {
-                String path = String.format("/tray/%d.png", i + 1);
-                trayImages[i] = Toolkit.getDefaultToolkit().createImage(getImage(path));
-            }
-
-            Timeline trayAnimation = new Timeline();
-            trayAnimation.getKeyFrames().add(new KeyFrame(Duration.millis(50),
-                    new EventHandler<>() {
-                        int firstFrameDelay = 0;
-                        int i = 0;
-
-                        @Override
-                        public void handle(ActionEvent event) {
-                            trayIcon.setImage(trayImages[i]);
-                            if (i == 0 && firstFrameDelay < 100) {
-                                firstFrameDelay++;
-                                if (firstFrameDelay == 100) {
-                                    firstFrameDelay = 0;
-                                    i++;
-                                }
-                            } else {
-                                i = (i + 1) % trayImages.length;
-                            }
-                        }
-                    }));
-            trayAnimation.setCycleCount(Timeline.INDEFINITE);
-            trayAnimation.play();
         }
-    }
-
-    private static byte[] getImage(String path) {
-        InputStream inputStream = Main.class.getResourceAsStream(path);
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int readBytesCount;
-        byte[] data = new byte[16384];
-        try {
-            while ((readBytesCount = inputStream.read(data, 0, data.length)) != -1) {
-                buffer.write(data, 0, readBytesCount);
-            }
-            buffer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return buffer.toByteArray();
     }
 
     // private void drawShapes(GraphicsContext gc) {
