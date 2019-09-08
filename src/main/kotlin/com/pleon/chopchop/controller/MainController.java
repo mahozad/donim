@@ -76,6 +76,7 @@ public class MainController {
                 }));
         trayAnimation.setCycleCount(Timeline.INDEFINITE);
 
+        // Make window movable
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
