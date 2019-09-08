@@ -53,10 +53,10 @@ public class SplashController {
                 }
         ));
         timeline.setCycleCount(100);
-        timeline.setDelay(Duration.seconds(2));
+        timeline.setDelay(Duration.millis(2500));
         Parent mainSceneRoot = FXMLLoader.load(getClass()
                 .getResource("/fxml/scene-main.fxml"));
-        timeline.setOnFinished(event1 -> brand.getScene().setRoot(mainSceneRoot));
+        timeline.setOnFinished(event1 -> root.getScene().setRoot(mainSceneRoot));
         timeline.play();
     }
 }
