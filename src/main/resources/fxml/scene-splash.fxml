@@ -4,7 +4,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="/css/styles.css"
-      fx:id="splashRoot"
+      fx:id="root"
       styleClass="dark"
       prefWidth="252" prefHeight="330"
       alignment="CENTER"

@@ -43,7 +43,7 @@
     </AnchorPane>
 
     <AnchorPane>
-        <Region fx:id="theme" onMouseClicked="#changeTheme" styleClass="icon"
+        <Region fx:id="theme" onMouseClicked="#toggleTheme" styleClass="icon"
                 prefWidth="18" prefHeight="18"
                 AnchorPane.topAnchor="12" AnchorPane.rightAnchor="16"/>
     </AnchorPane>

@@ -1,6 +1,7 @@
 package com.pleon.chopchop.controller;
 
 import com.pleon.chopchop.CircularProgressBar;
+import com.pleon.chopchop.ThemeUtil;
 import com.pleon.chopchop.model.Type;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,6 +47,7 @@ public class MainController {
 
     // @FXML // required if method is not public
     public void initialize() {
+        ThemeUtil.getThemeProperty().addListener(observable -> ThemeUtil.applyTheme(root));
 
         java.awt.Image[] trayImages = new java.awt.Image[53];
         for (int i = 0; i < 53; i++) {
@@ -97,7 +99,8 @@ public class MainController {
         } else {
             messageType = MessageType.WARNING;
         }
-        if (showNotification) trayIcon.displayMessage(type.toString(), type.getMessage(), messageType);
+        if (showNotification)
+            trayIcon.displayMessage(type.toString(), type.getMessage(), messageType);
         trayIcon.setToolTip("Chop chop: " + type.toString());
         timeline.play();
     }
@@ -216,11 +219,7 @@ public class MainController {
         startTimer(false);
     }
 
-    public void changeTheme() {
-        if (root.getStyleClass().contains("dark")) {
-            root.getStyleClass().remove("dark");
-        } else {
-            root.getStyleClass().add("dark");
-        }
+    public void toggleTheme() {
+        ThemeUtil.toggleTheme();
     }
 }

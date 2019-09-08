@@ -1,5 +1,6 @@
 package com.pleon.chopchop.controller;
 
+import com.pleon.chopchop.ThemeUtil;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
@@ -18,12 +19,14 @@ import java.io.IOException;
 public class SplashController {
 
     @FXML
-    private Node brand;
+    private Node root;
     @FXML
-    private Node splashRoot;
+    private Node brand;
 
     // @FXML // required if method is not public
     public void initialize() throws IOException {
+        ThemeUtil.applyTheme(root);
+
         RotateTransition rotate = new RotateTransition();
         rotate.setNode(brand);
         rotate.setAxis(Rotate.Z_AXIS);
@@ -32,10 +35,10 @@ public class SplashController {
         rotate.setInterpolator(Interpolator.EASE_BOTH);
         rotate.setDelay(Duration.millis(1500));
         rotate.play();
-        fadeOut(splashRoot);
+        fadeOut();
     }
 
-    private void fadeOut(Node root) throws IOException {
+    private void fadeOut() throws IOException {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(2),
                 new EventHandler<>() {
