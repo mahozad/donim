@@ -77,7 +77,7 @@ public class Main extends Application {
 
             PopupMenu popup = new PopupMenu();
 
-            MenuItem showItem = new MenuItem("Show");
+            MenuItem showItem = new MenuItem("Show Window");
             showItem.addActionListener(showListener);
             popup.add(showItem);
 
@@ -92,9 +92,6 @@ public class Main extends Application {
             trayIcon.addActionListener(showListener);
 
             SystemTray.getSystemTray().add(trayIcon);
-
-            trayIcon.displayMessage("Some message.", "Some other message.",
-                    TrayIcon.MessageType.INFO);
         }
     }
 
