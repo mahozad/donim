@@ -14,6 +14,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
+
+import static com.pleon.chopchop.ImageUtil.getImage;
+
 public class MainController {
 
     //@formatter:off
@@ -34,10 +38,40 @@ public class MainController {
     private Timeline timeline = new Timeline();
     private float DELTA = -0.04f;
     private boolean paused = true;
+    private Timeline trayAnimation;
 
     // @FXML // required if method is not public
     public void initialize() {
-        // do initialization here
+
+        java.awt.Image[] trayImages = new java.awt.Image[53];
+        for (int i = 0; i < 53; i++) {
+            String path = String.format("/tray/%d.png", i + 1);
+            trayImages[i] = Toolkit.getDefaultToolkit().createImage(getImage(path));
+        }
+
+        trayAnimation = new Timeline();
+        trayAnimation.getKeyFrames().add(new KeyFrame(Duration.millis(50),
+                new EventHandler<>() {
+                    int firstFrameDelay = 0;
+                    int i = 0;
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        TrayIcon trayIcon = SystemTray.getSystemTray().getTrayIcons()[0];
+                        trayIcon.setImage(trayImages[i]);
+                        if (i == 0 && firstFrameDelay < 100) {
+                            firstFrameDelay++;
+                            if (firstFrameDelay == 100) {
+                                firstFrameDelay = 0;
+                                i++;
+                            }
+                        } else {
+                            i = (i + 1) % trayImages.length;
+                        }
+                    }
+                }));
+        trayAnimation.setCycleCount(Timeline.INDEFINITE);
+
     }
 
     private void startTimer() {
@@ -142,9 +176,11 @@ public class MainController {
 
         if (paused) {
             timeline.play();
+            trayAnimation.play();
             setPauseString("Pause");
         } else {
             timeline.pause();
+            trayAnimation.stop();
             setPauseString("Resume");
         }
 
