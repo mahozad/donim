@@ -45,12 +45,13 @@ public class Main extends Application {
         primaryStage.setTitle("Chop Chop");
         primaryStage.getIcons().add(new Image("/logo.svg"));
         primaryStage.setOpacity(1.0);
-        primaryStage.setAlwaysOnTop(false);
+        primaryStage.setAlwaysOnTop(true);
         primaryStage.setResizable(false);
         primaryStage.toFront();
         Platform.setImplicitExit(false); // for minimize to tray to work correctly
-        primaryStage.setX(0 - 10); // dou to padding and inset in .root{} rule in css we subtract 10
-        primaryStage.setY(0 - 10);
+        // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} rule in css we
+        // subtract 10
+        // primaryStage.setY(0 - 10);
 
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
