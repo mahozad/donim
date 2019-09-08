@@ -36,15 +36,9 @@
 }
 
 #site_link {
+    -fx-font-size: 12;
+    -fx-text-fill: DodgerBlue;
     -fx-border-width: 0;
-}
-
-#site_link:pressed{
-    -fx-text-fill: #D437FF;
-}
-
-#site_link:visited {
-    -fx-text-fill: #D437FF;
 }
 
 .time {
