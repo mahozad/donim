@@ -41,15 +41,6 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT); // for drop shadow to show correctly
-        // CircularProgressBar progressBar = (CircularProgressBar) root.lookup
-        // ("CircularProgressBar");
-        // scene.setOnKeyPressed(event -> {
-        //     if (event.getCode() == KeyCode.UP) {
-        //         progressBar.increase();
-        //     } else if (event.getCode() == KeyCode.DOWN) {
-        //         progressBar.decrease();
-        //     }
-        // });
         primaryStage.setScene(scene);
         primaryStage.show();
     }
