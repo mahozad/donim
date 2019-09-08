@@ -13,6 +13,7 @@ import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static com.pleon.chopchop.ImageUtil.getImage;
 
@@ -20,8 +21,6 @@ public class Main extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    private boolean firstTime;
-    private TrayIcon trayIcon;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,17 +33,13 @@ public class Main extends Application {
         // Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-splash.fxml"));
         createTrayIcon(primaryStage);
-        firstTime = true;
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Chop Chop");
         primaryStage.getIcons().add(new Image("/logo.svg"));
-        primaryStage.setOpacity(1.0);
-        primaryStage.setAlwaysOnTop(true);
+        primaryStage.setAlwaysOnTop(false);
         primaryStage.setResizable(false);
-        primaryStage.toFront();
         Platform.setImplicitExit(false); // for minimize to tray to work correctly
-        // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} rule in css we
-        // subtract 10
+        // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} in css we subtract 10
         // primaryStage.setY(0 - 10);
 
         root.setOnMousePressed(event -> {
@@ -81,16 +76,37 @@ public class Main extends Application {
             showItem.addActionListener(showListener);
             popup.add(showItem);
 
+            MenuItem aboutItem = new MenuItem("About");
+            aboutItem.addActionListener(e -> {
+                Platform.runLater(() -> {
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource(
+                                "/fxml/scene-about.fxml"));
+                        Stage stageAbout = new Stage();
+                        stageAbout.setTitle("About");
+                        stageAbout.initStyle(StageStyle.TRANSPARENT);
+                        Scene scene = new Scene(root);
+                        scene.setFill(Color.TRANSPARENT); // for drop shadow to show correctly
+                        stageAbout.setScene(scene);
+                        stageAbout.getIcons().add(new Image("/logo.svg"));
+                        stageAbout.setResizable(false);
+                        stageAbout.toFront();
+                        stageAbout.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            });
+            popup.add(aboutItem);
+
             MenuItem closeItem = new MenuItem("Exit");
             closeItem.addActionListener(e -> System.exit(0));
             popup.add(closeItem);
 
-            java.awt.Image trayImage = Toolkit.getDefaultToolkit().createImage(
-                    getImage("/tray/1.png")
-            );
-            trayIcon = new TrayIcon(trayImage, "Chop chop", popup);
+            java.awt.Image trayImage = Toolkit.getDefaultToolkit()
+                    .createImage(getImage("/tray/1.png"));
+            TrayIcon trayIcon = new TrayIcon(trayImage, "Chop chop", popup);
             trayIcon.addActionListener(showListener);
-
             SystemTray.getSystemTray().add(trayIcon);
         }
     }

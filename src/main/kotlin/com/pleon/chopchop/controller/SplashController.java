@@ -23,7 +23,7 @@ public class SplashController {
     private Node splashRoot;
 
     // @FXML // required if method is not public
-    public void initialize() {
+    public void initialize() throws IOException {
         RotateTransition rotate = new RotateTransition();
         rotate.setNode(brand);
         rotate.setAxis(Rotate.Z_AXIS);
@@ -32,15 +32,10 @@ public class SplashController {
         rotate.setInterpolator(Interpolator.EASE_BOTH);
         rotate.setDelay(Duration.millis(1500));
         rotate.play();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
-            fadeOut(splashRoot, event1 -> brand.getScene().setRoot(root));
-        } catch (IOException e) {
-            System.err.println(e);
-        }
+        fadeOut(splashRoot);
     }
 
-    private void fadeOut(Node root, EventHandler<ActionEvent> onFinished) {
+    private void fadeOut(Node root) throws IOException {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(2),
                 new EventHandler<>() {
@@ -56,7 +51,9 @@ public class SplashController {
         ));
         timeline.setCycleCount(100);
         timeline.setDelay(Duration.seconds(2));
-        timeline.setOnFinished(onFinished);
+        Parent mainSceneRoot = FXMLLoader.load(getClass()
+                .getResource("/fxml/scene-main.fxml"));
+        timeline.setOnFinished(event1 -> brand.getScene().setRoot(mainSceneRoot));
         timeline.play();
     }
 }
