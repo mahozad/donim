@@ -30,7 +30,7 @@
         </StackPane>
     </AnchorPane>
 
-    <VBox prefHeight="280" alignment="CENTER">
+    <VBox prefHeight="285" alignment="CENTER">
         <Text styleClass="about" text="Developer: Mahdi Hosseinzadeh">
             <VBox.margin>
                 <Insets bottom="16"/>
