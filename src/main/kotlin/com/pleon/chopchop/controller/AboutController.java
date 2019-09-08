@@ -9,6 +9,7 @@ public class AboutController {
     @FXML private Node root;
 
     public void onExitClick() {
+        // TODO: Fade out the stage
         ((Stage) root.getScene().getWindow()).close();
     }
 }
