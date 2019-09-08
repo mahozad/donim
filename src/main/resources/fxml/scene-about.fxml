@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.pleon.chopchop.controller.AboutController"
@@ -41,7 +41,12 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Powered by JavaFX">
+        <Text styleClass="about" text="Powered by JavaFX platform">
+            <VBox.margin>
+                <Insets bottom="16"/>
+            </VBox.margin>
+        </Text>
+        <Text styleClass="about" text="Donut chart inspired by TilesFX">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
