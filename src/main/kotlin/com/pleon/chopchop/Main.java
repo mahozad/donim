@@ -1,8 +1,12 @@
 package com.pleon.chopchop;
 
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -75,12 +80,11 @@ public class Main extends Application {
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();
             java.awt.Image trayImage = Toolkit.getDefaultToolkit().createImage(
-                    getImage("/tray-icon.png")
+                    getImage("/tray/1.png")
             );
 
             ActionListener showListener = e -> Platform.runLater(stage::show);
 
-            // create a popup menu
             PopupMenu popup = new PopupMenu();
 
             MenuItem showItem = new MenuItem("Show");
@@ -101,6 +105,35 @@ public class Main extends Application {
 
             trayIcon.displayMessage("Some message.", "Some other message.",
                     TrayIcon.MessageType.INFO);
+
+            java.awt.Image[] trayImages = new java.awt.Image[53];
+            for (int i = 0; i < 53; i++) {
+                String path = String.format("/tray/%d.png", i + 1);
+                trayImages[i] = Toolkit.getDefaultToolkit().createImage(getImage(path));
+            }
+
+            Timeline trayAnimation = new Timeline();
+            trayAnimation.getKeyFrames().add(new KeyFrame(Duration.millis(50),
+                    new EventHandler<>() {
+                        int firstFrameDelay = 0;
+                        int i = 0;
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            trayIcon.setImage(trayImages[i]);
+                            if (i == 0 && firstFrameDelay < 100) {
+                                firstFrameDelay++;
+                                if (firstFrameDelay == 100) {
+                                    firstFrameDelay = 0;
+                                    i++;
+                                }
+                            } else {
+                                i = (i + 1) % trayImages.length;
+                            }
+                        }
+                    }));
+            trayAnimation.setCycleCount(Timeline.INDEFINITE);
+            trayAnimation.play();
         }
     }
 
