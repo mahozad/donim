@@ -30,6 +30,9 @@ public class MainController {
     @FXML private Pane root;
     //@formatter:on
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     private Type type = Type.WORK;
     private StringProperty remainingTimeString =
             new SimpleStringProperty(String.format("%02d:%02d",
@@ -72,6 +75,15 @@ public class MainController {
                     }
                 }));
         trayAnimation.setCycleCount(Timeline.INDEFINITE);
+
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            root.getScene().getWindow().setX(event.getScreenX() - xOffset);
+            root.getScene().getWindow().setY(event.getScreenY() - yOffset);
+        });
     }
 
     private void startTimer(boolean showNotification) {

@@ -19,9 +19,6 @@ import static com.pleon.chopchop.ImageUtil.getImage;
 
 public class Main extends Application {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -41,15 +38,6 @@ public class Main extends Application {
         Platform.setImplicitExit(false); // for minimize to tray to work correctly
         // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} in css we subtract 10
         // primaryStage.setY(0 - 10);
-
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT); // for drop shadow to show correctly
