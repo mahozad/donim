@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="/css/styles.css"
       fx:id="splashRoot"
@@ -10,6 +10,7 @@
       alignment="CENTER"
       fx:controller="com.pleon.chopchop.controller.SplashController">
 
-    <Region fx:id="brand"/>
+    <SVGPath fx:id="brand"
+             content="m 32,5.9999574 c 13.999899,0 21.999843,-9.9999286 19.999857,-21.9998434 C 65.999757,2e-7 53.999843,25.999814 32,25.999814 M 22.000071,15.999886 A 9.9999283,9.9999283 0 0 1 32,5.9999574 9.9999283,9.9999283 0 0 1 41.999928,15.999886 9.9999283,9.9999283 0 0 1 32,25.999814 9.9999283,9.9999283 0 0 1 22.000071,15.999886 Z M 32,-5.999957 c -13.999901,0 -21.999843,9.9999286 -19.999857,21.999843 C -1.9997575,2e-7 10.000157,-25.999815 32,-25.999815 m 9.999928,9.999929 A 9.9999283,9.9999283 0 0 1 32,-5.999957 9.9999283,9.9999283 0 0 1 22.000071,-15.999886 9.9999283,9.9999283 0 0 1 32,-25.999815 a 9.9999283,9.9999283 0 0 1 9.999928,9.999929 z"/>
 
 </VBox>
