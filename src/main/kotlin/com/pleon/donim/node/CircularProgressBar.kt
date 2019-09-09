@@ -72,7 +72,7 @@ class CircularProgressBar : Canvas() {
         graphicsContext2D.stroke = Color.gray(0.5, 0.2)
         graphicsContext2D.beginPath()
         graphicsContext2D.arc(width / 2, height / 2, (innerRadius + outerRadius) / 2,
-                (innerRadius + outerRadius) / 2, 0.0, 365.0)
+                (innerRadius + outerRadius) / 2, 0.0, 360.0)
         graphicsContext2D.closePath()
         graphicsContext2D.stroke()
         // gc.applyEffect(new DropShadow(2, 1, 1, Color.gray(0.2)));
