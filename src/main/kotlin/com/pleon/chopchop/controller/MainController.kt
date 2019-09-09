@@ -45,7 +45,7 @@ class MainController {
 
         val trayImages = arrayOfNulls<java.awt.Image>(53)
         for (i in trayImages.indices) {
-            val path = String.format("/tray/%d.png", i + 1)
+            val path = "/tray/${i + 1}.png"
             trayImages[i] = Toolkit.getDefaultToolkit().createImage(getImage(path))
         }
 
