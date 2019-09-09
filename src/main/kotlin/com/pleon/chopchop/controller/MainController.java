@@ -1,7 +1,7 @@
 package com.pleon.chopchop.controller;
 
 import com.pleon.chopchop.CircularProgressBar;
-import com.pleon.chopchop.ThemeUtil;
+import com.pleon.chopchop.ThemeUtil2;
 import com.pleon.chopchop.model.Type;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,8 +47,8 @@ public class MainController {
 
     // @FXML // required if method is not public
     public void initialize() {
-        ThemeUtil.applyTheme(root);
-        ThemeUtil.onThemeChanged(observable -> ThemeUtil.applyTheme(root));
+        ThemeUtil2.applyTheme(root);
+        ThemeUtil2.onThemeChanged(observable -> ThemeUtil2.applyTheme(root));
 
         java.awt.Image[] trayImages = new java.awt.Image[53];
         for (int i = 0; i < 53; i++) {
@@ -221,6 +221,6 @@ public class MainController {
     }
 
     public void toggleTheme() {
-        ThemeUtil.toggleTheme();
+        ThemeUtil2.toggleTheme();
     }
 }

@@ -5,7 +5,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 
-public class ThemeUtil {
+public class ThemeUtil2 {
 
     private enum Theme {
         DARK, LIGHT
@@ -14,7 +14,7 @@ public class ThemeUtil {
     private static Property<Theme> currentTheme = new SimpleObjectProperty<>(Theme.DARK);
 
     public static void onThemeChanged(InvalidationListener listener) {
-        ThemeUtil.currentTheme.addListener(listener);
+        ThemeUtil2.currentTheme.addListener(listener);
     }
 
     public static void toggleTheme() {
