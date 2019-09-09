@@ -22,25 +22,19 @@ import kotlin.system.exitProcess
 
 class MainController {
 
-    @FXML
-    private lateinit var progressBar: CircularProgressBar
-    @FXML
-    private lateinit var restart: Button
-    @FXML
-    private lateinit var skip: Button
-    @FXML
-    private lateinit var root: Node
+    @FXML private lateinit var progressBar: CircularProgressBar
+    @FXML private lateinit var restart: Button
+    @FXML private lateinit var skip: Button
+    @FXML private lateinit var root: Node
 
     private var xOffset = 0.0
     private var yOffset = 0.0
-    private val MILLIS_PER_FRAME = 5.0
     private var type = Type.WORK
     private val remainingTimeString = SimpleStringProperty(String.format("%02d:%02d",
             type.length / 60, type.length % 60))
     private val pauseString = SimpleStringProperty("Start")
     private var remainingTime = type.length
     private val timeline = Timeline()
-    private val DELTA = -0.04f
     private var paused = true
     private lateinit var trayAnimation: Timeline
 
@@ -114,7 +108,8 @@ class MainController {
 
     private fun startTimer(shouldShowNotification: Boolean) {
         setPauseString("Pause")
-        remainingTime = type.length.also { timeline.cycleCount = it }
+        remainingTime = type.length
+        timeline.cycleCount = remainingTime
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
         if (shouldShowNotification) {
             trayIcon.displayMessage(type.toString(), type.message, type.messageType)
@@ -149,14 +144,14 @@ class MainController {
 
     private fun fadeOut(frame: Stage, onFinished: EventHandler<ActionEvent>) {
         val timeline = Timeline()
-        timeline.keyFrames.add(KeyFrame(Duration.millis(MILLIS_PER_FRAME), object : EventHandler<ActionEvent?> {
+        timeline.keyFrames.add(KeyFrame(Duration.millis(5.0), object : EventHandler<ActionEvent?> {
             private var opacity = 1.0
             override fun handle(event: ActionEvent?) {
-                opacity = (opacity + DELTA).coerceAtLeast(0.0)
+                opacity = (opacity - 0.04f).coerceAtLeast(0.0)
                 frame.opacity = opacity
             }
         }))
-        timeline.cycleCount = (1 / -DELTA).toInt()
+        timeline.cycleCount = (1 / 0.04f).toInt()
         timeline.onFinished = onFinished
         timeline.play()
     }
@@ -188,7 +183,7 @@ class MainController {
             setPauseString("Pause")
         } else {
             timeline.pause()
-            trayAnimation.stop()
+            trayAnimation.pause()
             setPauseString("Resume")
         }
 
