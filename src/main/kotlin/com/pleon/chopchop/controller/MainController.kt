@@ -3,6 +3,7 @@ package com.pleon.chopchop.controller
 import com.pleon.chopchop.model.Period.BREAK
 import com.pleon.chopchop.model.Period.WORK
 import com.pleon.chopchop.node.CircularProgressBar
+import com.pleon.chopchop.util.AnimationUtil.fadeOut
 import com.pleon.chopchop.util.ImageUtil.getImage
 import com.pleon.chopchop.util.ThemeUtil
 import javafx.animation.KeyFrame
@@ -126,9 +127,7 @@ class MainController {
             fadeOut((Stage) root.getScene().getWindow(), event -> System.exit(0));
         }*/
 
-        fadeOut(root.scene.window as Stage, EventHandler {
-            exitProcess(0)
-        })
+        fadeOut(root.scene.window as Stage, EventHandler { exitProcess(0) })
     }
 
     fun minimizeApp() {
@@ -141,20 +140,6 @@ class MainController {
             (root.scene.window as Stage).opacity = 1.0
             (root.scene.window as Stage).hide()
         })
-    }
-
-    private fun fadeOut(frame: Stage, onFinished: EventHandler<ActionEvent>) {
-        val timeline = Timeline()
-        timeline.keyFrames.add(KeyFrame(Duration.millis(5.0), object : EventHandler<ActionEvent?> {
-            private var opacity = 1.0
-            override fun handle(event: ActionEvent?) {
-                opacity = (opacity - 0.04f).coerceAtLeast(0.0)
-                frame.opacity = opacity
-            }
-        }))
-        timeline.cycleCount = (1 / 0.04f).toInt()
-        timeline.onFinished = onFinished
-        timeline.play()
     }
 
     fun restart() = startTimer(false)

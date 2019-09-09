@@ -1,8 +1,10 @@
 package com.pleon.chopchop.controller
 
+import com.pleon.chopchop.util.AnimationUtil.fadeOut
 import com.pleon.chopchop.util.HostServicesProvider.getHostServices
 import com.pleon.chopchop.util.ThemeUtil
 import javafx.beans.InvalidationListener
+import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Hyperlink
@@ -34,7 +36,7 @@ class AboutController {
     }
 
     fun closeWindow() {
-        // TODO: Fade out the stage
-        (root.scene.window as Stage).close()
+        val stage = root.scene.window as Stage
+        fadeOut(stage, EventHandler { stage.close() })
     }
 }
