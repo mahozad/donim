@@ -16,6 +16,7 @@ class SplashController {
 
     @FXML private lateinit var root: Node
     @FXML private lateinit var brand: Node
+
     private var stageOpacity = 1.0
 
     fun initialize() {
@@ -26,9 +27,9 @@ class SplashController {
 
     private fun rotateLogo() {
         val rotate = RotateTransition(Duration.millis(2000.0), brand)
-        rotate.byAngle = 360.0
         rotate.interpolator = Interpolator.EASE_BOTH
         rotate.delay = Duration.millis(1200.0)
+        rotate.byAngle = 360.0
         rotate.play()
     }
 
