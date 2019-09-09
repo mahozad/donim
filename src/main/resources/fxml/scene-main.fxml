@@ -63,17 +63,17 @@
     <HBox alignment="CENTER">
         <Button fx:id="restart" styleClass="btn" text="Restart" disable="true" onAction="#restart">
             <HBox.margin>
-                <Insets right="8" top="16" bottom="16"/>
+                <Insets right="8" top="20" bottom="16"/>
             </HBox.margin>
         </Button>
         <Button styleClass="btn" text="${controller.pauseString}" onAction="#pauseResume">
             <HBox.margin>
-                <Insets top="16" bottom="16"/>
+                <Insets top="20" bottom="16"/>
             </HBox.margin>
         </Button>
         <Button fx:id="skip" styleClass="btn" text="Skip" disable="true" onAction="#skip">
             <HBox.margin>
-                <Insets left="8" top="16" bottom="16"/>
+                <Insets left="8" top="20" bottom="16"/>
             </HBox.margin>
         </Button>
     </HBox>

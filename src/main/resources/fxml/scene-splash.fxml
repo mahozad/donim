@@ -6,7 +6,7 @@
       stylesheets="/css/styles.css"
       fx:id="root"
       styleClass="dark"
-      prefWidth="252" prefHeight="330"
+      prefWidth="252" prefHeight="334"
       alignment="CENTER"
       fx:controller="com.pleon.donim.controller.SplashController">
 
