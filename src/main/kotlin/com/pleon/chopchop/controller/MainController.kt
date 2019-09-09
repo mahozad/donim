@@ -41,7 +41,7 @@ class MainController {
     // @FXML // required if method is not public
     fun initialize() {
         ThemeUtil.applyTheme(root)
-        ThemeUtil.onThemeChanged(InvalidationListener { ThemeUtil.applyTheme(root) })
+        ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
 
         val trayImages = arrayOfNulls<java.awt.Image>(53)
         for (i in 0..52) {

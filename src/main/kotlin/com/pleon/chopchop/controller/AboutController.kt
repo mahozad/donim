@@ -18,7 +18,7 @@ class AboutController {
 
     fun initialize() {
         ThemeUtil.applyTheme(root)
-        ThemeUtil.onThemeChanged(InvalidationListener { ThemeUtil.applyTheme(root) })
+        ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
 
         link.setOnAction { getHostServices().showDocument(link.text) }
 

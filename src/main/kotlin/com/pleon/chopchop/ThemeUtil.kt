@@ -14,7 +14,7 @@ object ThemeUtil {
 
     private var theme = SimpleObjectProperty(DARK)
 
-    fun onThemeChanged(listener: InvalidationListener) {
+    fun setOnToggled(listener: InvalidationListener) {
         theme.addListener(listener)
     }
 
