@@ -44,7 +44,7 @@ class MainController {
         ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
 
         val trayImages = arrayOfNulls<java.awt.Image>(53)
-        for (i in 0..52) {
+        for (i in trayImages.indices) {
             val path = String.format("/tray/%d.png", i + 1)
             trayImages[i] = Toolkit.getDefaultToolkit().createImage(getImage(path))
         }
