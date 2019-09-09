@@ -3,7 +3,8 @@ package com.pleon.chopchop.controller
 import com.pleon.chopchop.CircularProgressBar
 import com.pleon.chopchop.ImageUtil.getImage
 import com.pleon.chopchop.ThemeUtil
-import com.pleon.chopchop.model.Type
+import com.pleon.chopchop.model.Period.BREAK
+import com.pleon.chopchop.model.Period.WORK
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
@@ -29,11 +30,11 @@ class MainController {
 
     private var xOffset = 0.0
     private var yOffset = 0.0
-    private var type = Type.WORK
+    private var period = WORK
     private val remainingTimeString = SimpleStringProperty(String.format("%02d:%02d",
-            type.length / 60, type.length % 60))
+            period.length / 60, period.length % 60))
     private val pauseString = SimpleStringProperty("Start")
-    private var remainingTime = type.length
+    private var remainingTime = period.length
     private val timeline = Timeline()
     private var paused = true
     private lateinit var trayAnimation: Timeline
@@ -108,13 +109,13 @@ class MainController {
 
     private fun startTimer(shouldShowNotification: Boolean) {
         setPauseString("Pause")
-        remainingTime = type.length
+        remainingTime = period.length
         timeline.cycleCount = remainingTime
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
         if (shouldShowNotification) {
-            trayIcon.displayMessage(type.toString(), type.notification, type.notificationType)
+            trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
         }
-        trayIcon.toolTip = "Chop chop: $type"
+        trayIcon.toolTip = "Chop chop: $period"
         timeline.play()
     }
 
@@ -163,12 +164,12 @@ class MainController {
             timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
                 setRemainingTimeString(String.format("%02d:%02d",
                         remainingTime / 60, remainingTime % 60))
-                progressBar.tick(remainingTime.toDouble() / type.length, type)
+                progressBar.tick(remainingTime.toDouble() / period.length, period)
                 remainingTime--
             }))
 
             timeline.setOnFinished {
-                type = if (type == Type.WORK) Type.BREAK else Type.WORK
+                period = if (period == WORK) BREAK else WORK
                 startTimer(true)
             }
 
@@ -191,7 +192,7 @@ class MainController {
     }
 
     fun skip() {
-        type = if (type == Type.WORK) Type.BREAK else Type.WORK
+        period = if (period == WORK) BREAK else WORK
         timeline.stop()
         startTimer(false)
     }
