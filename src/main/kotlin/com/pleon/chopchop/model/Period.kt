@@ -4,10 +4,10 @@ import javafx.scene.paint.Color
 import javafx.scene.paint.Color.hsb
 import java.awt.TrayIcon.MessageType
 
-enum class Type(val length: Int,
-                val baseColor: Color,
-                val notification: String,
-                val notificationType: MessageType) {
+enum class Period(val length: Int,
+                  val baseColor: Color,
+                  val notification: String,
+                  val notificationType: MessageType) {
 
     WORK(25 * 60,
             hsb(0.0, 0.85, 1.0),
