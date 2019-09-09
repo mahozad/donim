@@ -3,7 +3,6 @@ package com.pleon.chopchop.controller
 import com.pleon.chopchop.HostServicesProvider.getHostServices
 import com.pleon.chopchop.ThemeUtil
 import javafx.beans.InvalidationListener
-import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Hyperlink
@@ -24,11 +23,11 @@ class AboutController {
         link.setOnAction { getHostServices().showDocument(link.text) }
 
         // Make window movable
-        root.onMousePressed = EventHandler {
+        root.setOnMousePressed {
             xOffset = it.sceneX
             yOffset = it.sceneY
         }
-        root.onMouseDragged = EventHandler {
+        root.setOnMouseDragged {
             root.scene.window.x = it.screenX - xOffset
             root.scene.window.y = it.screenY - yOffset
         }
