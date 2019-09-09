@@ -33,7 +33,7 @@ public class SplashController {
         rotate.setByAngle(360);
         rotate.setDuration(Duration.millis(2000));
         rotate.setInterpolator(Interpolator.EASE_BOTH);
-        rotate.setDelay(Duration.millis(1500));
+        rotate.setDelay(Duration.millis(1200));
         rotate.play();
         fadeOut();
     }
