@@ -5,13 +5,15 @@ import com.pleon.chopchop.ThemeUtil
 import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.scene.Node
 import javafx.scene.control.Hyperlink
 import javafx.stage.Stage
 
 class AboutController {
 
-    @FXML private lateinit var root: javafx.scene.Node
+    @FXML private lateinit var root: Node
     @FXML private lateinit var link: Hyperlink
+
     private var xOffset = 0.0
     private var yOffset = 0.0
 
