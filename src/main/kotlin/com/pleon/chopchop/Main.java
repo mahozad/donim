@@ -1,5 +1,6 @@
 package com.pleon.chopchop;
 
+import com.pleon.chopchop.util.HostServicesProvider;
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,7 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static com.pleon.chopchop.ImageUtil.getImage;
+import static com.pleon.chopchop.util.ImageUtil.getImage;
 
 public class Main extends Application {
 
@@ -34,7 +35,7 @@ public class Main extends Application {
         createTrayIcon(primaryStage);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Chop Chop");
-        primaryStage.getIcons().add(new Image("/logo.svg"));
+        primaryStage.getIcons().add(new Image("/svg/logo.svg"));
         primaryStage.setAlwaysOnTop(false);
         primaryStage.setResizable(false);
         Platform.setImplicitExit(false); // for minimize to tray to work correctly
@@ -69,7 +70,7 @@ public class Main extends Application {
                         Scene scene = new Scene(root);
                         scene.setFill(Color.TRANSPARENT); // for drop shadow to show correctly
                         stageAbout.setScene(scene);
-                        stageAbout.getIcons().add(new Image("/logo.svg"));
+                        stageAbout.getIcons().add(new Image("/svg/logo.svg"));
                         stageAbout.setResizable(false);
                         stageAbout.toFront();
                         stageAbout.show();

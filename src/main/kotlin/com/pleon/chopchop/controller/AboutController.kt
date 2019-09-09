@@ -1,7 +1,7 @@
 package com.pleon.chopchop.controller
 
-import com.pleon.chopchop.HostServicesProvider.getHostServices
-import com.pleon.chopchop.ThemeUtil
+import com.pleon.chopchop.util.HostServicesProvider.getHostServices
+import com.pleon.chopchop.util.ThemeUtil
 import javafx.beans.InvalidationListener
 import javafx.fxml.FXML
 import javafx.scene.Node

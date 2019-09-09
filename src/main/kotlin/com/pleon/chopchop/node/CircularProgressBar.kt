@@ -1,4 +1,4 @@
-package com.pleon.chopchop
+package com.pleon.chopchop.node
 
 import javafx.beans.InvalidationListener
 import javafx.scene.canvas.Canvas

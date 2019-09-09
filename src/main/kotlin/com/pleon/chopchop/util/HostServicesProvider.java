@@ -1,4 +1,4 @@
-package com.pleon.chopchop;
+package com.pleon.chopchop.util;
 
 import javafx.application.HostServices;
 
