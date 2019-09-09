@@ -35,7 +35,7 @@
     -fx-fill: #ccc;
 }
 
-#site_link {
+#link {
     -fx-font-size: 12;
     -fx-text-fill: DodgerBlue;
     -fx-border-width: 0;
