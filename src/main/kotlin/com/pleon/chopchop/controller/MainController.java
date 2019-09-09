@@ -47,7 +47,8 @@ public class MainController {
 
     // @FXML // required if method is not public
     public void initialize() {
-        ThemeUtil.getThemeProperty().addListener(observable -> ThemeUtil.applyTheme(root));
+        ThemeUtil.applyTheme(root);
+        ThemeUtil.onThemeChanged(observable -> ThemeUtil.applyTheme(root));
 
         java.awt.Image[] trayImages = new java.awt.Image[53];
         for (int i = 0; i < 53; i++) {

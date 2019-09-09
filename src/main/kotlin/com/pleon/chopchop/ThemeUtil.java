@@ -1,19 +1,20 @@
 package com.pleon.chopchop;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 
 public class ThemeUtil {
 
-    public enum Theme {
-        DARK, LIGHT;
+    private enum Theme {
+        DARK, LIGHT
     }
 
     private static Property<Theme> currentTheme = new SimpleObjectProperty<>(Theme.DARK);
 
-    public static Property<Theme> getThemeProperty() {
-        return currentTheme;
+    public static void onThemeChanged(InvalidationListener listener) {
+        ThemeUtil.currentTheme.addListener(listener);
     }
 
     public static void toggleTheme() {
