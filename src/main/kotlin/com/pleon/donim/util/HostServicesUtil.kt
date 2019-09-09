@@ -1,4 +1,4 @@
-package com.pleon.chopchop.util
+package com.pleon.donim.util
 
 import javafx.application.HostServices
 

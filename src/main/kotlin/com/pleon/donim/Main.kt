@@ -1,7 +1,7 @@
-package com.pleon.chopchop
+package com.pleon.donim
 
-import com.pleon.chopchop.util.HostServicesUtil
-import com.pleon.chopchop.util.ImageUtil.getImage
+import com.pleon.donim.util.HostServicesUtil
+import com.pleon.donim.util.ImageUtil.getImage
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
 import javafx.application.Platform
@@ -32,7 +32,7 @@ class Main : Application() {
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
         createTrayIcon(primaryStage)
         primaryStage.initStyle(StageStyle.TRANSPARENT)
-        primaryStage.title = "Chop Chop"
+        primaryStage.title = "Donim"
         primaryStage.icons.add(Image("/svg/logo.svg"))
         primaryStage.isAlwaysOnTop = false
         primaryStage.isResizable = false
@@ -84,7 +84,7 @@ class Main : Application() {
             popup.add(closeItem)
 
             val trayImage = Toolkit.getDefaultToolkit().createImage(getImage("/tray/1.png"))
-            val trayIcon = TrayIcon(trayImage, "Chop chop", popup)
+            val trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showListener)
             SystemTray.getSystemTray().add(trayIcon)
         }
