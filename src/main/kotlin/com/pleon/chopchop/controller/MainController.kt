@@ -112,7 +112,7 @@ class MainController {
         timeline.cycleCount = remainingTime
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
         if (shouldShowNotification) {
-            trayIcon.displayMessage(type.toString(), type.message, type.messageType)
+            trayIcon.displayMessage(type.toString(), type.notification, type.notificationType)
         }
         trayIcon.toolTip = "Chop chop: $type"
         timeline.play()
