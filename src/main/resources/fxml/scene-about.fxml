@@ -23,7 +23,7 @@
 
         <Label fx:id="title" prefHeight="25" text="About" AnchorPane.leftAnchor="25"/>
 
-        <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#onExitClick">
+        <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#closeWindow">
             <SVGPath fx:id="close_icon"
                      content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
             </SVGPath>
@@ -56,7 +56,7 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Hyperlink fx:id="site_link" text="www.mahozad.ir"/>
+        <Hyperlink fx:id="link" text="www.mahozad.ir"/>
     </VBox>
 
 </VBox>

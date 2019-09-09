@@ -6,7 +6,7 @@ import javafx.scene.Node;
 
 public class ThemeUtil {
 
-    private enum Theme {
+    public enum Theme {
         DARK, LIGHT;
     }
 
