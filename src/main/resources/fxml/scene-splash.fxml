@@ -8,7 +8,7 @@
       styleClass="dark"
       prefWidth="252" prefHeight="330"
       alignment="CENTER"
-      fx:controller="com.pleon.chopchop.controller.SplashController">
+      fx:controller="com.pleon.donim.controller.SplashController">
 
     <!-- The strokes are not shown so the shape must all be paths -->
     <SVGPath fx:id="brand"

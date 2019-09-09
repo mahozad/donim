@@ -1,11 +1,11 @@
-package com.pleon.chopchop.controller
+package com.pleon.donim.controller
 
-import com.pleon.chopchop.model.Period.BREAK
-import com.pleon.chopchop.model.Period.WORK
-import com.pleon.chopchop.node.CircularProgressBar
-import com.pleon.chopchop.util.AnimationUtil.fadeOut
-import com.pleon.chopchop.util.ImageUtil.getImage
-import com.pleon.chopchop.util.ThemeUtil
+import com.pleon.donim.model.Period.BREAK
+import com.pleon.donim.model.Period.WORK
+import com.pleon.donim.node.CircularProgressBar
+import com.pleon.donim.util.AnimationUtil.fadeOut
+import com.pleon.donim.util.ImageUtil.getImage
+import com.pleon.donim.util.ThemeUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
@@ -117,7 +117,7 @@ class MainController {
         if (shouldShowNotification) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
         }
-        trayIcon.toolTip = "Chop chop: $period"
+        trayIcon.toolTip = "Donim: $period"
         timeline.play()
     }
 

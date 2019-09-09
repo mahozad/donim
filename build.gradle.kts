@@ -29,7 +29,7 @@ javafx {
 }
 
 application {
-    mainClassName = "com.pleon.chopchop.Main"
+    mainClassName = "com.pleon.donim.Main"
 }
 
 /**

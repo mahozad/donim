@@ -1,8 +1,8 @@
-package com.pleon.chopchop.controller
+package com.pleon.donim.controller
 
-import com.pleon.chopchop.util.AnimationUtil.fadeOut
-import com.pleon.chopchop.util.HostServicesUtil
-import com.pleon.chopchop.util.ThemeUtil
+import com.pleon.donim.util.AnimationUtil.fadeOut
+import com.pleon.donim.util.HostServicesUtil
+import com.pleon.donim.util.ThemeUtil
 import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML

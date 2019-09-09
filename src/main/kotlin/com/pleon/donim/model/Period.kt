@@ -1,4 +1,4 @@
-package com.pleon.chopchop.model
+package com.pleon.donim.model
 
 import javafx.scene.paint.Color
 import javafx.scene.paint.Color.hsb
