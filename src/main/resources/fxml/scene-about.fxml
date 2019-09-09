@@ -36,17 +36,17 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Written in Java and Kotlin">
+        <Text styleClass="about" text="Written in Kotlin">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Powered by JavaFX platform">
+        <Text styleClass="about" text="Powered by JavaFX">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Donut chart inspired by TilesFX">
+        <Text styleClass="about" text="Timer inspired by TilesFX">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
