@@ -1,6 +1,6 @@
 package com.pleon.chopchop.controller
 
-import com.pleon.chopchop.ThemeUtil
+import com.pleon.chopchop.util.ThemeUtil
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.RotateTransition

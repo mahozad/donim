@@ -1,4 +1,6 @@
-package com.pleon.chopchop;
+package com.pleon.chopchop.util;
+
+import com.pleon.chopchop.Main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

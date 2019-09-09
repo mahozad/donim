@@ -1,7 +1,7 @@
-package com.pleon.chopchop
+package com.pleon.chopchop.util
 
-import com.pleon.chopchop.ThemeUtil.Theme.DARK
-import com.pleon.chopchop.ThemeUtil.Theme.LIGHT
+import com.pleon.chopchop.util.ThemeUtil.Theme.DARK
+import com.pleon.chopchop.util.ThemeUtil.Theme.LIGHT
 import javafx.beans.InvalidationListener
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node

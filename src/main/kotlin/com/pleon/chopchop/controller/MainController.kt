@@ -1,10 +1,10 @@
 package com.pleon.chopchop.controller
 
-import com.pleon.chopchop.CircularProgressBar
-import com.pleon.chopchop.ImageUtil.getImage
-import com.pleon.chopchop.ThemeUtil
 import com.pleon.chopchop.model.Period.BREAK
 import com.pleon.chopchop.model.Period.WORK
+import com.pleon.chopchop.node.CircularProgressBar
+import com.pleon.chopchop.util.ImageUtil.getImage
+import com.pleon.chopchop.util.ThemeUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
