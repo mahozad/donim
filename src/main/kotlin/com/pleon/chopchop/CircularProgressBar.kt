@@ -1,6 +1,5 @@
 package com.pleon.chopchop
 
-import com.pleon.chopchop.model.Period
 import javafx.beans.InvalidationListener
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
@@ -108,8 +107,8 @@ class CircularProgressBar : Canvas() {
 
     private fun Double.toRadian() = Math.toRadians(this)
 
-    fun tick(percent: Double, period: Period) {
-        baseColor = period.baseColor
+    fun tick(percent: Double, color: Color) {
+        baseColor = color
         end = (-360 * percent).toInt() + origin
         draw()
     }

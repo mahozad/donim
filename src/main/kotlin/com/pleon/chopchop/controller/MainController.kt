@@ -162,9 +162,8 @@ class MainController {
     fun pauseResume() {
         if (timeline.keyFrames.isEmpty()) {
             timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
-                setRemainingTimeString(String.format("%02d:%02d",
-                        remainingTime / 60, remainingTime % 60))
-                progressBar.tick(remainingTime.toDouble() / period.length, period)
+                setRemainingTimeString(String.format("%02d:%02d", remainingTime / 60, remainingTime % 60))
+                progressBar.tick(remainingTime.toDouble() / period.length, period.baseColor)
                 remainingTime--
             }))
 
