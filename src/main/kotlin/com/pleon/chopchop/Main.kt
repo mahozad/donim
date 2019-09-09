@@ -1,6 +1,6 @@
 package com.pleon.chopchop
 
-import com.pleon.chopchop.util.HostServicesProvider
+import com.pleon.chopchop.util.HostServicesUtil
 import com.pleon.chopchop.util.ImageUtil.getImage
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
@@ -26,7 +26,7 @@ class Main : Application() {
     override fun start(primaryStage: Stage) {
         SvgImageLoaderFactory.install() // enable svg wherever other formats are applicable
 
-        HostServicesProvider.setHostServices(hostServices)
+        HostServicesUtil.hostServices = hostServices
 
         // Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))

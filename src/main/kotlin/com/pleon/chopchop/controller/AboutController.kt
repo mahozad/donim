@@ -1,7 +1,7 @@
 package com.pleon.chopchop.controller
 
 import com.pleon.chopchop.util.AnimationUtil.fadeOut
-import com.pleon.chopchop.util.HostServicesProvider.getHostServices
+import com.pleon.chopchop.util.HostServicesUtil
 import com.pleon.chopchop.util.ThemeUtil
 import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
@@ -22,7 +22,7 @@ class AboutController {
         ThemeUtil.applyTheme(root)
         ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
 
-        link.setOnAction { getHostServices().showDocument(link.text) }
+        link.setOnAction { HostServicesUtil.hostServices.showDocument(link.text) }
 
         // Make window movable
         root.setOnMousePressed {
