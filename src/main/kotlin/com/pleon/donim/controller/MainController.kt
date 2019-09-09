@@ -32,13 +32,12 @@ class MainController {
     private var xOffset = 0.0
     private var yOffset = 0.0
     private var period = WORK
-    private val remainingTimeString = SimpleStringProperty(String.format("%02d:%02d",
-            period.length / 60, period.length % 60))
+    private lateinit var trayAnimation: Timeline
+    private val remainingTimeString = SimpleStringProperty(format(period.length))
     private val pauseString = SimpleStringProperty("Start")
     private var remainingTime = period.length
     private val timeline = Timeline()
     private var paused = true
-    private lateinit var trayAnimation: Timeline
 
     // @FXML // required if method is not public
     fun initialize() {
@@ -112,7 +111,7 @@ class MainController {
         setPauseString("Pause")
         trayAnimation.play()
         remainingTime = period.length
-        timeline.cycleCount = remainingTime
+        timeline.cycleCount = remainingTime.toSeconds().toInt()
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
         if (shouldShowNotification) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
@@ -148,9 +147,9 @@ class MainController {
     fun pauseResume() {
         if (timeline.keyFrames.isEmpty()) {
             timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
-                setRemainingTimeString(String.format("%02d:%02d", remainingTime / 60, remainingTime % 60))
-                progressBar.tick(remainingTime.toDouble() / period.length, period.baseColor)
-                remainingTime--
+                setRemainingTimeString(format(remainingTime))
+                progressBar.tick(remainingTime.toMillis() / period.length.toMillis(), period.baseColor)
+                remainingTime = remainingTime.subtract(Duration.seconds(1.0))
             }))
 
             timeline.setOnFinished {
@@ -174,6 +173,12 @@ class MainController {
         }
 
         paused = !paused
+    }
+
+    private fun format(duration: Duration): String {
+        return String.format("%02d:%02d",
+                duration.toMinutes().toInt(),
+                duration.toSeconds().toInt() % 60)
     }
 
     fun skip() {
