@@ -110,6 +110,7 @@ class MainController {
 
     private fun startTimer(shouldShowNotification: Boolean) {
         setPauseString("Pause")
+        trayAnimation.play()
         remainingTime = period.length
         timeline.cycleCount = remainingTime
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
