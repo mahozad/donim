@@ -2,7 +2,6 @@ package com.pleon.chopchop.controller
 
 import com.pleon.chopchop.HostServicesProvider.getHostServices
 import com.pleon.chopchop.ThemeUtil
-import javafx.beans.InvalidationListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.Hyperlink
@@ -14,13 +13,12 @@ class AboutController {
     private lateinit var root: javafx.scene.Node
     @FXML
     private lateinit var link: Hyperlink
-
     private var xOffset = 0.0
     private var yOffset = 0.0
 
     fun initialize() {
-        ThemeUtil.getThemeProperty().addListener(InvalidationListener { ThemeUtil.applyTheme(root) })
         ThemeUtil.applyTheme(root)
+        ThemeUtil.onThemeChanged { ThemeUtil.applyTheme(root) }
 
         link.setOnAction { getHostServices().showDocument(link.text) }
 
