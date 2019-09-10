@@ -1,6 +1,5 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.util.ThemeUtil
 import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
 import javafx.animation.RotateTransition
@@ -12,15 +11,14 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.util.Duration
 
-class SplashController {
+class SplashController : BaseController() {
 
-    @FXML private lateinit var root: Node
     @FXML private lateinit var brand: Node
 
     private var stageOpacity = 1.0
 
-    fun initialize() {
-        ThemeUtil.applyTheme(root)
+    override fun initialize() {
+        super.initialize()
         rotateLogo()
         fadeOut()
     }
