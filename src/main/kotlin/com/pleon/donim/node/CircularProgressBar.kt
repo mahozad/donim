@@ -41,16 +41,6 @@ class CircularProgressBar : Canvas() {
 
     override fun isResizable() = true
 
-    fun increase() {
-        end -= sliceLength + sliceGap
-        draw()
-    }
-
-    fun decrease() {
-        end += sliceLength + sliceGap
-        draw()
-    }
-
     private fun draw() {
         graphicsContext2D.clearRect(0.0, 0.0, width, height)
         drawBackgroundBar()
