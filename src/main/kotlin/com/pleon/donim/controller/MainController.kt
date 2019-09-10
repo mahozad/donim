@@ -55,23 +55,15 @@ class MainController {
         trayAnimation.cycleCount = Timeline.INDEFINITE
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0),
                 object : EventHandler<ActionEvent> {
-                    var firstFrameDelay = 0
+                    val firstFrameDelay = 100
                     var i = 0
-
                     override fun handle(event: ActionEvent) {
                         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
-                        trayIcon.image = trayImages[i]
-                        if (i == 0 && firstFrameDelay < 100) {
-                            firstFrameDelay++
-                            if (firstFrameDelay == 100) {
-                                firstFrameDelay = 0
-                                i++
-                            }
-                        } else {
-                            i = (i + 1) % trayImages.size
-                        }
+                        trayIcon.image = if (i <= firstFrameDelay) trayImages[0] else trayImages[i - firstFrameDelay]
+                        i = (i + 1) % (trayImages.size + firstFrameDelay)
                     }
-                }))
+                }
+        ))
 
         // Make window movable
         root.setOnMousePressed {
