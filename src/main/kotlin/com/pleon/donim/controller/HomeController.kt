@@ -8,13 +8,11 @@ import com.pleon.donim.util.ImageUtil.getImage
 import com.pleon.donim.util.ThemeUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
-import javafx.beans.InvalidationListener
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
-import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.stage.Stage
 import javafx.util.Duration
@@ -22,12 +20,11 @@ import java.awt.SystemTray
 import java.awt.Toolkit
 import kotlin.system.exitProcess
 
-class HomeController {
+class HomeController : BaseController() {
 
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
     @FXML private lateinit var skip: Button
-    @FXML private lateinit var root: Node
 
     private var xOffset = 0.0
     private var yOffset = 0.0
@@ -40,9 +37,8 @@ class HomeController {
     private var paused = true
 
     // @FXML // required if method is not public
-    fun initialize() {
-        ThemeUtil.applyTheme(root)
-        ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
+    override fun initialize() {
+        super.initialize()
 
         // TODO: zip all the images in one file and read them from that
         val trayImages = arrayOfNulls<java.awt.Image>(53)
