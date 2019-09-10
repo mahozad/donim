@@ -22,7 +22,7 @@ import java.awt.SystemTray
 import java.awt.Toolkit
 import kotlin.system.exitProcess
 
-class MainController {
+class HomeController {
 
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
