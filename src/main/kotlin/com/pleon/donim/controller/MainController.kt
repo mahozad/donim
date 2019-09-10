@@ -44,6 +44,7 @@ class MainController {
         ThemeUtil.applyTheme(root)
         ThemeUtil.setOnToggled(InvalidationListener { ThemeUtil.applyTheme(root) })
 
+        // TODO: zip all the images in one file and read them from that
         val trayImages = arrayOfNulls<java.awt.Image>(53)
         for (i in trayImages.indices) {
             val path = "/tray/${i + 1}.png"
