@@ -11,7 +11,7 @@
       fx:id="root"
       stylesheets="/css/styles.css"
       styleClass="dark"
-      fx:controller="com.pleon.donim.controller.MainController">
+      fx:controller="com.pleon.donim.controller.HomeController">
 
     <AnchorPane fx:id="title_bar">
 
