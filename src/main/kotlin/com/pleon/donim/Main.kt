@@ -1,7 +1,7 @@
 package com.pleon.donim
 
+import com.pleon.donim.util.FileUtil.readFile
 import com.pleon.donim.util.HostServicesUtil
-import com.pleon.donim.util.ImageUtil.getImage
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
 import javafx.application.Platform
@@ -83,7 +83,8 @@ class Main : Application() {
             closeItem.addActionListener { exitProcess(0) }
             popup.add(closeItem)
 
-            val trayImage = Toolkit.getDefaultToolkit().createImage(getImage("/tray/1.png"))
+            val resourceAsStream = javaClass.getResourceAsStream("/tray-base.png")
+            val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(resourceAsStream))
             val trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showListener)
             SystemTray.getSystemTray().add(trayIcon)
