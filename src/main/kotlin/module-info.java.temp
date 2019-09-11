@@ -1,0 +1,19 @@
+module Donim.main {
+
+    // Java
+    requires java.base;
+    requires kotlin.stdlib;
+    requires java.desktop;
+
+    // 3rd party
+    requires javafxsvg;
+
+    // Java-FX
+    requires transitive javafx.base;
+    requires transitive javafx.graphics;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.web;
+
+    // exports com.pleon.donim;
+}
