@@ -14,6 +14,7 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.Button
+import javafx.scene.media.AudioClip
 import javafx.stage.Stage
 import javafx.util.Duration
 import java.awt.SystemTray
@@ -31,6 +32,7 @@ class HomeController : BaseController() {
     private var yOffset = 0.0
     private var period = WORK
     private lateinit var trayAnimation: Timeline
+    private lateinit var beep: AudioClip
     private val remainingTimeString = SimpleStringProperty(format(period.length))
     private val pauseString = SimpleStringProperty("Start")
     private var remainingTime = period.length
@@ -60,6 +62,8 @@ class HomeController : BaseController() {
                     }
                 }
         ))
+
+        beep = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
 
         // Make window movable
         root.setOnMousePressed {
@@ -96,14 +100,15 @@ class HomeController : BaseController() {
         this.pauseString.set(pauseString)
     }
 
-    private fun startTimer(shouldShowNotification: Boolean) {
+    private fun startTimer(shouldNotify: Boolean) {
         setPauseString("Pause")
         trayAnimation.play()
         remainingTime = period.length
         timeline.cycleCount = remainingTime.toSeconds().toInt()
         val trayIcon = SystemTray.getSystemTray().trayIcons[0]
-        if (shouldShowNotification) {
+        if (shouldNotify) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
+            beep.play()
         }
         trayIcon.toolTip = "Donim: $period"
         timeline.play()
