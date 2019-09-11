@@ -28,7 +28,6 @@ class Main : Application() {
 
         HostServicesUtil.hostServices = hostServices
 
-        // Parent root = FXMLLoader.load(getClass().getResource("/fxml/scene-main.fxml"));
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
         createTrayIcon(primaryStage)
         primaryStage.initStyle(StageStyle.TRANSPARENT)
@@ -40,9 +39,8 @@ class Main : Application() {
         // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} in css we subtract 10
         // primaryStage.setY(0 - 10);
 
-        val scene = Scene(root)
-        scene.fill = Color.TRANSPARENT // for drop shadow to show correctly
-        primaryStage.scene = scene
+        // To remove border, make the scene "fill" transparent
+        primaryStage.scene = Scene(root).apply { /*fill = Color.TRANSPARENT*/ }
         primaryStage.show()
     }
 
