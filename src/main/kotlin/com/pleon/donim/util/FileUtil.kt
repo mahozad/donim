@@ -2,11 +2,11 @@ package com.pleon.donim.util
 
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
 
-object ImageUtil {
+object FileUtil {
 
-    fun getImage(path: String): ByteArray {
-        val inputStream = javaClass.getResourceAsStream(path)
+    fun readFile(inputStream: InputStream): ByteArray {
         val buffer = ByteArrayOutputStream()
         val data = ByteArray(16384)
         try {
