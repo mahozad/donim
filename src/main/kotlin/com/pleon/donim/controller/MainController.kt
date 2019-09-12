@@ -15,6 +15,7 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.media.AudioClip
+import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.util.Duration
 import java.awt.SystemTray
@@ -27,6 +28,7 @@ class MainController : BaseController() {
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
     @FXML private lateinit var skip: Button
+    @FXML lateinit var playIcon: SVGPath
 
     private var xOffset = 0.0
     private var yOffset = 0.0
@@ -34,7 +36,6 @@ class MainController : BaseController() {
     private lateinit var trayAnimation: Timeline
     private lateinit var beep: AudioClip
     private val remainingTimeString = SimpleStringProperty(format(period.length))
-    private val pauseString = SimpleStringProperty("Start")
     private var remainingTime = period.length
     private val timeline = Timeline()
     private var paused = true
@@ -88,20 +89,8 @@ class MainController : BaseController() {
         this.remainingTimeString.set(remainingTimeString)
     }
 
-    fun getPauseString(): String {
-        return pauseString.get()
-    }
-
-    fun pauseStringProperty(): StringProperty {
-        return pauseString
-    }
-
-    fun setPauseString(pauseString: String) {
-        this.pauseString.set(pauseString)
-    }
-
     private fun startTimer(shouldNotify: Boolean) {
-        setPauseString("Pause")
+        playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
         trayAnimation.play()
         remainingTime = period.length
         timeline.cycleCount = remainingTime.toSeconds().toInt()
@@ -159,11 +148,11 @@ class MainController : BaseController() {
         if (paused) {
             timeline.play()
             trayAnimation.play()
-            setPauseString("Pause")
+            playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
         } else {
             timeline.pause()
             trayAnimation.pause()
-            setPauseString("Resume")
+            playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
         }
 
         paused = !paused
