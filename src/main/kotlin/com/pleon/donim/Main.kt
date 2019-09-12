@@ -81,7 +81,7 @@ class Main : Application() {
             closeItem.addActionListener { exitProcess(0) }
             popup.add(closeItem)
 
-            val resourceAsStream = javaClass.getResourceAsStream("/tray-base.png")
+            val resourceAsStream = javaClass.getResourceAsStream("/tray.png")
             val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(resourceAsStream))
             val trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showListener)
