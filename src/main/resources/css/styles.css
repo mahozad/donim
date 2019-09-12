@@ -130,13 +130,19 @@
     -fx-pref-width: 60;
     -fx-focus-traversable: false;
     -fx-background-color: #bfbfbf;
-    -fx-text-fill: #454545;
     -fx-font-weight: bold;
+}
+
+.btn .icon {
+    -fx-fill: #454545 ;
 }
 
 .dark .btn {
     -fx-background-color: #4f4f4f;
-    -fx-text-fill: #bbb;
+}
+
+.dark .btn .icon {
+    -fx-fill: #bbb ;
 }
 
 .btn:focused {
