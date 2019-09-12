@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Donim.main">
+    <output-path>$PROJECT_DIR$/out/artifacts/Donim_main</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.pleon.donim.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/main/resources/logo.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="Donim" />
+        <option name="vendor" value="Mahozad" />
+        <option name="version" value="1.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Donim_main.jar">
+        <element id="module-output" name="Donim.main" />
+      </element>
+    </root>
+  </artifact>
+</component>
