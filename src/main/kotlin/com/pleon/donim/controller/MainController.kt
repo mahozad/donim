@@ -125,7 +125,10 @@ class MainController : BaseController() {
         })
     }
 
-    fun restart() = startTimer(false)
+    fun restart() {
+        remainingTime = period.length
+        timeline.playFrom(Duration.ZERO)
+    }
 
     fun pauseResume() {
         if (timeline.keyFrames.isEmpty()) {
