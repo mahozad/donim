@@ -1,1 +1,1 @@
-# ![](src/main/resources/svg/logo.svg) Donim
+# ![logo](src/main/resources/svg/logo.svg) Donim
