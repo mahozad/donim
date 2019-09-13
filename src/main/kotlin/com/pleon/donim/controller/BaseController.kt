@@ -8,8 +8,7 @@ open class BaseController {
 
     @FXML protected lateinit var root: Node
 
-    // @FXML // required if method is not public
-    open fun initialize() {
+    @FXML protected open fun initialize() {
         ThemeUtil.applyTheme(root)
         ThemeUtil.setOnToggled { ThemeUtil.applyTheme(root) }
     }
