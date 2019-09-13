@@ -13,6 +13,7 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.*
+import java.awt.event.ActionEvent
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -40,25 +41,22 @@ class Main : Application() {
     private fun createTrayIcon(stage: Stage) {
         if (!SystemTray.isSupported()) return
 
-        val showItem = MenuItem("Show Window")
-        showItem.addActionListener { Platform.runLater { stage.show() } }
-
-        val aboutItem = MenuItem("About")
-        aboutItem.addActionListener { Platform.runLater { showAbout() } }
-
-        val closeItem = MenuItem("Exit")
-        closeItem.addActionListener { exitProcess(0) }
-
         val popup = PopupMenu()
-        popup.add(showItem)
-        popup.add(aboutItem)
-        popup.add(closeItem)
+        popup.add(menuItem("Show Window") { Platform.runLater { stage.show() } })
+        popup.add(menuItem("About") { Platform.runLater { showAbout() } })
+        popup.add(menuItem("Exit") { exitProcess(0) })
 
-        val resourceAsStream = javaClass.getResourceAsStream("/tray.png")
-        val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(resourceAsStream))
+        val trayAsStream = javaClass.getResourceAsStream("/tray.png")
+        val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(trayAsStream))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
         trayIcon.addActionListener { Platform.runLater { stage.show() } }
         SystemTray.getSystemTray().add(trayIcon)
+    }
+
+    private fun menuItem(title: String, listener: (ActionEvent) -> Unit): MenuItem {
+        val menuItem = MenuItem(title)
+        menuItem.addActionListener(listener)
+        return menuItem
     }
 
     private fun showAbout() {
@@ -69,7 +67,6 @@ class Main : Application() {
             scene = Scene(root).apply { fill = Color.TRANSPARENT }
             icons.add(Image("/svg/logo.svg"))
             initStyle(StageStyle.TRANSPARENT)
-            toFront()
             show()
         }
     }
