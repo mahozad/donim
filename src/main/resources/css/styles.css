@@ -161,6 +161,10 @@
     -fx-fill: #fff;
 }
 
+#minimize:hover #minimize_icon {
+    -fx-fill: #000;
+}
+
 .dark #close:hover #close_icon, .dark #minimize:hover #minimize_icon {
     -fx-fill: #bbb;
 }
