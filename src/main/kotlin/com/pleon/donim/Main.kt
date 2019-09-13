@@ -42,9 +42,9 @@ class Main : Application() {
         if (!SystemTray.isSupported()) return
 
         val popup = PopupMenu()
-        popup.add(menuItem("Show Window") { Platform.runLater { stage.show() } })
-        popup.add(menuItem("About") { Platform.runLater { showAbout() } })
-        popup.add(menuItem("Exit") { exitProcess(0) })
+        popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show() } })
+        popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
+        popup.add(newMenuItem("Exit") { exitProcess(0) })
 
         val trayAsStream = javaClass.getResourceAsStream("/tray.png")
         val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(trayAsStream))
@@ -53,7 +53,7 @@ class Main : Application() {
         SystemTray.getSystemTray().add(trayIcon)
     }
 
-    private fun menuItem(title: String, listener: (ActionEvent) -> Unit): MenuItem {
+    private fun newMenuItem(title: String, listener: (ActionEvent) -> Unit): MenuItem {
         val menuItem = MenuItem(title)
         menuItem.addActionListener(listener)
         return menuItem
