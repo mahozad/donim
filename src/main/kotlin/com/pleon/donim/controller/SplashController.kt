@@ -26,7 +26,7 @@ class SplashController : BaseController() {
     private fun rotateLogo() {
         val rotate = RotateTransition(Duration.millis(2000.0), brand)
         rotate.interpolator = Interpolator.EASE_BOTH
-        rotate.delay = Duration.millis(1000.0)
+        rotate.delay = Duration.millis(500.0)
         rotate.byAngle = 360.0
         rotate.play()
     }
@@ -38,7 +38,7 @@ class SplashController : BaseController() {
             root.opacity = stageOpacity
         }))
         timeline.cycleCount = 100
-        timeline.delay = Duration.millis(2500.0)
+        timeline.delay = Duration.millis(2000.0)
         timeline.setOnFinished {
             root.scene.root = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
         }
