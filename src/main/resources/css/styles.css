@@ -98,10 +98,6 @@
     -fx-pref-height: 25;
 }
 
-#close_icon, #minimize_icon {
-    -fx-fill: rgba(128, 128, 128, 0.8)
-}
-
 #close:hover {
     -fx-background-color: #964444;
 }
@@ -112,14 +108,6 @@
 
 .dark #minimize:hover {
     -fx-background-color: #666;
-}
-
-#close:hover #close_icon {
-    -fx-fill: #fff;
-}
-
-.dark #close:hover #close_icon, .dark #minimize:hover #minimize_icon {
-    -fx-fill: #bbb;
 }
 
 #title_bar {
