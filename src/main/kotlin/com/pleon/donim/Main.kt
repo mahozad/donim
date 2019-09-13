@@ -24,22 +24,16 @@ fun main(args: Array<String>) {
 class Main : Application() {
 
     override fun start(primaryStage: Stage) {
-        SvgImageLoaderFactory.install() // enable svg wherever other formats are applicable
-
+        SvgImageLoaderFactory.install() // Enable svg wherever other formats are applicable
         HostServicesUtil.hostServices = hostServices
 
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
+        Platform.setImplicitExit(false) // For minimize to tray to work correctly
         createTrayIcon(primaryStage)
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.title = "Donim"
         primaryStage.icons.add(Image("/svg/logo.svg"))
-        primaryStage.isAlwaysOnTop = false
         primaryStage.isResizable = false
-        Platform.setImplicitExit(false) // for minimize to tray to work correctly
-        // primaryStage.setX(0 - 10); // dou to padding and inset in .root{} in css we subtract 10
-        // primaryStage.setY(0 - 10);
-
-        // To remove border, make the scene "fill" transparent
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.show()
     }
