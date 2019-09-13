@@ -103,17 +103,17 @@ class MainController : BaseController() {
         timeline.play()
     }
 
-    fun onExitClick() {
+    fun close() {
         /*if (shouldMinimizeToTray) {
             ((Stage) root.getScene().getWindow()).hide();
         } else {
-            fadeOut((Stage) root.getScene().getWindow(), event -> System.exit(0));
+            fadeOut((Stage) root.getScene().getWindow(), event -> exitProcess(0));
         }*/
 
         fadeOut(root.scene.window as Stage, EventHandler { exitProcess(0) })
     }
 
-    fun minimizeApp() {
+    fun minimize() {
         /*Stage.getWindows().filtered(Window::isShowing).forEach(window ->
                 ((Stage) window).setIconified(true)
         );*/
