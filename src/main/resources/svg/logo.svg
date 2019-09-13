@@ -14,7 +14,7 @@
         viewBox="0 0 32 32"
         version="1.1"
         id="svg8"
-        sodipodi:docname="logo-old - Copy.svg"
+        sodipodi:docname="logo.svg"
         inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <defs
      id="defs2">
@@ -22,25 +22,25 @@
        id="linearGradient4046"
        inkscape:collect="always">
       <stop
-         style="stop-color:#1984ff;stop-opacity:1"
+         id="stop4042"
          offset="0"
-         id="stop4044" />
+         style="stop-color:#003878;stop-opacity:1" />
       <stop
-         style="stop-color:#003878;stop-opacity:1"
+         id="stop4044"
          offset="1"
-         id="stop4042" />
+         style="stop-color:#1984ff;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        id="linearGradient4038"
        inkscape:collect="always">
       <stop
-         style="stop-color:#1984ff;stop-opacity:1"
+         id="stop4034"
          offset="0"
-         id="stop4036" />
+         style="stop-color:#003878;stop-opacity:1" />
       <stop
-         style="stop-color:#003878;stop-opacity:1"
+         id="stop4036"
          offset="1"
-         id="stop4034" />
+         style="stop-color:#1984ff;stop-opacity:1" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -58,37 +58,37 @@
        inkscape:collect="always"
        xlink:href="#linearGradient4006"
        id="linearGradient4008"
-       x1="2.0162968"
-       y1="13.499835"
-       x2="22"
-       y2="13.499835"
+       x1="6"
+       y1="24"
+       x2="21"
+       y2="8"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4006"
        id="linearGradient4016"
-       x1="2.0162969"
-       y1="13.499835"
-       x2="22"
-       y2="13.499835"
+       x1="6"
+       y1="24"
+       x2="21"
+       y2="8"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4046"
        id="linearGradient4024"
-       x1="10"
-       y1="18.500166"
-       x2="29.983704"
-       y2="18.500166"
+       x1="26"
+       y1="8"
+       x2="11"
+       y2="24"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4038"
        id="linearGradient4032"
-       x1="10"
-       y1="18.500166"
-       x2="29.983704"
-       y2="18.500166"
+       x1="26"
+       y1="8"
+       x2="11"
+       y2="24"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -98,7 +98,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.359375"
+     inkscape:zoom="12.330174"
      inkscape:cx="11.336643"
      inkscape:cy="16"
      inkscape:document-units="px"
@@ -146,7 +146,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path3178-2"
-       style="display:inline;opacity:1;fill:url(#linearGradient4032);stroke:url(#linearGradient4024);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1.0"
+       style="display:inline;opacity:1;fill:url(#linearGradient4032);stroke:url(#linearGradient4024);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
        d="m 16,19 c 7,0 11,-5 10,-11 7,8 1,21 -10,21 m -5,-5 a 5,5 0 0 1 5,-5 5,5 0 0 1 5,5 5,5 0 0 1 -5,5 5,5 0 0 1 -5,-5 z" />
   </g>
   <g
