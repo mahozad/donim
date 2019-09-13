@@ -25,10 +25,10 @@ class Main : Application() {
 
     override fun start(primaryStage: Stage) {
         SvgImageLoaderFactory.install() // Enable svg wherever other formats are applicable
+        Platform.setImplicitExit(false) // For minimize to tray to work correctly
         HostServicesUtil.hostServices = hostServices
 
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
-        Platform.setImplicitExit(false) // For minimize to tray to work correctly
         createTrayIcon(primaryStage)
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.title = "Donim"
