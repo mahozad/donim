@@ -13,8 +13,6 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.*
-import java.awt.event.ActionListener
-import java.io.IOException
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -40,47 +38,39 @@ class Main : Application() {
 
     @Throws(AWTException::class)
     private fun createTrayIcon(stage: Stage) {
-        if (SystemTray.isSupported()) {
-            val showListener = ActionListener { Platform.runLater { stage.show() } }
+        if (!SystemTray.isSupported()) return
 
-            val popup = PopupMenu()
+        val showItem = MenuItem("Show Window")
+        showItem.addActionListener { Platform.runLater { stage.show() } }
 
-            val showItem = MenuItem("Show Window")
-            showItem.addActionListener(showListener)
-            popup.add(showItem)
+        val aboutItem = MenuItem("About")
+        aboutItem.addActionListener { Platform.runLater { showAbout() } }
 
-            val aboutItem = MenuItem("About")
-            aboutItem.addActionListener {
-                Platform.runLater {
-                    try {
-                        val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-about.fxml"))
-                        val stageAbout = Stage()
-                        stageAbout.title = "About"
-                        stageAbout.initStyle(StageStyle.TRANSPARENT)
-                        val scene = Scene(root)
-                        scene.fill = Color.TRANSPARENT // for drop shadow to show correctly
-                        stageAbout.scene = scene
-                        stageAbout.icons.add(Image("/svg/logo.svg"))
-                        stageAbout.isResizable = false
-                        stageAbout.toFront()
-                        stageAbout.show()
-                    } catch (ex: IOException) {
-                        ex.printStackTrace()
-                    }
-                }
-            }
-            popup.add(aboutItem)
+        val closeItem = MenuItem("Exit")
+        closeItem.addActionListener { exitProcess(0) }
 
-            val closeItem = MenuItem("Exit")
-            closeItem.addActionListener { exitProcess(0) }
-            popup.add(closeItem)
+        val popup = PopupMenu()
+        popup.add(showItem)
+        popup.add(aboutItem)
+        popup.add(closeItem)
 
-            val resourceAsStream = javaClass.getResourceAsStream("/tray.png")
-            val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(resourceAsStream))
-            val trayIcon = TrayIcon(trayImage, "Donim", popup)
-            trayIcon.addActionListener(showListener)
-            SystemTray.getSystemTray().add(trayIcon)
-        }
+        val resourceAsStream = javaClass.getResourceAsStream("/tray.png")
+        val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(resourceAsStream))
+        val trayIcon = TrayIcon(trayImage, "Donim", popup)
+        trayIcon.addActionListener { Platform.runLater { stage.show() } }
+        SystemTray.getSystemTray().add(trayIcon)
     }
 
+    private fun showAbout() {
+        val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-about.fxml"))
+        with(Stage()) {
+            initStyle(StageStyle.TRANSPARENT)
+            title = "About"
+            scene = Scene(root).apply { fill = Color.TRANSPARENT /* For drop shadow to show correctly */ }
+            icons.add(Image("/svg/logo.svg"))
+            isResizable = false
+            toFront()
+            show()
+        }
+    }
 }
