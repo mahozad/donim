@@ -26,7 +26,7 @@ class SplashController : BaseController() {
     private fun rotateLogo() {
         val rotate = RotateTransition(Duration.millis(2000.0), brand)
         rotate.interpolator = Interpolator.EASE_BOTH
-        rotate.delay = Duration.millis(1200.0)
+        rotate.delay = Duration.millis(1000.0)
         rotate.byAngle = 360.0
         rotate.play()
     }
