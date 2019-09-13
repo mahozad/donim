@@ -54,9 +54,7 @@ class Main : Application() {
     }
 
     private fun newMenuItem(title: String, listener: (ActionEvent) -> Unit): MenuItem {
-        val menuItem = MenuItem(title)
-        menuItem.addActionListener(listener)
-        return menuItem
+        return MenuItem(title).apply { addActionListener(listener) }
     }
 
     private fun showAbout() {
