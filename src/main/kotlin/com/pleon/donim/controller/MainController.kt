@@ -40,7 +40,6 @@ class MainController : BaseController() {
     private val timeline = Timeline()
     private var paused = true
 
-    // @FXML // required if method is not public
     override fun initialize() {
         super.initialize()
 
