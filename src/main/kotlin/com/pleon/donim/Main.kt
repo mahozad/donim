@@ -66,7 +66,7 @@ class Main : Application() {
         with(Stage()) {
             initStyle(StageStyle.TRANSPARENT)
             title = "About"
-            scene = Scene(root).apply { fill = Color.TRANSPARENT /* For drop shadow to show correctly */ }
+            scene = Scene(root).apply { fill = Color.TRANSPARENT }
             icons.add(Image("/svg/logo.svg"))
             isResizable = false
             toFront()
