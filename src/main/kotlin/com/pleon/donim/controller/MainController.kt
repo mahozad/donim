@@ -104,20 +104,10 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        /*if (shouldMinimizeToTray) {
-            ((Stage) root.getScene().getWindow()).hide();
-        } else {
-            fadeOut((Stage) root.getScene().getWindow(), event -> exitProcess(0));
-        }*/
-
         fadeOut(root.scene.window as Stage, EventHandler { exitProcess(0) })
     }
 
     fun minimize() {
-        /*Stage.getWindows().filtered(Window::isShowing).forEach(window ->
-                ((Stage) window).setIconified(true)
-        );*/
-
         fadeOut(root.scene.window as Stage, EventHandler {
             // make it opaque again, so it'll reappear properly if they click the taskbar
             (root.scene.window as Stage).opacity = 1.0
