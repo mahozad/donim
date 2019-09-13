@@ -59,13 +59,12 @@ class Main : Application() {
 
     private fun showAbout() {
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-about.fxml"))
-        Stage().apply {
-            isResizable = false
-            title = "About"
-            scene = Scene(root).apply { fill = Color.TRANSPARENT }
-            icons.add(Image("/svg/logo.svg"))
-            initStyle(StageStyle.TRANSPARENT)
-            show()
-        }
+        val stage = Stage()
+        stage.isResizable = false
+        stage.title = "About"
+        stage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        stage.icons.add(Image("/svg/logo.svg"))
+        stage.initStyle(StageStyle.TRANSPARENT)
+        stage.show()
     }
 }
