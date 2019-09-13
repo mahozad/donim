@@ -46,8 +46,8 @@ class MainController : BaseController() {
 
         val trayZip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
         val trayImages = trayZip.entries().toList().map { entry ->
-            val imageBytes = readFile(trayZip.getInputStream(entry))
-            Toolkit.getDefaultToolkit().createImage(imageBytes)
+            val bytes = readFile(trayZip.getInputStream(entry))
+            Toolkit.getDefaultToolkit().createImage(bytes)
         }
 
         trayAnimation = Timeline()
