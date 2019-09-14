@@ -115,7 +115,7 @@
 }
 
 .btn {
-    -fx-pref-width: 60;
+    -fx-pref-width: 56;
     -fx-focus-traversable: false;
     -fx-background-color: #bfbfbf;
     -fx-font-weight: bold;
