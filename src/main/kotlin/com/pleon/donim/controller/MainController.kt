@@ -43,7 +43,9 @@ class MainController : BaseController() {
         super.initialize()
 
         val trayZip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
-        val trayImages = trayZip.entries().toList().map { ImageIO.read(trayZip.getInputStream(it)) }
+        val trayImages = trayZip.entries().toList().sortedBy { it.name }.map {
+            ImageIO.read(trayZip.getInputStream(it))
+        }
 
         trayAnimation = Timeline()
         trayAnimation.cycleCount = Timeline.INDEFINITE
