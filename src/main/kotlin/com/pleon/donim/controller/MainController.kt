@@ -4,7 +4,6 @@ import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.fadeOut
-import com.pleon.donim.util.FileUtil.readFile
 import com.pleon.donim.util.ThemeUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
@@ -19,8 +18,8 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.util.Duration
 import java.awt.SystemTray
-import java.awt.Toolkit
 import java.util.zip.ZipFile
+import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 class MainController : BaseController() {
@@ -44,10 +43,7 @@ class MainController : BaseController() {
         super.initialize()
 
         val trayZip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
-        val trayImages = trayZip.entries().toList().map { entry ->
-            val bytes = readFile(trayZip.getInputStream(entry))
-            Toolkit.getDefaultToolkit().createImage(bytes)
-        }
+        val trayImages = trayZip.entries().toList().map { ImageIO.read(trayZip.getInputStream(it)) }
 
         trayAnimation = Timeline()
         trayAnimation.cycleCount = Timeline.INDEFINITE
