@@ -2,6 +2,4 @@ language: java
 jdk: oraclejdk11
 sudo: false
 before_install:
-  - sudo apt install -y openjfx
   - chmod +x gradlew
-  - chmod +x gradle/wrapper/gradle-wrapper.jar
