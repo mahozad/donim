@@ -46,7 +46,7 @@ class Main : Application() {
         popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
 
-        val trayImage = ImageIO.read(javaClass.getResourceAsStream("/tray.png"))
+        val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
         trayIcon.addActionListener { Platform.runLater { stage.show() } }
         SystemTray.getSystemTray().add(trayIcon)
