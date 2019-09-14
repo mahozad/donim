@@ -1,6 +1,5 @@
 package com.pleon.donim
 
-import com.pleon.donim.util.FileUtil.readFile
 import com.pleon.donim.util.HostServicesUtil
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
@@ -14,6 +13,7 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.*
 import java.awt.event.ActionEvent
+import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -46,8 +46,7 @@ class Main : Application() {
         popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
 
-        val trayAsStream = javaClass.getResourceAsStream("/tray.png")
-        val trayImage = Toolkit.getDefaultToolkit().createImage(readFile(trayAsStream))
+        val trayImage = ImageIO.read(javaClass.getResourceAsStream("/tray.png"))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
         trayIcon.addActionListener { Platform.runLater { stage.show() } }
         SystemTray.getSystemTray().add(trayIcon)
