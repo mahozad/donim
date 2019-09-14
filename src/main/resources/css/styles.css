@@ -103,7 +103,7 @@
 }
 
 #minimize:hover {
-    -fx-background-color: #ddd;
+    -fx-background-color: #bbb;
 }
 
 .dark #minimize:hover {
