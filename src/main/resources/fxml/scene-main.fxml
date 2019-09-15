@@ -26,10 +26,10 @@
         <!-- </MenuBar>-->
 
         <ImageView AnchorPane.leftAnchor="4">
-            <Image url="/svg/logo-path-only.svg" requestedWidth="18" requestedHeight="25"/>
+            <Image url="/svg/logo-path-only.svg" requestedWidth="16" requestedHeight="25"/>
         </ImageView>
 
-        <Label fx:id="title" prefHeight="25" text="Donim" AnchorPane.leftAnchor="27"/>
+        <Label fx:id="title" prefHeight="25" text="Donim" AnchorPane.leftAnchor="25"/>
 
         <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#close">
             <SVGPath fx:id="close_icon"
