@@ -6,13 +6,19 @@ import javafx.beans.Observable
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
 
+const val THEME_FILE_PATH = "theme.dat"
+
 object ThemeUtil {
 
-    private enum class Theme {
+    enum class Theme {
         DARK, LIGHT
     }
 
     private var theme = SimpleObjectProperty(DARK)
+
+    fun getTheme(): Theme = theme.get()
+
+    fun setTheme(theme: Theme) = this.theme.set(theme)
 
     fun setOnToggled(listener: (Observable) -> Unit) = theme.addListener(listener)
 
