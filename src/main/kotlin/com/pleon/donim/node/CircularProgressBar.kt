@@ -20,7 +20,6 @@ class CircularProgressBar : Canvas() {
     private val sliceGap = sliceLength / 2  // in degrees
     private val origin = 90                 // in degrees
     private var end = origin - 360          // in degrees
-    private val padding = 0
     private var baseColor = hsb(0.0, 0.85, 1.0)
     private val colorFactor = sliceLength / 2.0
     private var outerRadius = 0.0
@@ -29,7 +28,7 @@ class CircularProgressBar : Canvas() {
 
     init {
         val listener = InvalidationListener {
-            outerRadius = min(width, height) / 2 - padding
+            outerRadius = min(width, height) / 2
             innerRadius = outerRadius * 0.66
             draw()
         }
