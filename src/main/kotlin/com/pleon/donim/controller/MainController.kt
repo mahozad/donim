@@ -4,7 +4,6 @@ import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.fadeOut
-import com.pleon.donim.util.THEME_FILE_PATH
 import com.pleon.donim.util.ThemeUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
@@ -19,8 +18,6 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.util.Duration
 import java.awt.SystemTray
-import java.nio.file.Files
-import java.nio.file.Path
 import java.util.zip.ZipFile
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
@@ -164,9 +161,6 @@ class MainController : BaseController() {
         startTimer(false)
     }
 
-    fun toggleTheme() {
-        ThemeUtil.toggleTheme()
-        Files.writeString(Path.of(THEME_FILE_PATH), ThemeUtil.getTheme().name)
-    }
+    fun toggleTheme() = ThemeUtil.toggleTheme()
 
 }
