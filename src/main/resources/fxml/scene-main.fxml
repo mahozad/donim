@@ -50,8 +50,7 @@
     </AnchorPane>
 
     <StackPane>
-        <Text text="${controller.remainingTimeString}"
-              styleClass="time"/>
+        <Text text="${controller.remainingTimeString}" styleClass="time"/>
         <CircularProgressBar fx:id="progressBar"
                              width="200"
                              height="200"
