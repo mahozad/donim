@@ -119,6 +119,7 @@
     -fx-focus-traversable: false;
     -fx-background-color: #bfbfbf;
     -fx-font-weight: bold;
+    -fx-cursor: default;
 }
 
 .btn .icon {
