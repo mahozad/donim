@@ -77,5 +77,6 @@ class Main : Application() {
         stage.icons.add(Image("/svg/logo.svg"))
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
+        centerStageOnScreen(stage)
     }
 }
