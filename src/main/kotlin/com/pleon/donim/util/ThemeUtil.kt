@@ -1,26 +1,25 @@
 package com.pleon.donim.util
 
+import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.util.ThemeUtil.Theme.DARK
 import com.pleon.donim.util.ThemeUtil.Theme.LIGHT
 import javafx.beans.Observable
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
-import java.nio.file.Files
-import java.nio.file.Path
 
-private val STORE_PATH = Path.of("theme.dat")
 private val DEFAULT_THEME = DARK
 
 object ThemeUtil {
 
     enum class Theme { DARK, LIGHT }
+
     private var theme = SimpleObjectProperty<Theme>()
 
     init {
         try {
-            val themeName = Files.readString(STORE_PATH)
+            val themeName = SettingsUtil.load("theme")
             theme.value = Theme.valueOf(themeName)
-        } catch (e: Exception) {
+        } catch (e: SettingNotFoundException) {
             theme.value = DEFAULT_THEME
         }
     }
@@ -29,7 +28,7 @@ object ThemeUtil {
 
     fun toggleTheme() {
         theme.value = if (theme.value == DARK) LIGHT else DARK
-        Files.writeString(STORE_PATH, theme.value.name)
+        SettingsUtil.store("theme", theme.value.name)
     }
 
     fun applyThemeTo(node: Node) {
