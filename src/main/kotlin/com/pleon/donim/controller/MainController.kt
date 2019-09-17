@@ -3,6 +3,7 @@ package com.pleon.donim.controller
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.fadeOut
 import com.pleon.donim.util.ThemeUtil
 import javafx.animation.KeyFrame
@@ -101,7 +102,7 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        fadeOut(root.scene.window as Stage, EventHandler { exitProcess(0) })
+        fadeOut(root.scene.window as Stage, EventHandler { exitProcess(0) }, BOTTOM)
     }
 
     fun minimize() {

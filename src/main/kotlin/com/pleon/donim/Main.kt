@@ -9,9 +9,13 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.paint.Color
+import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import java.awt.*
+import java.awt.MenuItem
+import java.awt.PopupMenu
+import java.awt.SystemTray
+import java.awt.TrayIcon
 import java.awt.event.ActionEvent
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
@@ -35,6 +39,13 @@ class Main : Application() {
         primaryStage.isResizable = false
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.show()
+        centerStageOnScreen(primaryStage)
+    }
+
+    private fun centerStageOnScreen(primaryStage: Stage) {
+        val screenBounds = Screen.getPrimary().visualBounds
+        primaryStage.x = (screenBounds.width - primaryStage.width) / 2
+        primaryStage.y = (screenBounds.height - primaryStage.height) / 2
     }
 
     @Throws(AWTException::class)
@@ -48,7 +59,9 @@ class Main : Application() {
 
         val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
-        trayIcon.addActionListener { Platform.runLater { stage.show() } }
+        trayIcon.addActionListener {
+            Platform.runLater { stage.show().also { centerStageOnScreen(stage) } }
+        }
         SystemTray.getSystemTray().add(trayIcon)
     }
 
