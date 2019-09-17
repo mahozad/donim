@@ -48,7 +48,6 @@ class Main : Application() {
         primaryStage.y = (screenBounds.height - primaryStage.height) / 2
     }
 
-    @Throws(AWTException::class)
     private fun createTrayIcon(stage: Stage) {
         if (!SystemTray.isSupported()) return
 
