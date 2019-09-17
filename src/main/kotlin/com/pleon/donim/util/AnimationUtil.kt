@@ -25,7 +25,7 @@ object AnimationUtil {
                 opacity = (opacity - STEP).coerceAtLeast(0.0)
                 stage.opacity = opacity
                 if (moveDirection == MoveDirection.BOTTOM) {
-                    stage.y += 0.2
+                    stage.y += 0.15
                 }else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
                     stage.y += 0.5
                     stage.x += 0.5
