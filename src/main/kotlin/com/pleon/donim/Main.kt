@@ -42,10 +42,10 @@ class Main : Application() {
         centerStageOnScreen(primaryStage)
     }
 
-    private fun centerStageOnScreen(primaryStage: Stage) {
+    private fun centerStageOnScreen(stage: Stage) {
         val screenBounds = Screen.getPrimary().visualBounds
-        primaryStage.x = (screenBounds.width - primaryStage.width) / 2
-        primaryStage.y = (screenBounds.height - primaryStage.height) / 2
+        stage.x = (screenBounds.width - stage.width) / 2
+        stage.y = (screenBounds.height - stage.height) / 2
     }
 
     private fun createTrayIcon(stage: Stage) {
