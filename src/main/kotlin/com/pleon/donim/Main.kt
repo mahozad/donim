@@ -60,7 +60,9 @@ class Main : Application() {
         if (!SystemTray.isSupported()) return
 
         val popup = PopupMenu()
-        popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show() } })
+        popup.add(newMenuItem("Show Window") {
+            Platform.runLater { stage.show().also { centerWindowOnScreen(stage) } }
+        })
         popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
 
