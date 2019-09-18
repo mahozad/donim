@@ -1,6 +1,5 @@
 package com.pleon.donim
 
-import com.pleon.donim.controller.MainController
 import com.pleon.donim.util.DecorationUtil.centerWindowOnScreen
 import com.pleon.donim.util.HostServicesUtil
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
@@ -23,19 +22,6 @@ import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
-}
-
-fun showAbout() {
-    val root = FXMLLoader.load<Parent>(MainController::class.java
-            .getResource("/fxml/scene-about.fxml"))
-    val stage = Stage()
-    stage.isResizable = false
-    stage.title = "About"
-    stage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
-    stage.icons.add(Image("/svg/logo.svg"))
-    stage.initStyle(StageStyle.TRANSPARENT)
-    stage.show()
-    centerWindowOnScreen(stage)
 }
 
 class Main : Application() {
@@ -63,7 +49,6 @@ class Main : Application() {
         popup.add(newMenuItem("Show Window") {
             Platform.runLater { stage.show().also { centerWindowOnScreen(stage) } }
         })
-        popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
 
         val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
