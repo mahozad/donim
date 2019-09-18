@@ -19,7 +19,7 @@
     <AnchorPane fx:id="title_bar">
 
         <ImageView AnchorPane.leftAnchor="4">
-            <Image url="/svg/logo.svg" requestedWidth="18" requestedHeight="25"/>
+            <Image url="/svg/logo.svg" requestedWidth="16" requestedHeight="25"/>
         </ImageView>
 
         <Label fx:id="title" prefHeight="25" text="About" AnchorPane.leftAnchor="27"/>
