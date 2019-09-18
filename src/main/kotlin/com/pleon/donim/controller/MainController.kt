@@ -13,10 +13,16 @@ import javafx.beans.property.StringProperty
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
+import javafx.scene.Scene
 import javafx.scene.control.Button
+import javafx.scene.image.Image
 import javafx.scene.media.AudioClip
+import javafx.scene.paint.Color
 import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
+import javafx.stage.StageStyle
 import javafx.util.Duration
 import java.awt.SystemTray
 import java.util.zip.ZipFile
@@ -164,6 +170,17 @@ class MainController : BaseController() {
 
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
-    fun showAbout() = com.pleon.donim.showAbout()
+    fun showAbout() {
+        val root = FXMLLoader.load<Parent>(MainController::class.java
+                .getResource("/fxml/scene-about.fxml"))
+        val stage = Stage()
+        stage.isResizable = false
+        stage.title = "About"
+        stage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        stage.icons.add(Image("/svg/logo.svg"))
+        stage.initStyle(StageStyle.TRANSPARENT)
+        stage.show()
+        DecorationUtil.centerWindowOnScreen(stage)
+    }
 
 }
