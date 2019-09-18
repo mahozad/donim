@@ -25,22 +25,30 @@
         <!--     <Menu text="etdbd"/>-->
         <!-- </MenuBar>-->
 
-        <ImageView AnchorPane.leftAnchor="4">
-            <Image url="/svg/logo-path-only.svg" requestedWidth="16" requestedHeight="25"/>
-        </ImageView>
+        <HBox>
+            <ImageView>
+                <HBox.margin>
+                    <Insets left="4" right="4"/>
+                </HBox.margin>
+                <Image url="/svg/logo-path-only.svg" requestedWidth="16" requestedHeight="25"/>
+            </ImageView>
 
-        <Label fx:id="title" prefHeight="25" text="Donim" AnchorPane.leftAnchor="25"/>
+            <Label fx:id="title" prefHeight="25" text="Donim"/>
+        </HBox>
 
-        <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#close">
-            <SVGPath fx:id="close_icon"
-                     content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
-            </SVGPath>
-        </StackPane>
-        <StackPane fx:id="minimize" AnchorPane.rightAnchor="36" onMouseClicked="#minimize">
-            <SVGPath fx:id="minimize_icon"
-                     content="m 7,15 a 1.0001,1.0001 0 1 0 0,2 h 10 a 1.0001,1.0001 0 1 0 0,-2 z">
-            </SVGPath>
-        </StackPane>
+        <HBox AnchorPane.rightAnchor="0">
+            <StackPane fx:id="minimize" onMouseClicked="#minimize">
+                <SVGPath fx:id="minimize_icon"
+                         content="m 7,15 a 1.0001,1.0001 0 1 0 0,2 h 10 a 1.0001,1.0001 0 1 0 0,-2 z">
+                </SVGPath>
+            </StackPane>
+            <StackPane fx:id="close" onMouseClicked="#close">
+                <SVGPath fx:id="close_icon"
+                         content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
+                </SVGPath>
+            </StackPane>
+        </HBox>
+
     </AnchorPane>
 
     <AnchorPane>
