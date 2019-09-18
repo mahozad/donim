@@ -18,11 +18,16 @@
 
     <AnchorPane fx:id="title_bar">
 
-        <ImageView AnchorPane.leftAnchor="4">
-            <Image url="/svg/logo.svg" requestedWidth="16" requestedHeight="25"/>
-        </ImageView>
+        <HBox>
+            <ImageView>
+                <HBox.margin>
+                    <Insets left="4" right="4"/>
+                </HBox.margin>
+                <Image url="/svg/logo.svg" requestedWidth="16" requestedHeight="25"/>
+            </ImageView>
 
-        <Label fx:id="title" prefHeight="25" text="About" AnchorPane.leftAnchor="27"/>
+            <Label fx:id="title" prefHeight="25" text="About"/>
+        </HBox>
 
         <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#closeWindow">
             <SVGPath fx:id="close_icon"
