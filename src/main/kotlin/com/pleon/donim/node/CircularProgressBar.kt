@@ -16,7 +16,7 @@ class CircularProgressBar : Canvas() {
     // https://www.youtube.com/watch?v=V2yXGdC98jM
     // https://stackoverflow.com/q/24533556/8583692
 
-    private val sliceLength = 2             // in degrees
+    private val sliceLength = 4             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
     private val origin = 90                 // in degrees
     private var end = origin - 360          // in degrees
