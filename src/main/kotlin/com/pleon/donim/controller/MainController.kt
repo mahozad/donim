@@ -5,7 +5,7 @@ import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.fadeOut
-import com.pleon.donim.util.ThemeUtil
+import com.pleon.donim.util.DecorationUtil
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleStringProperty
@@ -162,6 +162,6 @@ class MainController : BaseController() {
         startTimer(false)
     }
 
-    fun toggleTheme() = ThemeUtil.toggleTheme()
+    fun toggleTheme() = DecorationUtil.toggleTheme()
 
 }

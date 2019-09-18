@@ -1,6 +1,6 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.util.ThemeUtil
+import com.pleon.donim.util.DecorationUtil
 import javafx.fxml.FXML
 import javafx.scene.Node
 
@@ -9,7 +9,7 @@ open class BaseController {
     @FXML protected lateinit var root: Node
 
     @FXML protected open fun initialize() {
-        ThemeUtil.applyThemeTo(root)
-        ThemeUtil.setOnToggled { ThemeUtil.applyThemeTo(root) }
+       DecorationUtil.applyThemeTo(root)
+       DecorationUtil.setOnToggled { DecorationUtil.applyThemeTo(root) }
     }
 }
