@@ -59,7 +59,7 @@
     <AnchorPane>
         <Region fx:id="theme" onMouseClicked="#toggleTheme" styleClass="icon"
                 prefWidth="18" prefHeight="18"
-                AnchorPane.topAnchor="12" AnchorPane.rightAnchor="16"/>
+                AnchorPane.topAnchor="12" AnchorPane.leftAnchor="16"/>
     </AnchorPane>
 
     <StackPane>
