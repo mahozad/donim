@@ -164,4 +164,6 @@ class MainController : BaseController() {
 
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
+    fun showAbout() = com.pleon.donim.showAbout()
+
 }
