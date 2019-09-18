@@ -37,6 +37,11 @@
         </HBox>
 
         <HBox AnchorPane.rightAnchor="0">
+            <StackPane fx:id="about" onMouseClicked="#showAbout">
+                <SVGPath fx:id="about_icon"
+                         content="m 12,0.9999 a 0.98605611,1.0001 0 1 0 0,2 0.98605611,1.0001 0 1 0 0,-2 z M 11.98437,5.0001316 C 11.432855,5.0094019 10.992447,5.496919 11,6.089795 V 11 c -0.01913,1.4537 2.019125,1.4537 2,0 V 6.089795 C 13.0077,5.4837614 12.548129,4.9906662 11.984375,5.0001316 Z">
+                </SVGPath>
+            </StackPane>
             <StackPane fx:id="minimize" onMouseClicked="#minimize">
                 <SVGPath fx:id="minimize_icon"
                          content="m 7,15 a 1.0001,1.0001 0 1 0 0,2 h 10 a 1.0001,1.0001 0 1 0 0,-2 z">
@@ -52,13 +57,9 @@
     </AnchorPane>
 
     <AnchorPane>
-        <Region fx:id="about" onMouseClicked="#showAbout" styleClass="icon"
-                prefWidth="18" prefHeight="18"
-                AnchorPane.topAnchor="12" AnchorPane.rightAnchor="16"/>
-
         <Region fx:id="theme" onMouseClicked="#toggleTheme" styleClass="icon"
                 prefWidth="18" prefHeight="18"
-                AnchorPane.topAnchor="12" AnchorPane.leftAnchor="16"/>
+                AnchorPane.topAnchor="12" AnchorPane.rightAnchor="16"/>
     </AnchorPane>
 
     <StackPane>
