@@ -9,16 +9,19 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
+import javafx.scene.Parent
 import javafx.util.Duration
 
 class SplashController : BaseController() {
 
     @FXML private lateinit var brand: Node
 
+    private val nextScene = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-main.fxml"))
     private var stageOpacity = 1.0
 
     override fun initialize() {
         super.initialize()
+        nextScene.opacity = 0.0
         rotateLogo()
         fadeOut()
     }
@@ -39,9 +42,16 @@ class SplashController : BaseController() {
         }))
         timeline.cycleCount = 100
         timeline.delay = Duration.millis(2000.0)
-        timeline.setOnFinished {
-            root.scene.root = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
-        }
+        timeline.setOnFinished { root.scene.root = nextScene }
         timeline.play()
+
+        val timeline2 = Timeline()
+        timeline2.keyFrames.add(KeyFrame(Duration.millis(2.0), EventHandler<ActionEvent> {
+            stageOpacity = (stageOpacity + 0.01).coerceAtMost(1.0)
+            nextScene.opacity = stageOpacity
+        }))
+        timeline2.cycleCount = 100
+        timeline2.delay = Duration.millis(2500.0)
+        timeline2.play()
     }
 }
