@@ -1,5 +1,6 @@
 package com.pleon.donim
 
+import com.pleon.donim.util.DecorationUtil.centerWindowOnScreen
 import com.pleon.donim.util.HostServicesUtil
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
@@ -9,7 +10,6 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.paint.Color
-import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.MenuItem
@@ -39,13 +39,7 @@ class Main : Application() {
         primaryStage.isResizable = false
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.show()
-        centerStageOnScreen(primaryStage)
-    }
-
-    private fun centerStageOnScreen(stage: Stage) {
-        val screenBounds = Screen.getPrimary().visualBounds
-        stage.x = (screenBounds.width - stage.width) / 2
-        stage.y = (screenBounds.height - stage.height) / 2
+        centerWindowOnScreen(primaryStage)
     }
 
     private fun createTrayIcon(stage: Stage) {
@@ -59,7 +53,7 @@ class Main : Application() {
         val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
         trayIcon.addActionListener {
-            Platform.runLater { stage.show().also { centerStageOnScreen(stage) } }
+            Platform.runLater { stage.show().also { centerWindowOnScreen(stage) } }
         }
         SystemTray.getSystemTray().add(trayIcon)
     }
@@ -77,6 +71,6 @@ class Main : Application() {
         stage.icons.add(Image("/svg/logo.svg"))
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
-        centerStageOnScreen(stage)
+        centerWindowOnScreen(stage)
     }
 }
