@@ -180,7 +180,7 @@ class MainController : BaseController() {
         stage.icons.add(Image("/svg/logo.svg"))
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
-        DecorationUtil.centerWindowOnScreen(stage)
+        DecorationUtil.centerOnScreen(stage)
     }
 
 }

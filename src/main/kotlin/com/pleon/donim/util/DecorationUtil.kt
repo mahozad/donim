@@ -41,7 +41,7 @@ object DecorationUtil {
         }
     }
 
-    fun centerWindowOnScreen(stage: Stage) {
+    fun centerOnScreen(stage: Stage) {
         val screenBounds = Screen.getPrimary().visualBounds
         stage.x = (screenBounds.width - stage.width) / 2
         stage.y = (screenBounds.height - stage.height) / 2
