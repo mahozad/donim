@@ -45,17 +45,17 @@ class Main : Application() {
     private fun createTrayIcon(stage: Stage) {
         if (!SystemTray.isSupported()) return
 
-        val popup = PopupMenu()
-        popup.add(newMenuItem("Show Window") {
+        val showWindowAction: (ActionEvent) -> Unit = {
             Platform.runLater { stage.show().also { centerWindowOnScreen(stage) } }
-        })
+        }
+
+        val popup = PopupMenu()
+        popup.add(newMenuItem("Show Window", showWindowAction))
         popup.add(newMenuItem("Exit") { exitProcess(0) })
 
         val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
         val trayIcon = TrayIcon(trayImage, "Donim", popup)
-        trayIcon.addActionListener {
-            Platform.runLater { stage.show().also { centerWindowOnScreen(stage) } }
-        }
+        trayIcon.addActionListener(showWindowAction)
         SystemTray.getSystemTray().add(trayIcon)
     }
 
