@@ -122,10 +122,12 @@ class MainController : BaseController() {
         return remainingTimeString.get()
     }
 
+    @Suppress("unused")
     fun remainingTimeStringProperty(): StringProperty {
         return remainingTimeString
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun setRemainingTimeString(remainingTimeString: String) {
         this.remainingTimeString.set(remainingTimeString)
     }
