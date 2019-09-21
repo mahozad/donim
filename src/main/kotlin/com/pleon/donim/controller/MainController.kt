@@ -44,8 +44,8 @@ class MainController : BaseController() {
     private var xOffset = 0.0
     private var yOffset = 0.0
     private var period = WORK
-    private lateinit var trayAnimation: Timeline
     private lateinit var trayIcon: TrayIcon
+    private lateinit var trayAnimation: Timeline
     private var beep: AudioClip = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
     private val remainingTimeString = SimpleStringProperty(format(period.length))
     private var remainingTime = period.length
@@ -206,8 +206,7 @@ class MainController : BaseController() {
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
     fun showAbout() {
-        val root = FXMLLoader.load<Parent>(MainController::class.java
-                .getResource("/fxml/scene-about.fxml"))
+        val root = FXMLLoader.load<Parent>(MainController::class.java.getResource("/fxml/scene-about.fxml"))
         val stage = Stage()
         stage.isResizable = false
         stage.title = "About"
@@ -215,7 +214,7 @@ class MainController : BaseController() {
         stage.icons.add(Image("/svg/logo.svg"))
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
-        DecorationUtil.centerOnScreen(stage)
+        centerOnScreen(stage)
     }
 
 }
