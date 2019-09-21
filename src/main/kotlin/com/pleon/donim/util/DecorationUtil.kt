@@ -16,10 +16,11 @@ object DecorationUtil {
     enum class Theme { DARK, LIGHT }
 
     private var theme = SimpleObjectProperty<Theme>()
+    private val settings: Settings = PersistentSettings()
 
     init {
         try {
-            val themeName = SettingsUtil.load("theme")
+            val themeName = settings.get("theme")
             theme.value = Theme.valueOf(themeName)
         } catch (e: SettingNotFoundException) {
             theme.value = DEFAULT_THEME
@@ -30,7 +31,7 @@ object DecorationUtil {
 
     fun toggleTheme() {
         theme.value = if (theme.value == DARK) LIGHT else DARK
-        SettingsUtil.store("theme", theme.value.name)
+        settings.set("theme", theme.value.name)
     }
 
     fun applyThemeTo(node: Node) {
