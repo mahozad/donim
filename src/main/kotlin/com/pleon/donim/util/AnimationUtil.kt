@@ -15,9 +15,7 @@ object AnimationUtil {
         NONE, BOTTOM, BOTTOM_RIGHT
     }
 
-    fun fadeOut(stage: Stage,
-                onFinished: EventHandler<ActionEvent>,
-                moveDirection: MoveDirection = MoveDirection.BOTTOM_RIGHT) {
+    fun fadeOut(stage: Stage, moveDirection: MoveDirection, onFinished: EventHandler<ActionEvent>) {
         val timeline = Timeline()
         timeline.keyFrames.add(KeyFrame(Duration.millis(1.0), object : EventHandler<ActionEvent?> {
             private var opacity = 1.0
@@ -26,7 +24,7 @@ object AnimationUtil {
                 stage.opacity = opacity
                 if (moveDirection == MoveDirection.BOTTOM) {
                     stage.y += 0.15
-                }else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
+                } else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
                     stage.y += 0.5
                     stage.x += 0.5
                 }
