@@ -3,9 +3,9 @@ package com.pleon.donim.controller
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
-import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
-import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
-import com.pleon.donim.util.AnimationUtil.fadeOut
+import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
+import com.pleon.donim.util.AnimationUtil.MoveDirection
+import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.DecorationUtil
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import javafx.animation.KeyFrame
@@ -146,13 +146,13 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        fadeOut(root.scene.window as Stage, BOTTOM, EventHandler { exitProcess(0) })
+        fade(OUT, root, MoveDirection.BOTTOM, 0, EventHandler { exitProcess(0) })
     }
 
     fun minimize() {
-        fadeOut(root.scene.window as Stage, BOTTOM_RIGHT, EventHandler {
+        fade(OUT, root, MoveDirection.BOTTOM_RIGHT, 0, EventHandler {
             // make it opaque again, so it'll reappear properly if they click the tray icon
-            (root.scene.window as Stage).opacity = 1.0
+            root.opacity = 1.0
             (root.scene.window as Stage).hide()
         })
     }

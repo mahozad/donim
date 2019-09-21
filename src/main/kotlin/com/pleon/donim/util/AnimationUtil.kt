@@ -1,10 +1,13 @@
 package com.pleon.donim.util
 
+import com.pleon.donim.util.AnimationUtil.FadeMode.IN
+import javafx.animation.Interpolator
 import javafx.animation.KeyFrame
+import javafx.animation.RotateTransition
 import javafx.animation.Timeline
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.stage.Stage
+import javafx.scene.Node
 import javafx.util.Duration
 
 object AnimationUtil {
@@ -15,23 +18,42 @@ object AnimationUtil {
         NONE, BOTTOM, BOTTOM_RIGHT
     }
 
-    fun fadeOut(stage: Stage, moveDirection: MoveDirection, onFinished: EventHandler<ActionEvent>) {
+    enum class FadeMode {
+        IN, OUT
+    }
+
+    fun fade(fadeMode: FadeMode, node: Node, moveDirection: MoveDirection,
+             delayMillis: Int, onFinished: EventHandler<ActionEvent>) {
+
         val timeline = Timeline()
         timeline.keyFrames.add(KeyFrame(Duration.millis(1.0), object : EventHandler<ActionEvent?> {
-            private var opacity = 1.0
+            private var opacity = if (fadeMode == IN) 0.0 else 1.0
             override fun handle(event: ActionEvent?) {
-                opacity = (opacity - STEP).coerceAtLeast(0.0)
-                stage.opacity = opacity
+                opacity = if (fadeMode == IN) {
+                    (opacity + STEP).coerceAtMost(1.0)
+                } else {
+                    (opacity - STEP).coerceAtLeast(0.0)
+                }
+                node.opacity = opacity
                 if (moveDirection == MoveDirection.BOTTOM) {
-                    stage.y += 0.15
+                    node.scene.window.y += 0.15
                 } else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
-                    stage.y += 0.5
-                    stage.x += 0.5
+                    node.scene.window.y += 0.5
+                    node.scene.window.x += 0.5
                 }
             }
         }))
+        timeline.delay = Duration.millis(delayMillis.toDouble())
         timeline.cycleCount = (1 / STEP).toInt()
         timeline.onFinished = onFinished
         timeline.play()
+    }
+
+    fun rotate(node: Node, byAngle: Double, durationMillis: Int, delayMillis: Int) {
+        val rotate = RotateTransition(Duration.millis(durationMillis.toDouble()), node)
+        rotate.interpolator = Interpolator.EASE_BOTH
+        rotate.delay = Duration.millis(delayMillis.toDouble())
+        rotate.byAngle = byAngle
+        rotate.play()
     }
 }
