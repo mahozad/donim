@@ -6,8 +6,10 @@ import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.fadeOut
 import com.pleon.donim.util.DecorationUtil
+import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
+import javafx.application.Platform
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
 import javafx.event.ActionEvent
@@ -24,7 +26,10 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
+import java.awt.MenuItem
+import java.awt.PopupMenu
 import java.awt.SystemTray
+import java.awt.TrayIcon
 import java.util.zip.ZipFile
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
@@ -40,7 +45,8 @@ class MainController : BaseController() {
     private var yOffset = 0.0
     private var period = WORK
     private lateinit var trayAnimation: Timeline
-    private lateinit var beep: AudioClip
+    private lateinit var trayIcon: TrayIcon
+    private var beep: AudioClip = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
     private val remainingTimeString = SimpleStringProperty(format(period.length))
     private var remainingTime = period.length
     private val timeline = Timeline()
@@ -48,10 +54,49 @@ class MainController : BaseController() {
 
     override fun initialize() {
         super.initialize()
+        createTrayIcon()
+        makeTrayIconAnimatable()
+        makeWindowMovable()
+    }
 
-        val trayZip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
-        val trayImages = trayZip.entries().toList().sortedBy { it.name }.map {
-            ImageIO.read(trayZip.getInputStream(it))
+    private fun createTrayIcon() {
+        if (!SystemTray.isSupported()) return
+
+        root.sceneProperty().addListener { _, oldScene, newScene ->
+            if (oldScene != null) return@addListener
+
+            val stage = newScene.window as Stage
+            val showWindow: (java.awt.event.ActionEvent) -> Unit = {
+                Platform.runLater { stage.show().also { centerOnScreen(stage) } }
+            }
+
+            val popup = PopupMenu()
+            popup.add(newMenuItem("Show Window", showWindow))
+            popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
+            popup.add(newMenuItem("Exit") { exitProcess(0) })
+
+            val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
+            trayIcon = TrayIcon(trayImage, "Donim", popup)
+            trayIcon.addActionListener(showWindow)
+            SystemTray.getSystemTray().add(trayIcon)
+        }
+    }
+
+    private fun makeWindowMovable() {
+        root.setOnMousePressed {
+            xOffset = it.sceneX
+            yOffset = it.sceneY
+        }
+        root.setOnMouseDragged {
+            root.scene.window.x = it.screenX - xOffset
+            root.scene.window.y = it.screenY - yOffset
+        }
+    }
+
+    private fun makeTrayIconAnimatable() {
+        val zip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
+        val trayImages = zip.entries().toList().sortedBy { it.name }.map {
+            ImageIO.read(zip.getInputStream(it))
         }
 
         trayAnimation = Timeline()
@@ -61,24 +106,15 @@ class MainController : BaseController() {
                     val firstFrameDelay = 100
                     var i = 0
                     override fun handle(event: ActionEvent) {
-                        val trayIcon = SystemTray.getSystemTray().trayIcons[0]
                         trayIcon.image = if (i <= firstFrameDelay) trayImages[0] else trayImages[i - firstFrameDelay]
                         i = (i + 1) % (trayImages.size + firstFrameDelay)
                     }
                 }
         ))
+    }
 
-        beep = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
-
-        // Make window movable
-        root.setOnMousePressed {
-            xOffset = it.sceneX
-            yOffset = it.sceneY
-        }
-        root.setOnMouseDragged {
-            root.scene.window.x = it.screenX - xOffset
-            root.scene.window.y = it.screenY - yOffset
-        }
+    private fun newMenuItem(title: String, listener: (java.awt.event.ActionEvent) -> Unit): MenuItem {
+        return MenuItem(title).apply { addActionListener(listener) }
     }
 
     fun getRemainingTimeString(): String {
@@ -98,7 +134,6 @@ class MainController : BaseController() {
         trayAnimation.play()
         remainingTime = period.length
         timeline.cycleCount = remainingTime.toSeconds().toInt()
-        val trayIcon = SystemTray.getSystemTray().trayIcons[0]
         if (shouldNotify) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
             beep.play()

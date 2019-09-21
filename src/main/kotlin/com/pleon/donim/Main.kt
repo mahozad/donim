@@ -12,13 +12,6 @@ import javafx.scene.image.Image
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import java.awt.MenuItem
-import java.awt.PopupMenu
-import java.awt.SystemTray
-import java.awt.TrayIcon
-import java.awt.event.ActionEvent
-import javax.imageio.ImageIO
-import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
@@ -32,7 +25,6 @@ class Main : Application() {
         HostServicesUtil.hostServices = hostServices
 
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
-        createTrayIcon(primaryStage)
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.title = "Donim"
         primaryStage.icons.add(Image("/svg/logo.svg"))
@@ -42,24 +34,4 @@ class Main : Application() {
         centerOnScreen(primaryStage)
     }
 
-    private fun createTrayIcon(stage: Stage) {
-        if (!SystemTray.isSupported()) return
-
-        val showWindow: (ActionEvent) -> Unit = {
-            Platform.runLater { stage.show().also { centerOnScreen(stage) } }
-        }
-
-        val popup = PopupMenu()
-        popup.add(newMenuItem("Show Window", showWindow))
-        popup.add(newMenuItem("Exit") { exitProcess(0) })
-
-        val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
-        val trayIcon = TrayIcon(trayImage, "Donim", popup)
-        trayIcon.addActionListener(showWindow)
-        SystemTray.getSystemTray().add(trayIcon)
-    }
-
-    private fun newMenuItem(title: String, listener: (ActionEvent) -> Unit): MenuItem {
-        return MenuItem(title).apply { addActionListener(listener) }
-    }
 }
