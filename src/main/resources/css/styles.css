@@ -138,12 +138,12 @@
 }
 
 .btn:hover {
-    -fx-background-color: derive(-btn-color, -15%);
+    -fx-background-color: derive(-btn-color, -20%);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.15, 0.0, 0.0);
 }
 
 .dark .btn:hover {
-    -fx-background-color: derive(-btn-color-dark, 15%);
+    -fx-background-color: derive(-btn-color-dark, 20%);
 }
 
 .icon {
