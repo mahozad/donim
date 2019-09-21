@@ -25,11 +25,11 @@ class Main : Application() {
         HostServicesUtil.hostServices = hostServices
 
         val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
-        primaryStage.initStyle(StageStyle.TRANSPARENT)
+        primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        primaryStage.isResizable = false
         primaryStage.title = "Donim"
         primaryStage.icons.add(Image("/svg/logo.svg"))
-        primaryStage.isResizable = false
-        primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
         centerOnScreen(primaryStage)
     }
