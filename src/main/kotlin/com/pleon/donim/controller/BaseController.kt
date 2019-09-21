@@ -9,7 +9,7 @@ open class BaseController {
     @FXML protected lateinit var root: Node
 
     @FXML protected open fun initialize() {
-       DecorationUtil.applyThemeTo(root)
-       DecorationUtil.setOnToggled { DecorationUtil.applyThemeTo(root) }
+        DecorationUtil.applyThemeTo(root)
+        DecorationUtil.setOnToggled { DecorationUtil.applyThemeTo(root) }
     }
 }
