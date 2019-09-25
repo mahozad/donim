@@ -10,6 +10,7 @@ import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.scene.Parent
+import javafx.util.Duration
 
 class SplashController : BaseController() {
 
@@ -25,7 +26,10 @@ class SplashController : BaseController() {
     }
 
     private fun transitionNextScene() {
-        fade(OUT, root, MoveDirection.NONE, 2, 2000, EventHandler { root.scene.root = nextRoot })
-        fade(IN, nextRoot, MoveDirection.NONE, 2, 2500, EventHandler { /* Do nothing */ })
+        fade(OUT, root, MoveDirection.NONE, Duration.millis(200.0), Duration.millis(2000.0),
+                EventHandler { root.scene.root = nextRoot })
+
+        fade(IN, nextRoot, MoveDirection.NONE, Duration.millis(200.0), Duration.millis(2500.0),
+                EventHandler { /* Do nothing */ })
     }
 }
