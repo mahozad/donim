@@ -8,6 +8,7 @@ import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.Hyperlink
 import javafx.stage.Stage
+import javafx.util.Duration
 
 class AboutController : BaseController() {
 
@@ -34,6 +35,7 @@ class AboutController : BaseController() {
 
     fun closeWindow() {
         val stage = root.scene.window as Stage
-        fade(OUT, root, MoveDirection.BOTTOM, 1, 0, EventHandler { stage.close() })
+        fade(OUT, root, MoveDirection.BOTTOM, Duration.millis(100.0), Duration.millis(0.0),
+                EventHandler { stage.close() })
     }
 }
