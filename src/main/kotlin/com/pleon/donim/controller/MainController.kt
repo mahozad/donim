@@ -146,18 +146,20 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        fade(OUT, root, MoveDirection.BOTTOM, Duration.millis(100.0), Duration.millis(0.0),
-                EventHandler { exitProcess(0) })
+        fade(OUT, root, MoveDirection.BOTTOM,
+                duration = Duration.millis(100.0),
+                delay = Duration.millis(0.0),
+                onFinished = EventHandler { exitProcess(0) })
     }
 
     fun minimize() {
-        fade(OUT, root, MoveDirection.BOTTOM_RIGHT, Duration.millis(100.0), Duration.millis(0.0),
-                EventHandler {
-                    // make it opaque again, so it'll reappear properly
-                    root.opacity = 1.0
+        fade(OUT, root, MoveDirection.BOTTOM_RIGHT,
+                duration = Duration.millis(100.0),
+                delay = Duration.millis(0.0),
+                onFinished = EventHandler {
+                    root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
                     (root.scene.window as Stage).hide()
-                }
-        )
+                })
     }
 
     fun restart() {
