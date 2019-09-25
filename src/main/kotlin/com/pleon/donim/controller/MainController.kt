@@ -4,7 +4,6 @@ import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
@@ -134,12 +133,7 @@ class MainController : BaseController() {
         timeline.play()
     }
 
-    fun close() {
-        val delay = Duration.millis(0.0)
-        val duration = Duration.millis(100.0)
-        fade(OUT, root, delay, duration, EventHandler { exitProcess(0) })
-        move(BOTTOM, root.scene.window, delay, duration)
-    }
+    fun close() = closeWindow(true)
 
     fun minimize() {
         val delay = Duration.millis(0.0)
