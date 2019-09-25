@@ -24,8 +24,7 @@ class AboutController : BaseController() {
     fun closeWindow() {
         val delay = Duration.millis(0.0)
         val duration = Duration.millis(100.0)
-        fade(OUT, root, delay, duration, EventHandler {
-            (root.scene.window as Stage).close()
-        }).also { move(BOTTOM, root.scene.window, delay, duration) }
+        fade(OUT, root, delay, duration, EventHandler { (root.scene.window as Stage).close() })
+        move(BOTTOM, root.scene.window, delay, duration)
     }
 }

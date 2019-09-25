@@ -137,9 +137,8 @@ class MainController : BaseController() {
     fun close() {
         val delay = Duration.millis(0.0)
         val duration = Duration.millis(100.0)
-        fade(OUT, root, delay, duration, EventHandler { exitProcess(0) }).also {
-            move(BOTTOM, root.scene.window, delay, duration)
-        }
+        fade(OUT, root, delay, duration, EventHandler { exitProcess(0) })
+        move(BOTTOM, root.scene.window, delay, duration)
     }
 
     fun minimize() {
@@ -148,7 +147,8 @@ class MainController : BaseController() {
         fade(OUT, root, delay, duration, EventHandler {
             root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
             (root.scene.window as Stage).hide()
-        }).also { move(BOTTOM_RIGHT, root.scene.window, delay, duration) }
+        })
+        move(BOTTOM_RIGHT, root.scene.window, delay, duration)
     }
 
     fun restart() {
