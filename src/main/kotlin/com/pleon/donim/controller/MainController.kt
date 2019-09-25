@@ -146,11 +146,11 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        fade(OUT, root, MoveDirection.BOTTOM, 0, EventHandler { exitProcess(0) })
+        fade(OUT, root, MoveDirection.BOTTOM, 1, 0, EventHandler { exitProcess(0) })
     }
 
     fun minimize() {
-        fade(OUT, root, MoveDirection.BOTTOM_RIGHT, 0, EventHandler {
+        fade(OUT, root, MoveDirection.BOTTOM_RIGHT, 1, 0, EventHandler {
             // make it opaque again, so it'll reappear properly if they click the tray icon
             root.opacity = 1.0
             (root.scene.window as Stage).hide()
