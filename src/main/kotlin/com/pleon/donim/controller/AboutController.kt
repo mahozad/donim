@@ -14,23 +14,10 @@ class AboutController : BaseController() {
 
     @FXML private lateinit var link: Hyperlink
 
-    private var xOffset = 0.0
-    private var yOffset = 0.0
-
     override fun initialize() {
         super.initialize()
-
         link.setOnAction { HostServicesUtil.hostServices.showDocument(link.text) }
-
-        // Make window movable
-        root.setOnMousePressed {
-            xOffset = it.sceneX
-            yOffset = it.sceneY
-        }
-        root.setOnMouseDragged {
-            root.scene.window.x = it.screenX - xOffset
-            root.scene.window.y = it.screenY - yOffset
-        }
+        makeWindowMovable()
     }
 
     fun closeWindow() {

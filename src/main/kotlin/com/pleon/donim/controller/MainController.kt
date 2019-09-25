@@ -42,8 +42,6 @@ class MainController : BaseController() {
     @FXML private lateinit var skip: Button
     @FXML lateinit var playIcon: SVGPath
 
-    private var xOffset = 0.0
-    private var yOffset = 0.0
     private var period = WORK
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayAnimation: Timeline
@@ -80,17 +78,6 @@ class MainController : BaseController() {
             trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showWindow)
             SystemTray.getSystemTray().add(trayIcon)
-        }
-    }
-
-    private fun makeWindowMovable() {
-        root.setOnMousePressed {
-            xOffset = it.sceneX
-            yOffset = it.sceneY
-        }
-        root.setOnMouseDragged {
-            root.scene.window.x = it.screenX - xOffset
-            root.scene.window.y = it.screenY - yOffset
         }
     }
 
