@@ -22,10 +22,10 @@ class SplashController : BaseController() {
         super.initialize()
         nextRoot.opacity = 0.0
         rotate(brand, byAngle = 360.0, durationMillis = 2000, delayMillis = 500)
-        transitionNextScene()
+        transitionToNextScene()
     }
 
-    private fun transitionNextScene() {
+    private fun transitionToNextScene() {
         fade(OUT, root, MoveDirection.NONE,
                 duration = Duration.millis(200.0),
                 delay = Duration.millis(2000.0),
