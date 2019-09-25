@@ -34,6 +34,6 @@ class AboutController : BaseController() {
 
     fun closeWindow() {
         val stage = root.scene.window as Stage
-        fade(OUT, root, MoveDirection.BOTTOM, 0, EventHandler { stage.close() })
+        fade(OUT, root, MoveDirection.BOTTOM, 1, 0, EventHandler { stage.close() })
     }
 }

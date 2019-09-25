@@ -23,10 +23,10 @@ object AnimationUtil {
     }
 
     fun fade(fadeMode: FadeMode, node: Node, moveDirection: MoveDirection,
-             delayMillis: Int, onFinished: EventHandler<ActionEvent>) {
+             frameDurationMillis: Int, delayMillis: Int, onFinished: EventHandler<ActionEvent>) {
 
         val timeline = Timeline()
-        timeline.keyFrames.add(KeyFrame(Duration.millis(1.0), object : EventHandler<ActionEvent?> {
+        timeline.keyFrames.add(KeyFrame(Duration.millis(frameDurationMillis.toDouble()), object : EventHandler<ActionEvent?> {
             private var opacity = if (fadeMode == IN) 0.0 else 1.0
             override fun handle(event: ActionEvent?) {
                 opacity = if (fadeMode == IN) {
