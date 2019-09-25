@@ -26,10 +26,14 @@ class SplashController : BaseController() {
     }
 
     private fun transitionNextScene() {
-        fade(OUT, root, MoveDirection.NONE, Duration.millis(200.0), Duration.millis(2000.0),
-                EventHandler { root.scene.root = nextRoot })
+        fade(OUT, root, MoveDirection.NONE,
+                duration = Duration.millis(200.0),
+                delay = Duration.millis(2000.0),
+                onFinished = EventHandler { root.scene.root = nextRoot })
 
-        fade(IN, nextRoot, MoveDirection.NONE, Duration.millis(200.0), Duration.millis(2500.0),
-                EventHandler { /* Do nothing */ })
+        fade(IN, nextRoot, MoveDirection.NONE,
+                duration = Duration.millis(200.0),
+                delay = Duration.millis(2500.0),
+                onFinished = EventHandler { /* Do nothing */ })
     }
 }
