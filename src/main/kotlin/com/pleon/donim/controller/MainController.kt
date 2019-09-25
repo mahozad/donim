@@ -4,8 +4,10 @@ import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
+import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import javafx.animation.KeyFrame
@@ -133,20 +135,20 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        fade(OUT, root, MoveDirection.BOTTOM,
-                duration = Duration.millis(100.0),
-                delay = Duration.millis(0.0),
-                onFinished = EventHandler { exitProcess(0) })
+        val delay = Duration.millis(0.0)
+        val duration = Duration.millis(100.0)
+        fade(OUT, root, delay, duration, EventHandler { exitProcess(0) }).also {
+            move(BOTTOM, root.scene.window, delay, duration)
+        }
     }
 
     fun minimize() {
-        fade(OUT, root, MoveDirection.BOTTOM_RIGHT,
-                duration = Duration.millis(100.0),
-                delay = Duration.millis(0.0),
-                onFinished = EventHandler {
-                    root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
-                    (root.scene.window as Stage).hide()
-                })
+        val delay = Duration.millis(0.0)
+        val duration = Duration.millis(100.0)
+        fade(OUT, root, delay, duration, EventHandler {
+            root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
+            (root.scene.window as Stage).hide()
+        }).also { move(BOTTOM_RIGHT, root.scene.window, delay, duration) }
     }
 
     fun restart() {

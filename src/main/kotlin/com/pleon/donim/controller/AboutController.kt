@@ -1,8 +1,9 @@
 package com.pleon.donim.controller
 
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.fade
+import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.HostServicesUtil
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -21,9 +22,10 @@ class AboutController : BaseController() {
     }
 
     fun closeWindow() {
-        fade(OUT, root, MoveDirection.BOTTOM,
-                duration = Duration.millis(100.0),
-                delay = Duration.millis(0.0),
-                onFinished = EventHandler { (root.scene.window as Stage).close() })
+        val delay = Duration.millis(0.0)
+        val duration = Duration.millis(100.0)
+        fade(OUT, root, delay, duration, EventHandler {
+            (root.scene.window as Stage).close()
+        }).also { move(BOTTOM, root.scene.window, delay, duration) }
     }
 }

@@ -2,7 +2,6 @@ package com.pleon.donim.controller
 
 import com.pleon.donim.util.AnimationUtil.FadeMode.IN
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.rotate
 import javafx.event.EventHandler
@@ -26,14 +25,13 @@ class SplashController : BaseController() {
     }
 
     private fun transitionToNextScene() {
-        fade(OUT, root, MoveDirection.NONE,
-                duration = Duration.millis(200.0),
+        fade(OUT, root,
                 delay = Duration.millis(2000.0),
+                duration = Duration.millis(200.0),
                 onFinished = EventHandler { root.scene.root = nextRoot })
 
-        fade(IN, nextRoot, MoveDirection.NONE,
-                duration = Duration.millis(200.0),
+        fade(IN, nextRoot,
                 delay = Duration.millis(2500.0),
-                onFinished = EventHandler { /* Do nothing */ })
+                duration = Duration.millis(200.0))
     }
 }

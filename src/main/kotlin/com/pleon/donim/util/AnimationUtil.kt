@@ -1,18 +1,16 @@
 package com.pleon.donim.util
 
 import com.pleon.donim.util.AnimationUtil.FadeMode.IN
-import javafx.animation.Interpolator
-import javafx.animation.KeyFrame
-import javafx.animation.RotateTransition
-import javafx.animation.Timeline
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
+import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
+import javafx.animation.*
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Node
+import javafx.stage.Window
 import javafx.util.Duration
 
 object AnimationUtil {
-
-    private const val STEP = 0.01
 
     enum class MoveDirection {
         NONE, BOTTOM, BOTTOM_RIGHT
@@ -22,26 +20,33 @@ object AnimationUtil {
         IN, OUT
     }
 
-    fun fade(fadeMode: FadeMode, node: Node, moveDirection: MoveDirection,
-             duration: Duration, delay: Duration, onFinished: EventHandler<ActionEvent>) {
+    fun fade(fadeMode: FadeMode, node: Node, delay: Duration, duration: Duration,
+             onFinished: EventHandler<ActionEvent>? = null) {
+        val fade = FadeTransition(duration, node)
+        fade.delay = delay
+        fade.fromValue = if (fadeMode == IN) 0.0 else 1.0
+        fade.toValue = if (fadeMode == IN) 1.0 else 0.0
+        fade.onFinished = onFinished
+        fade.play()
+    }
 
+    fun move(moveDirection: MoveDirection, window: Window,
+             delay: Duration, duration: Duration,
+             onFinished: EventHandler<ActionEvent>? = null) {
+
+        val step = 0.01
         val timeline = Timeline()
-        val frameDuration = duration.multiply(STEP)
-        timeline.keyFrames.add(KeyFrame(frameDuration, object : EventHandler<ActionEvent> {
-            private var opacity = if (fadeMode == IN) 0.0 else 1.0
-            override fun handle(event: ActionEvent) {
-                opacity = if (fadeMode == IN) (opacity + STEP) else (opacity - STEP)
-                node.opacity = opacity
-                if (moveDirection == MoveDirection.BOTTOM) {
-                    node.scene.window.y += STEP.times(15)
-                } else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
-                    node.scene.window.y += STEP.times(50)
-                    node.scene.window.x += STEP.times(50)
-                }
+        val frameDuration = duration.multiply(step)
+        timeline.keyFrames.add(KeyFrame(frameDuration, EventHandler<ActionEvent> {
+            if (moveDirection == BOTTOM) {
+                window.y += step.times(15)
+            } else if (moveDirection == BOTTOM_RIGHT) {
+                window.y += step.times(50)
+                window.x += step.times(50)
             }
         }))
         timeline.delay = delay
-        timeline.cycleCount = (1 / STEP).toInt()
+        timeline.cycleCount = (1 / step).toInt()
         timeline.onFinished = onFinished
         timeline.play()
     }
