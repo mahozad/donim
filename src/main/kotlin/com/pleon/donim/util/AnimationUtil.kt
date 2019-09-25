@@ -27,20 +27,16 @@ object AnimationUtil {
 
         val timeline = Timeline()
         val frameDuration = duration.multiply(STEP)
-        timeline.keyFrames.add(KeyFrame(frameDuration, object : EventHandler<ActionEvent?> {
+        timeline.keyFrames.add(KeyFrame(frameDuration, object : EventHandler<ActionEvent> {
             private var opacity = if (fadeMode == IN) 0.0 else 1.0
-            override fun handle(event: ActionEvent?) {
-                opacity = if (fadeMode == IN) {
-                    (opacity + STEP).coerceAtMost(1.0)
-                } else {
-                    (opacity - STEP).coerceAtLeast(0.0)
-                }
+            override fun handle(event: ActionEvent) {
+                opacity = if (fadeMode == IN) (opacity + STEP) else (opacity - STEP)
                 node.opacity = opacity
                 if (moveDirection == MoveDirection.BOTTOM) {
-                    node.scene.window.y += 0.15
+                    node.scene.window.y += STEP.times(15)
                 } else if (moveDirection == MoveDirection.BOTTOM_RIGHT) {
-                    node.scene.window.y += 0.5
-                    node.scene.window.x += 0.5
+                    node.scene.window.y += STEP.times(50)
+                    node.scene.window.x += STEP.times(50)
                 }
             }
         }))
