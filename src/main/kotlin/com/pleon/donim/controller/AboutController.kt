@@ -11,7 +11,6 @@ class AboutController : BaseController() {
     override fun initialize() {
         super.initialize()
         link.setOnAction { HostServicesUtil.hostServices.showDocument(link.text) }
-        makeWindowMovable()
     }
 
     fun close() = closeWindow(false)
