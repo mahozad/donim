@@ -61,8 +61,7 @@ class MainController : BaseController() {
         super.initialize()
         createTrayIcon()
         setupTrayIconAnimation()
-        makeWindowMovable()
-        setupTimeline()
+        setupMainTimeline()
     }
 
     private fun createTrayIcon() {
@@ -117,7 +116,7 @@ class MainController : BaseController() {
 
     private fun fraction() = remainingTime.toMillis() / period.length.toMillis()
 
-    private fun setupTimeline() {
+    private fun setupMainTimeline() {
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
             setRemainingTimeString(format(remainingTime))
             progressBar.tick(fraction(), period.baseColor)
