@@ -60,7 +60,7 @@ class MainController : BaseController() {
     override fun initialize() {
         super.initialize()
         createTrayIcon()
-        makeTrayIconAnimatable()
+        setupTrayIconAnimation()
         makeWindowMovable()
         setupTimeline()
     }
@@ -88,7 +88,7 @@ class MainController : BaseController() {
         return MenuItem(title).apply { addActionListener(listener) }
     }
 
-    private fun makeTrayIconAnimatable() {
+    private fun setupTrayIconAnimation() {
         val angles = Files.readAllLines(Path.of(javaClass.getResource("/angles.txt").toURI())).map { it.toDouble() }
         trayAnimation = Timeline()
         trayAnimation.cycleCount = Timeline.INDEFINITE
