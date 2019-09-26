@@ -155,6 +155,7 @@ class MainController : BaseController() {
     }
 
     fun restart() {
+        timeline.stop() // required so the period won't finish early
         startTimer(shouldNotify = false, shouldResetTimer = true)
     }
 
@@ -172,6 +173,7 @@ class MainController : BaseController() {
     }
 
     fun skip() {
+        timeline.stop() // required so the counter won't go negative
         period = if (period == WORK) BREAK else WORK
         startTimer(shouldNotify = false, shouldResetTimer = true)
     }
