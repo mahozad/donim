@@ -113,8 +113,8 @@ class MainController : BaseController() {
             private var angleIndex = 0
             private val firstFrameDuration = 100
             override fun handle(event: ActionEvent) {
-                val hueFactor = if (period == WORK) remainingTime.toSeconds() / period.length.toSeconds() * 0.3 + 0.4
-                else -remainingTime.toSeconds() / period.length.toSeconds() * 0.3 + 0.7
+                val fraction = remainingTime.toSeconds() / period.length.toSeconds()
+                val hueFactor = if (period == WORK) fraction * 0.3 + 0.4 else -fraction * 0.3 + 0.7
 
                 if (frame < angles.size) {
                     trayIcon.image = tintImage(rotateImage(trayImage, angles[angleIndex]), hueFactor)
