@@ -80,8 +80,8 @@ class MainController : BaseController() {
             popup.add(newMenuItem("Exit") { exitProcess(0) })
 
             var trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
-//            trayImage = rotateImage(trayImage, 0.0)
-//            trayImage = tintImage(trayImage)
+            trayImage = rotateImage(trayImage, 30.0)
+            trayImage = tintImage(trayImage, 0.4)
             trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showWindow)
             SystemTray.getSystemTray().add(trayIcon)
@@ -98,12 +98,9 @@ class MainController : BaseController() {
         return rotated
     }
 
-    private fun tintImage(image: BufferedImage): BufferedImage {
-        val hsbFilter = HSBAdjustFilter()
+    private fun tintImage(image: BufferedImage, hueFactor: Double): BufferedImage {
+        val hsbFilter = HSBAdjustFilter().apply { setHFactor(hueFactor.toFloat()) }
         val destination = hsbFilter.createCompatibleDestImage(image, null)
-        hsbFilter.setHFactor(0.4f)
-        hsbFilter.setSFactor(0f)
-        hsbFilter.setBFactor(0f)
         return hsbFilter.filter(image, destination)
     }
 
