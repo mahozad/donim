@@ -179,6 +179,8 @@ class MainController : BaseController() {
     fun restart() {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
         remainingTime = period.length
+        paused = false
+        trayAnimation.play()
         timeline.playFrom(Duration.ZERO)
     }
 
@@ -222,6 +224,8 @@ class MainController : BaseController() {
     fun skip() {
         period = if (period == WORK) BREAK else WORK
         timeline.stop()
+        paused = false
+        trayAnimation.play()
         startTimer(false)
     }
 
