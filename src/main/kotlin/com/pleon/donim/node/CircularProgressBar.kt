@@ -45,8 +45,8 @@ class CircularProgressBar : Canvas() {
         drawBackgroundBar()
         var start = origin
         while (start - sliceLength - sliceGap >= end) {
-            val hue = (origin - end) / (sliceLength + sliceGap) * colorFactor
-            val color = baseColor.deriveColor(hue, 1.0, 1.0, 1.0)
+            val hueFactor = (origin - end) / (sliceLength + sliceGap) * colorFactor
+            val color = baseColor.deriveColor(hueFactor, 1.0, 1.0, 1.0)
             drawSector(start, color)
             start -= sliceLength + sliceGap
         }
