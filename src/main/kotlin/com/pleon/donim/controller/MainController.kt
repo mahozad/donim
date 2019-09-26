@@ -71,21 +71,21 @@ class MainController : BaseController() {
             val stage = newScene.window as Stage
             trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
             trayIcon = TrayIcon(trayImage, "Donim", makePopupMenu(stage))
-            trayIcon.addActionListener {
-                Platform.runLater { stage.show().also { centerOnScreen(stage) } }
-            }
+            trayIcon.addActionListener { Platform.runLater { stage.show().also { centerOnScreen(stage) } } }
             SystemTray.getSystemTray().add(trayIcon)
         }
     }
 
     private fun makePopupMenu(stage: Stage): PopupMenu {
         val popup = PopupMenu()
-        popup.add(newMenuItem("Show Window") {
-            Platform.runLater { stage.show().also { centerOnScreen(stage) } }
-        })
+        popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show().also { centerOnScreen(stage) } } })
         popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
         return popup
+    }
+
+    private fun newMenuItem(title: String, listener: (java.awt.event.ActionEvent) -> Unit): MenuItem {
+        return MenuItem(title).apply { addActionListener(listener) }
     }
 
     private fun makeTrayIconAnimatable() {
@@ -97,9 +97,7 @@ class MainController : BaseController() {
             private var angleIndex = 0
             private val firstFrameDuration = 100
             override fun handle(event: ActionEvent) {
-                val fraction = remainingTime.toSeconds() / period.length.toSeconds()
-                val hueFactor = if (period == WORK) fraction * 0.3 + 0.4 else -fraction * 0.3 + 0.7
-
+                val hueFactor = if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
                 if (frame < angles.size) {
                     trayIcon.image = tintImage(rotateImage(trayImage, angles[angleIndex]), hueFactor)
                     angleIndex = (angleIndex + 1) % angles.size
@@ -117,10 +115,12 @@ class MainController : BaseController() {
         }))
     }
 
+    private fun fraction() = remainingTime.toMillis() / period.length.toMillis()
+
     private fun setupTimeline() {
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
             setRemainingTimeString(format(remainingTime))
-            progressBar.tick(remainingTime.toMillis() / period.length.toMillis(), period.baseColor)
+            progressBar.tick(fraction(), period.baseColor)
             remainingTime = remainingTime.subtract(Duration.seconds(1.0))
         }))
 
@@ -128,24 +128,6 @@ class MainController : BaseController() {
             period = if (period == WORK) BREAK else WORK
             startTimer(shouldNotify = true, shouldResetTimer = true)
         }
-    }
-
-    private fun newMenuItem(title: String, listener: (java.awt.event.ActionEvent) -> Unit): MenuItem {
-        return MenuItem(title).apply { addActionListener(listener) }
-    }
-
-    fun getRemainingTimeString(): String {
-        return remainingTimeString.get()
-    }
-
-    @Suppress("unused")
-    fun remainingTimeStringProperty(): StringProperty {
-        return remainingTimeString
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun setRemainingTimeString(remainingTimeString: String) {
-        this.remainingTimeString.set(remainingTimeString)
     }
 
     private fun startTimer(shouldNotify: Boolean, shouldResetTimer: Boolean) {
@@ -220,6 +202,20 @@ class MainController : BaseController() {
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
         centerOnScreen(stage)
+    }
+
+    fun getRemainingTimeString(): String {
+        return remainingTimeString.get()
+    }
+
+    @Suppress("unused")
+    fun remainingTimeStringProperty(): StringProperty {
+        return remainingTimeString
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun setRemainingTimeString(remainingTimeString: String) {
+        this.remainingTimeString.set(remainingTimeString)
     }
 
 }
