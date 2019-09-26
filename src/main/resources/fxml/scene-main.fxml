@@ -17,14 +17,6 @@
 
     <AnchorPane fx:id="title_bar">
 
-        <!-- <MenuBar AnchorPane.leftAnchor="0">-->
-        <!--     <Menu text="salasl">-->
-        <!--         <MenuItem text="asdlfij"/>-->
-        <!--         <CheckMenuItem text="asdlfij"/>-->
-        <!--     </Menu>-->
-        <!--     <Menu text="etdbd"/>-->
-        <!-- </MenuBar>-->
-
         <HBox>
             <ImageView>
                 <HBox.margin>
