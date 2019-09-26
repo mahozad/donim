@@ -36,7 +36,8 @@ import java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
 import java.awt.SystemTray
 import java.awt.TrayIcon
 import java.awt.image.BufferedImage
-import java.util.zip.ZipFile
+import java.nio.file.Files
+import java.nio.file.Path
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
@@ -49,6 +50,7 @@ class MainController : BaseController() {
 
     private var period = WORK
     private lateinit var trayIcon: TrayIcon
+    private lateinit var trayImage: BufferedImage
     private lateinit var trayAnimation: Timeline
     private var beep: AudioClip = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
     private val remainingTimeString = SimpleStringProperty(format(period.length))
@@ -79,9 +81,7 @@ class MainController : BaseController() {
             popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
             popup.add(newMenuItem("Exit") { exitProcess(0) })
 
-            var trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
-            trayImage = rotateImage(trayImage, 30.0)
-            trayImage = tintImage(trayImage, 0.4)
+            trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
             trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showWindow)
             SystemTray.getSystemTray().add(trayIcon)
@@ -105,23 +105,26 @@ class MainController : BaseController() {
     }
 
     private fun makeTrayIconAnimatable() {
-        val zip = ZipFile(javaClass.getResource("/tray-animated.zip").path)
-        val trayImages = zip.entries().toList().sortedBy { it.name }.map {
-            ImageIO.read(zip.getInputStream(it))
-        }
-
+        val angles = Files.readAllLines(Path.of(javaClass.getResource("/angles.txt").toURI())).map { it.toDouble() }
         trayAnimation = Timeline()
         trayAnimation.cycleCount = Timeline.INDEFINITE
-        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0),
-                object : EventHandler<ActionEvent> {
-                    val firstFrameDelay = 100
-                    var i = 0
-                    override fun handle(event: ActionEvent) {
-                        trayIcon.image = if (i <= firstFrameDelay) trayImages[0] else trayImages[i - firstFrameDelay]
-                        i = (i + 1) % (trayImages.size + firstFrameDelay)
-                    }
+        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), object : EventHandler<ActionEvent> {
+            var firstFrameDelay = 0
+            var i = 0
+            override fun handle(event: ActionEvent) {
+                val hueFactor = if (period == WORK) remainingTime.toSeconds() / period.length.toSeconds() * 0.3 + 0.4
+                else -remainingTime.toSeconds() / period.length.toSeconds() * 0.3 + 0.7
+
+                if (firstFrameDelay < angles.size) {
+                    trayIcon.image = tintImage(rotateImage(trayImage, angles[i]), hueFactor)
+                    i = (i + 1) % angles.size
+                    firstFrameDelay++
+                } else {
+                    trayIcon.image = tintImage(rotateImage(trayImage, 0.0), hueFactor)
+                    firstFrameDelay = (firstFrameDelay + 1) % 120
                 }
-        ))
+            }
+        }))
     }
 
     private fun newMenuItem(title: String, listener: (java.awt.event.ActionEvent) -> Unit): MenuItem {
