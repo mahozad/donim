@@ -1,5 +1,6 @@
 package com.pleon.donim.controller
 
+import com.jhlabs.image.HSBAdjustFilter
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
@@ -30,8 +31,11 @@ import javafx.stage.StageStyle
 import javafx.util.Duration
 import java.awt.MenuItem
 import java.awt.PopupMenu
+import java.awt.RenderingHints.KEY_INTERPOLATION
+import java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
 import java.awt.SystemTray
 import java.awt.TrayIcon
+import java.awt.image.BufferedImage
 import java.util.zip.ZipFile
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
@@ -75,11 +79,32 @@ class MainController : BaseController() {
             popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
             popup.add(newMenuItem("Exit") { exitProcess(0) })
 
-            val trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
+            var trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
+//            trayImage = rotateImage(trayImage, 0.0)
+//            trayImage = tintImage(trayImage)
             trayIcon = TrayIcon(trayImage, "Donim", popup)
             trayIcon.addActionListener(showWindow)
             SystemTray.getSystemTray().add(trayIcon)
         }
+    }
+
+    private fun rotateImage(image: BufferedImage, angle: Double): BufferedImage {
+        val rotated = BufferedImage(image.width, image.height, image.type)
+        val graphic = rotated.createGraphics()
+        graphic.rotate(Math.toRadians(angle), image.width / 2.0, image.height / 2.0)
+        graphic.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR)
+        graphic.drawImage(image, null, 0, 0)
+        graphic.dispose()
+        return rotated
+    }
+
+    private fun tintImage(image: BufferedImage): BufferedImage {
+        val hsbFilter = HSBAdjustFilter()
+        val destination = hsbFilter.createCompatibleDestImage(image, null)
+        hsbFilter.setHFactor(0.4f)
+        hsbFilter.setSFactor(0f)
+        hsbFilter.setBFactor(0f)
+        return hsbFilter.filter(image, destination)
     }
 
     private fun makeTrayIconAnimatable() {
