@@ -44,7 +44,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.5.0")
-    testImplementation("org.assertj:assertj-core:3.12.2")
+    testImplementation("org.assertj:assertj-core:3.13.2")
     testImplementation("io.mockk:mockk:1.9.3")
 }
 
