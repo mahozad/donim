@@ -27,14 +27,6 @@ application {
     mainClassName = "com.pleon.donim.Main"
 }
 
-/**
- * This block is to tell gradle to use its native junit platform. We can also specify some useful
- * things such as excluded tags, etc. here. Currently seems to be not needed.
- */
-/*tasks.named<Test>("test") {
-    useJUnitPlatform()
-}*/
-
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("de.codecentric.centerdevice:javafxsvg:1.3.0")
