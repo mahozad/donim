@@ -21,7 +21,7 @@ repositories {
 
 javafx {
     version = "13"
-    modules = listOf(
+    modules(
             "javafx.base", "javafx.controls", "javafx.fxml",
             "javafx.graphics", "javafx.media", "javafx.web",
             "javafx.swing"
@@ -53,7 +53,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "12"
 }
 //configure<JavaPluginConvention> {
 //    sourceCompatibility = JavaVersion.VERSION_12
