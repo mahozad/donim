@@ -9,11 +9,6 @@ plugins {
 group = "com.pleon"
 version = "0.1"
 
-sourceSets {
-    getByName("main").java.srcDirs("src/main/kotlin")
-    getByName("test").java.srcDirs("src/test/kotlin")
-}
-
 repositories {
     jcenter()
     mavenCentral()
