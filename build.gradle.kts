@@ -55,6 +55,3 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "12"
 }
-//configure<JavaPluginConvention> {
-//    sourceCompatibility = JavaVersion.VERSION_12
-//}
