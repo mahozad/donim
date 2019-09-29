@@ -14,6 +14,10 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClassName = "com.pleon.donim.Main"
+}
+
 javafx {
     version = "13"
     modules(
