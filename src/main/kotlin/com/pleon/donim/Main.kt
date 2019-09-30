@@ -24,7 +24,7 @@ class Main : Application() {
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
         HostServicesUtil.hostServices = hostServices
 
-        val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-splash.fxml"))
+        val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.isResizable = false
         primaryStage.title = "Donim"
