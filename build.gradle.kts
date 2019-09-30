@@ -16,6 +16,10 @@ repositories {
 
 application {
     mainClassName = "com.pleon.donim.Main"
+    applicationDefaultJvmArgs = listOf(
+            "--add-exports=javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED",
+            "--add-exports=javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED"
+    )
 }
 
 javafx {
