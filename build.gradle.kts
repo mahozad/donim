@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.pleon"
-version = "0.1"
+version = "0.9.1"
 
 repositories {
     jcenter()
