@@ -68,7 +68,7 @@ class MainController : BaseController() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
-            trayImage = ImageIO.read(javaClass.getResource("/tray.png"))
+            trayImage = ImageIO.read(javaClass.getResource("/img/tray.png"))
             trayIcon = TrayIcon(trayImage, "Donim", makePopupMenu(stage))
             trayIcon.addActionListener { Platform.runLater { stage.show().also { centerOnScreen(stage) } } }
             SystemTray.getSystemTray().add(trayIcon)
@@ -189,7 +189,7 @@ class MainController : BaseController() {
         stage.isResizable = false
         stage.title = "About"
         stage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
-        stage.icons.add(Image("/svg/logo.svg"))
+        stage.icons.add(Image("/img/logo.svg"))
         stage.initStyle(StageStyle.TRANSPARENT)
         stage.show()
         centerOnScreen(stage)
