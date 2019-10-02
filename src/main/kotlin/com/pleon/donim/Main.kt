@@ -28,7 +28,7 @@ class Main : Application() {
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.isResizable = false
         primaryStage.title = "Donim"
-        primaryStage.icons.add(Image("/svg/logo.svg"))
+        primaryStage.icons.add(Image("/img/logo.svg"))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
         centerOnScreen(primaryStage)
