@@ -5,6 +5,6 @@
 	- Basic tab: Outputfile, Jar, Icon
 	- Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
 	- JRE tab: Min JRE version (10)
-- Click Save then Make Configuration to make the app .exe file
+- Click Save then Build wrapper to make the app .exe file
 - Place everything in app resources folder in the same folder as the .exe file
 - Click Play (or double click .exe)
