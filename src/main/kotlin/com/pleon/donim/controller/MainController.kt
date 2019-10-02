@@ -85,7 +85,6 @@ class MainController : BaseController() {
             muteMenuItem.label = if (isMuted) "Unmute" else "Mute"
         }
         popup.add(muteMenuItem)
-        popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
         return popup
     }
