@@ -88,7 +88,7 @@ class MainController : BaseController() {
     }
 
     private fun setupTrayIconAnimation() {
-        val angles = Files.readAllLines(Path.of(javaClass.getResource("/angles.txt").toURI())).map { it.toDouble() }
+        val angles = Files.readAllLines(Path.of(javaClass.getResource("/rotate-interpolation.txt").toURI())).map { it.toDouble() }
         trayAnimation = Timeline()
         trayAnimation.cycleCount = Timeline.INDEFINITE
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), object : EventHandler<ActionEvent> {
