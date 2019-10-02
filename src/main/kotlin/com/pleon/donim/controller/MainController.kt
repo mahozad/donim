@@ -48,6 +48,7 @@ class MainController : BaseController() {
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
+    private var isMuted = false
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
     private lateinit var trayAnimation: Timeline
@@ -78,6 +79,12 @@ class MainController : BaseController() {
     private fun makePopupMenu(stage: Stage): PopupMenu {
         val popup = PopupMenu()
         popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show().also { centerOnScreen(stage) } } })
+        val muteMenuItem = newMenuItem("Mute") { }
+        muteMenuItem.addActionListener {
+            isMuted = !isMuted
+            muteMenuItem.label = if (isMuted) "Unmute" else "Mute"
+        }
+        popup.add(muteMenuItem)
         popup.add(newMenuItem("About") { Platform.runLater { showAbout() } })
         popup.add(newMenuItem("Exit") { exitProcess(0) })
         return popup
@@ -136,7 +143,7 @@ class MainController : BaseController() {
         trayAnimation.play()
         paused = false
         trayIcon.toolTip = "Donim: $period"
-        if (shouldNotify) {
+        if (!isMuted && shouldNotify) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
             beep.play()
         }
