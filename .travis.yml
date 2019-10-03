@@ -1,6 +1,2 @@
-install: gradle wrapper --gradle-version 5.5
 language: java
 jdk: oraclejdk11
-sudo: false
-before_install:
-  - chmod +x gradlew
