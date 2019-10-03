@@ -32,6 +32,13 @@ javafx {
     )
 }
 
+tasks.withType<Wrapper> {
+    // Add a gradle wrapper script to your source folders.
+    // The wrapper script when invoked, downloads the defined gradle version, and executes it.
+    // By distributing the wrapper with your project, anyone can work with it without needing to install Gradle beforehand
+    gradleVersion = "5.5"
+}
+
 tasks.withType<Jar> {
     // Define main class in the manifest of output jar file when generating one
     manifest.attributes("Main-Class" to "com.pleon.donim.MainKt")
