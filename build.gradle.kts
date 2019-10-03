@@ -32,6 +32,11 @@ javafx {
     )
 }
 
+tasks.withType<Jar>{
+    // Define main class in the manifest of output jar file
+    manifest.attributes("Main-Class" to "com.pleon.donim.MainKt")
+}
+
 tasks.withType<KotlinCompile> {
     // Target version of the generated JVM bytecode (1.6, 1.8, 9, 10, 11 or 12), default is 1.6
     kotlinOptions.jvmTarget = "12"
