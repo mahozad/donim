@@ -32,8 +32,8 @@ javafx {
     )
 }
 
-tasks.withType<Jar>{
-    // Define main class in the manifest of output jar file
+tasks.withType<Jar> {
+    // Define main class in the manifest of output jar file when generating one
     manifest.attributes("Main-Class" to "com.pleon.donim.MainKt")
 }
 
