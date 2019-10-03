@@ -1,7 +1,7 @@
 - Download and install Launch4j
 - Make a jar of app in Intellij -> project settings -> artifacts -> new -> jar from module main
 	(The result will be in the Intellij output folder: out/artifacts/app/...)
-- In launch4j specify at least the following in each teb:
+- In launch4j specify at least the following in each tab:
 	- Basic tab: Outputfile, Jar, Icon
 	- Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
 	- JRE tab: Min JRE version (10)
