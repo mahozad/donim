@@ -1,5 +1,6 @@
 package com.pleon.donim.controller
 
+import com.pleon.donim.APP_NAME
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
@@ -70,7 +71,7 @@ class MainController : BaseController() {
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
             trayImage = ImageIO.read(javaClass.getResource("/img/tray.png"))
-            trayIcon = TrayIcon(trayImage, "Donim", makePopupMenu(stage))
+            trayIcon = TrayIcon(trayImage, APP_NAME, makePopupMenu(stage))
             trayIcon.addActionListener { Platform.runLater { stage.show().also { centerOnScreen(stage) } } }
             SystemTray.getSystemTray().add(trayIcon)
         }
@@ -141,7 +142,7 @@ class MainController : BaseController() {
         timeline.play()
         trayAnimation.play()
         paused = false
-        trayIcon.toolTip = "Donim: $period"
+        trayIcon.toolTip = "$APP_NAME: $period"
         if (!isMuted && shouldNotify) {
             trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
             beep.play()

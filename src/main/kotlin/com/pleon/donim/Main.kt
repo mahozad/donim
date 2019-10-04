@@ -13,6 +13,8 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
+const val APP_NAME = "Donim"
+
 fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
 }
@@ -27,7 +29,7 @@ class Main : Application() {
         val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.isResizable = false
-        primaryStage.title = "Donim"
+        primaryStage.title = APP_NAME
         primaryStage.icons.add(Image("/img/logo.svg"))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
