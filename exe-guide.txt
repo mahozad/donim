@@ -7,4 +7,6 @@
 	- JRE tab: Min JRE version (10)
 - Click Save configuration [disk icon] then Build wrapper [gear icon] to make the app .exe file
 - Place everything in app resources folder in the same folder as the .exe file
+    Another option is to copy everything in resources folder to the jar file and then read the files
+    with getResourceAsStream instead of getResource in the code
 - Click Test wrapper [play icon] (or double click .exe)
