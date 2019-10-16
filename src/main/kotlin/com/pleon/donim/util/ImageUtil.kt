@@ -22,5 +22,4 @@ object ImageUtil {
         val destination = hsbFilter.createCompatibleDestImage(image, null)
         return hsbFilter.filter(image, destination)
     }
-
 }

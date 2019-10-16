@@ -38,5 +38,4 @@ class Main : Application() {
         primaryStage.show()
         centerOnScreen(primaryStage)
     }
-
 }
