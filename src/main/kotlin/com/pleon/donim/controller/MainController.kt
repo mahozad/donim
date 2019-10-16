@@ -38,7 +38,9 @@ import java.awt.TrayIcon
 import java.awt.image.BufferedImage
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.*
 import javax.imageio.ImageIO
+import kotlin.concurrent.timerTask
 import kotlin.system.exitProcess
 
 class MainController : BaseController() {
@@ -96,27 +98,17 @@ class MainController : BaseController() {
 
     private fun setupTrayIconAnimation() {
         val angles = Files.readAllLines(Path.of(javaClass.getResource("/rotate-interpolation.txt").toURI())).map { it.toDouble() }
+        val timer = Timer()
+        timer.scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 7000)
         trayAnimation = Timeline()
-        trayAnimation.cycleCount = Timeline.INDEFINITE
+        trayAnimation.cycleCount = angles.size
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), object : EventHandler<ActionEvent> {
             private var frameIndex = 0
-            private var angleIndex = 0
-            private val firstFrameDuration = 100
             override fun handle(event: ActionEvent) {
-                val hueFactor = if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
-                if (frameIndex < angles.size) {
-                    trayIcon.image = tintImage(rotateImage(trayImage, angles[angleIndex]), hueFactor)
-                    angleIndex = (angleIndex + 1) % angles.size
-                    frameIndex++
-                } else {
-                    if (paused) {
-                        trayAnimation.pause()
-                        trayIcon.image = tintImage(trayImage, 0.0)
-                    } else {
-                        trayIcon.image = tintImage(trayImage, hueFactor)
-                    }
-                    frameIndex = (frameIndex + 1) % (angles.size + firstFrameDuration)
-                }
+                var hueFactor = if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
+                if (paused) hueFactor = 0.0
+                trayIcon.image = tintImage(rotateImage(trayImage, angles[frameIndex]), hueFactor)
+                frameIndex = (frameIndex + 1) % angles.size
             }
         }))
     }
