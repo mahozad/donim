@@ -63,6 +63,7 @@ class MainController : BaseController() {
     private var remainingTime = period.length
     private val timeline = Timeline()
     private var paused = true
+    private var aboutStage = Stage()
 
     override fun initialize() {
         super.initialize()
@@ -181,15 +182,16 @@ class MainController : BaseController() {
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
     fun showAbout() {
+        if (aboutStage.isShowing) return
+
         val root = FXMLLoader.load<Parent>(MainController::class.java.getResource("/fxml/scene-about.fxml"))
-        val stage = Stage()
-        stage.isResizable = false
-        stage.title = "About"
-        stage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
-        stage.icons.add(Image("/img/logo.svg"))
-        stage.initStyle(StageStyle.TRANSPARENT)
-        stage.show()
-        centerOnScreen(stage)
+        aboutStage.isResizable = false
+        aboutStage.title = "About"
+        aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        aboutStage.icons.add(Image("/img/logo.svg"))
+        aboutStage.initStyle(StageStyle.TRANSPARENT)
+        aboutStage.show()
+        centerOnScreen(aboutStage)
     }
 
     fun getRemainingTimeString(): String {
