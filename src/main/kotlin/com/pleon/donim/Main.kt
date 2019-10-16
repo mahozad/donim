@@ -19,6 +19,9 @@ fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
 }
 
+// To use spring for dependency injection see
+// [http://www.greggbolinger.com/let-spring-be-your-javafx-controller-factory/]
+
 class Main : Application() {
 
     override fun start(primaryStage: Stage) {

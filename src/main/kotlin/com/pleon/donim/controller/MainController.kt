@@ -45,6 +45,8 @@ import kotlin.system.exitProcess
 
 class MainController : BaseController() {
 
+    // For how javafx timeline works see [https://stackoverflow.com/a/36366805/8583692]
+
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
     @FXML private lateinit var skip: Button
