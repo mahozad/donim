@@ -102,7 +102,7 @@ class MainController : BaseController() {
 
     private fun setupTrayIconAnimation() {
         val angles = Files.readAllLines(Path.of(javaClass.getResource("/rotate-interpolation.txt").toURI())).map { it.toDouble() }
-        Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 7000)
+        Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 8000)
         trayAnimation.cycleCount = angles.size
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), EventHandler<ActionEvent> {
             val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
