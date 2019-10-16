@@ -54,9 +54,10 @@ class MainController : BaseController() {
 
     private var period = WORK
     private var isMuted = false
+    private var trayFrameNumber = 0
+    private var trayAnimation = Timeline()
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
-    private lateinit var trayAnimation: Timeline
     private var beep: AudioClip = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
     private val remainingTimeString = SimpleStringProperty(format(period.length))
     private var remainingTime = period.length
@@ -100,18 +101,12 @@ class MainController : BaseController() {
 
     private fun setupTrayIconAnimation() {
         val angles = Files.readAllLines(Path.of(javaClass.getResource("/rotate-interpolation.txt").toURI())).map { it.toDouble() }
-        val timer = Timer()
-        timer.scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 7000)
-        trayAnimation = Timeline()
+        Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 7000)
         trayAnimation.cycleCount = angles.size
-        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), object : EventHandler<ActionEvent> {
-            private var frameIndex = 0
-            override fun handle(event: ActionEvent) {
-                var hueFactor = if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
-                if (paused) hueFactor = 0.0
-                trayIcon.image = tintImage(rotateImage(trayImage, angles[frameIndex]), hueFactor)
-                frameIndex = (frameIndex + 1) % angles.size
-            }
+        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), EventHandler<ActionEvent> {
+            val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
+            trayIcon.image = tintImage(rotateImage(trayImage, angles[trayFrameNumber]), hueFactor)
+            trayFrameNumber = (trayFrameNumber + 1) % angles.size
         }))
     }
 
@@ -164,6 +159,7 @@ class MainController : BaseController() {
         paused = !paused
         if (paused) {
             // tray animation is paused in its keyframe event handler
+            if (trayFrameNumber == 0) trayIcon.image = tintImage(trayImage, 0.0)
             timeline.pause()
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
         } else {
