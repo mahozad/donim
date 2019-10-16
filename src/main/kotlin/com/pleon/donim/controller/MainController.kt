@@ -63,7 +63,7 @@ class MainController : BaseController() {
     private var remainingTime = period.length
     private val timeline = Timeline()
     private var paused = true
-    private var aboutStage = Stage()
+    private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
 
     override fun initialize() {
         super.initialize()
@@ -194,7 +194,6 @@ class MainController : BaseController() {
         aboutStage.title = "About"
         aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         aboutStage.icons.add(Image("/img/logo.svg"))
-        aboutStage.initStyle(StageStyle.TRANSPARENT)
         aboutStage.show()
         centerOnScreen(aboutStage)
     }
