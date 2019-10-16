@@ -139,7 +139,12 @@ class MainController : BaseController() {
         }
     }
 
-    fun close() = closeWindow(true)
+    fun close() {
+        // Not needed if you do not care about it be closed after process is finished
+        if (aboutStage.isShowing) aboutStage.close()
+
+        closeWindow(true)
+    }
 
     fun minimize() {
         val delay = Duration.millis(0.0)
