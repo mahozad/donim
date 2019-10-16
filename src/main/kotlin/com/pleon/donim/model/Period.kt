@@ -19,5 +19,4 @@ enum class Period(val length: Duration,
             hsb(100.0, 0.85, 1.0),
             "Please take a break and return later",
             MessageType.WARNING)
-
 }

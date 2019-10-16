@@ -47,5 +47,4 @@ object DecorationUtil {
         stage.x = (screenBounds.width - stage.width) / 2
         stage.y = (screenBounds.height - stage.height) / 2
     }
-
 }

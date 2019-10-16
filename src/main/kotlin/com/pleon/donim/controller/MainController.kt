@@ -211,5 +211,4 @@ class MainController : BaseController() {
     fun setRemainingTimeString(remainingTimeString: String) {
         this.remainingTimeString.set(remainingTimeString)
     }
-
 }
