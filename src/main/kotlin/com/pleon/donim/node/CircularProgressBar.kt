@@ -34,8 +34,6 @@ class CircularProgressBar : Canvas() {
         }
         widthProperty().addListener(listener)
         heightProperty().addListener(listener)
-
-        // addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {});
     }
 
     override fun isResizable() = true
@@ -50,10 +48,6 @@ class CircularProgressBar : Canvas() {
             drawSector(start, color)
             start -= sliceLength + sliceGap
         }
-        // for (double start = origin, i = 0; start > end + sliceGap ; start -= sliceLength + sliceGap, i++) {
-        //     Color color = baseColor.deriveColor(i * colorFactor, 1, 1, 1);
-        //     drawSector(gc, start, color);
-        // }
     }
 
     private fun drawBackgroundBar() {
@@ -64,13 +58,11 @@ class CircularProgressBar : Canvas() {
                 (innerRadius + outerRadius) / 2, 0.0, 360.0)
         graphicsContext2D.closePath()
         graphicsContext2D.stroke()
-        // gc.applyEffect(new DropShadow(2, 1, 1, Color.gray(0.2)));
     }
 
     private fun drawSector(startAngle: Int, color: Color) {
         fillLinearGradient(startAngle, color)
         graphicsContext2D.beginPath()
-        // gc.moveTo(100, 100);
         graphicsContext2D.arc(width / 2, height / 2, outerRadius, outerRadius,
                 startAngle.toDouble(), -sliceLength.toDouble())
         graphicsContext2D.arc(width / 2, height / 2, innerRadius, innerRadius,
