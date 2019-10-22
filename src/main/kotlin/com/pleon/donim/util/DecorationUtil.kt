@@ -27,7 +27,7 @@ object DecorationUtil {
         }
     }
 
-    fun setOnToggled(listener: (Observable) -> Unit) = theme.addListener(listener)
+    fun setThemeChangedListener(listener: (Observable) -> Unit) = theme.addListener(listener)
 
     fun toggleTheme() {
         theme.value = if (theme.value == DARK) LIGHT else DARK
