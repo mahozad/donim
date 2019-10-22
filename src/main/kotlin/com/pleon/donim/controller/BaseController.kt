@@ -21,7 +21,7 @@ open class BaseController {
 
     @FXML protected open fun initialize() {
         DecorationUtil.applyThemeTo(root)
-        DecorationUtil.setOnToggled { DecorationUtil.applyThemeTo(root) }
+        DecorationUtil.setThemeChangedListener { DecorationUtil.applyThemeTo(root) }
         makeWindowMovable()
     }
 
