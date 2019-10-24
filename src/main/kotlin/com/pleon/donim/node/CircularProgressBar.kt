@@ -18,8 +18,8 @@ class CircularProgressBar : Canvas() {
 
     private val sliceLength = 4             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
-    private val origin = 90                 // in degrees
-    private var end = origin - 360          // in degrees
+    private val arcStart = 90               // in degrees
+    private var arcEnd = arcStart - 360     // in degrees
     private var baseColor = hsb(0.0, 0.85, 1.0)
     private val colorFactor = sliceLength / 2.0
     private var outerRadius = 0.0
@@ -41,12 +41,12 @@ class CircularProgressBar : Canvas() {
     private fun draw() {
         graphicsContext2D.clearRect(0.0, 0.0, width, height)
         drawBackgroundBar()
-        var start = origin
-        while (start - sliceGap >= end) {
-            val hueShift = (origin - end) / (sliceLength + sliceGap) * colorFactor
+        var sliceStart = arcStart
+        while (sliceStart - sliceGap >= arcEnd) {
+            val hueShift = (arcStart - arcEnd) / (sliceLength + sliceGap) * colorFactor
             val color = baseColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
-            drawSector(start, color)
-            start -= sliceLength + sliceGap
+            drawSlice(sliceStart, color)
+            sliceStart -= (sliceLength + sliceGap)
         }
     }
 
@@ -60,7 +60,7 @@ class CircularProgressBar : Canvas() {
         graphicsContext2D.stroke()
     }
 
-    private fun drawSector(startAngle: Int, color: Color) {
+    private fun drawSlice(startAngle: Int, color: Color) {
         fillLinearGradient(startAngle, color)
         graphicsContext2D.beginPath()
         graphicsContext2D.arc(width / 2, height / 2, outerRadius, outerRadius,
@@ -90,7 +90,7 @@ class CircularProgressBar : Canvas() {
 
     fun tick(percent: Double, color: Color) {
         baseColor = color
-        end = (-360 * percent).toInt() + origin
+        arcEnd = arcStart + (-360 * percent).toInt()
         draw()
     }
 }
