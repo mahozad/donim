@@ -1,4 +1,4 @@
 [![Build Status](https://travis-ci.org/mahozad/donim.svg?branch=master)](https://travis-ci.org/mahozad/donim)
-[![license](https://img.shields.io/github/license/mahozad/donim.svg)](https://opensource.org/licenses/MIT)
+[![Coverage Status](https://coveralls.io/repos/github/mahozad/donim/badge.svg?branch=master)](https://coveralls.io/github/mahozad/donim?branch=master)
 
 # ![logo](src/main/resources/img/logo.svg) Donim
