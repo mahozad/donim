@@ -36,8 +36,6 @@ import java.awt.PopupMenu
 import java.awt.SystemTray
 import java.awt.TrayIcon
 import java.awt.image.BufferedImage
-import java.nio.file.Files
-import java.nio.file.Path
 import java.util.*
 import javax.imageio.ImageIO
 import kotlin.concurrent.timerTask
@@ -64,6 +62,13 @@ class MainController : BaseController() {
     private val timeline = Timeline()
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
+    private var rotateAngles = arrayOf(0.000, 0.215, 0.891, 2.077, 3.831, 6.217, 9.311, 13.198, 17.975, 23.750,
+            30.638, 38.758, 48.221, 59.108, 71.446, 85.171, 100.099, 115.919, 132.226, 148.587, 164.611,
+            180.000, 194.564, 208.205, 220.894, 232.649, 243.511, 253.537, 262.788, 271.324, 279.202,
+            286.476, 293.196, 299.404, 305.143, 310.446, 315.348, 319.878, 324.061, 327.921, 331.479,
+            334.756, 337.768, 340.532, 343.063, 345.372, 347.474, 349.378, 351.096, 352.637, 354.009,
+            355.221, 356.280, 357.193, 357.967, 358.608, 359.121, 359.512, 359.786, 359.947, 360.000
+    )
 
     override fun initialize() {
         super.initialize()
@@ -101,13 +106,12 @@ class MainController : BaseController() {
     }
 
     private fun setupTrayIconAnimation() {
-        val angles = Files.readAllLines(Path.of(javaClass.getResource("/rotate-interpolation.txt").toURI())).map { it.toDouble() }
         Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 8000)
-        trayAnimation.cycleCount = angles.size
+        trayAnimation.cycleCount = rotateAngles.size
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), EventHandler<ActionEvent> {
             val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
-            trayIcon.image = tintImage(rotateImage(trayImage, angles[trayFrameNumber]), hueFactor)
-            trayFrameNumber = (trayFrameNumber + 1) % angles.size
+            trayIcon.image = tintImage(rotateImage(trayImage, rotateAngles[trayFrameNumber]), hueFactor)
+            trayFrameNumber = (trayFrameNumber + 1) % rotateAngles.size
         }))
     }
 
