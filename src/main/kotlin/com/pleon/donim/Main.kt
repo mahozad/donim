@@ -1,9 +1,9 @@
 package com.pleon.donim
 
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
-import com.pleon.donim.util.HostServicesUtil
 import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
+import javafx.application.HostServices
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -14,6 +14,7 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 
 const val APP_NAME = "Donim"
+lateinit var hostServicesInstance: HostServices
 
 fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
@@ -27,7 +28,7 @@ class Main : Application() {
     override fun start(primaryStage: Stage) {
         SvgImageLoaderFactory.install() // Enable svg wherever other formats are applicable
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
-        HostServicesUtil.hostServices = hostServices
+        hostServicesInstance = this.hostServices
 
         val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }

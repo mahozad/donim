@@ -1,6 +1,6 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.util.HostServicesUtil
+import com.pleon.donim.hostServicesInstance
 import javafx.fxml.FXML
 import javafx.scene.control.Hyperlink
 
@@ -10,7 +10,7 @@ class AboutController : BaseController() {
 
     override fun initialize() {
         super.initialize()
-        link.setOnAction { HostServicesUtil.hostServices.showDocument(link.text) }
+        link.setOnAction { hostServicesInstance.showDocument(link.text) }
     }
 
     fun close() = closeWindow(false)
