@@ -56,7 +56,7 @@ class MainController : BaseController() {
     private var trayAnimation = Timeline()
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
-    private var beep: AudioClip = AudioClip(javaClass.getResource("/sound/beep.wav").toExternalForm())
+    private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
     private val remainingTimeString = SimpleStringProperty(format(period.length))
     private var remainingTime = period.length
     private val timeline = Timeline()
