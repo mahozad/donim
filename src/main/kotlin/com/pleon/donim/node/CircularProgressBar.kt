@@ -74,6 +74,7 @@ class CircularProgressBar : Canvas() {
     private fun fillLinearGradient(startAngle: Int, color: Color) {
         val angle = startAngle + (sliceLength / 2.0)
 
+        fun Double.toRadian() = Math.toRadians(this)
         val startX = width / 2 + cos(angle.toRadian()) * innerRadius
         val startY = height / 2 + sin(angle.toRadian()) * -innerRadius
         val endX = width / 2 + cos(angle.toRadian()) * outerRadius
@@ -85,8 +86,6 @@ class CircularProgressBar : Canvas() {
         graphicsContext2D.fill = LinearGradient(startX, startY, endX, endY,
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
-
-    private fun Double.toRadian() = Math.toRadians(this)
 
     fun tick(percent: Double, color: Color) {
         baseColor = color
