@@ -16,6 +16,9 @@ import javafx.stage.StageStyle
 const val APP_NAME = "Donim"
 lateinit var hostServicesInstance: HostServices
 
+// TODO: Add an option to the app to make its theme follow windows theme.
+//  see https://stackoverflow.com/q/62289/ and https://stackoverflow.com/q/60837862
+
 fun main(args: Array<String>) {
     Application.launch(Main::class.java, *args)
 }
