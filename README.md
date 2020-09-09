@@ -2,3 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/mahozad/donim/badge.svg?branch=master)](https://coveralls.io/github/mahozad/donim?branch=master)
 
 # ![logo](src/main/resources/img/logo.svg) Donim
+
+For creating an installer for app with new jpackage tool in Java 14:
+jpackage -i ./ --main-class com.pleon.donim.MainKt --main-jar Donim.main.jar --win-dir-chooser --name Donim
+
+A striking similarity between my logo and this (Notice the colors!):
+https://marketplace.atlassian.com/apps/1221739/squadcast-for-jira-server?hosting=server&tab=overview
