@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URL
 
 plugins {
     kotlin("jvm") version "1.4.10"
@@ -26,6 +27,26 @@ application {
             "--add-exports=javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED",
             "--add-exports=javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED"
     )
+}
+
+// Configure some settings of dokka. This is totally optional and can be removed.
+tasks.dokkaHtml.configure {
+    dokkaSourceSets {
+        configureEach {
+            // List of files or directories containing sample code (referenced with @sample tags)
+            samples.from("sample/basic/Basic.kt", "sample/advanced.kt")
+            // Specifies the location of the project source code on the Web.
+            // If provided, Dokka generates "source" links for each declaration.
+            sourceLink {
+                // Unix-based directory relative path to the root of the project (where you execute gradle respectively).
+                localDirectory.set(file("src/$name/kotlin"))
+                // URL showing where the source code can be accessed through the web browser
+                remoteUrl.set(URL("https://github.com/mahozad/donim/blob/master/src/$name/kotlin"))
+                // Suffix which is used to append the line number to the URL. Use #L for GitHub
+                remoteLineSuffix.set("#L")
+            }
+        }
+    }
 }
 
 javafx {
