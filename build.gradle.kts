@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.50"
+    kotlin("jvm") version "1.4.10"
     id("application")
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
@@ -50,7 +50,6 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
     implementation("de.codecentric.centerdevice:javafxsvg:1.3.0")
     implementation("com.jhlabs:filters:2.0.235-1")
     testImplementation(kotlin("test"))
