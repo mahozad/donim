@@ -34,7 +34,7 @@ tasks.dokkaHtml.configure {
     dokkaSourceSets {
         configureEach {
             // List of files or directories containing sample code (referenced with @sample tags)
-            samples.from("sample/basic/Basic.kt", "sample/advanced.kt")
+            samples.from("sample/basic.kt", "sample/advanced.kt")
             // Specifies the location of the project source code on the Web.
             // If provided, Dokka generates "source" links for each declaration.
             sourceLink {
