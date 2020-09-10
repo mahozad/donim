@@ -30,9 +30,10 @@ fun main(args: Array<String>) {
  * The main class of the application.
  *
  * In JavaFX the main class should extend from [Application] and override its [start][Application.start] method.
+ * For help about code samples refer [here](https://github.com/JetBrains/kotlin/blob/master/libraries/stdlib/samples/ReadMe.md).
  *
  * @constructor the primary constructor takes no parameters
- * @sample sample.basic.Basic.start
+ * @sample sample.basic.addTwoNumbers
  * @see Application
  */
 class Main : Application() {
