@@ -4,6 +4,10 @@ plugins {
     kotlin("jvm") version "1.4.10"
     id("application")
     id("org.openjfx.javafxplugin") version "0.0.9"
+    // Official kotlin tool to generate kdoc, javadoc, markdown and other types of documentation.
+    // Note that dokka includes a javadoc task as well so there's no need to configure or use the
+    // traditional javadoc task in gradle.
+    id("org.jetbrains.dokka") version "1.4.0"
 }
 
 group = "com.pleon"
