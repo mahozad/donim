@@ -50,6 +50,7 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
+    // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin 1.4
     implementation("de.codecentric.centerdevice:javafxsvg:1.3.0")
     implementation("com.jhlabs:filters:2.0.235-1")
     testImplementation(kotlin("test"))
