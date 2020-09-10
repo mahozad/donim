@@ -46,7 +46,7 @@ tasks.withType<Jar> {
 
 tasks.withType<KotlinCompile> {
     // Target version of the generated JVM bytecode (1.6, 1.8, 9, 10, 11 or 12), default is 1.6
-    kotlinOptions.jvmTarget = "12"
+    kotlinOptions.jvmTarget = "14"
 }
 
 dependencies {
