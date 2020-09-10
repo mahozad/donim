@@ -26,6 +26,15 @@ fun main(args: Array<String>) {
 // To use spring for dependency injection see
 // [http://www.greggbolinger.com/let-spring-be-your-javafx-controller-factory/]
 
+/**
+ * The main class of the application.
+ *
+ * In JavaFX the main class should extend from [Application] and override its [start][Application.start] method.
+ *
+ * @constructor the primary constructor takes no parameters
+ * @sample sample.basic.Basic.start
+ * @see Application
+ */
 class Main : Application() {
 
     override fun start(primaryStage: Stage) {
