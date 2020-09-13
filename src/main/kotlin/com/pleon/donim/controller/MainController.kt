@@ -190,6 +190,10 @@ class MainController : BaseController() {
 
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
+    fun showSettings() {
+
+    }
+
     fun showAbout() {
         if (aboutStage.isShowing) return
 
