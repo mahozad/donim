@@ -148,14 +148,19 @@
 
 .icon {
     -fx-background-color: -icon-color;
+    -fx-fill: -icon-color;
 }
 
-.icon:hover {
-    -fx-background-color: derive(-icon-color, -50%);
+.icon:hover, .icon-container:hover > .icon {
+    -new-color: derive(-icon-color, -50%);
+    -fx-background-color: -new-color;
+    -fx-fill: -new-color;
 }
 
-.dark .icon:hover {
-    -fx-background-color: derive(-icon-color, 50%);
+.dark .icon:hover, .dark .icon-container:hover > .icon {
+    -new-color: derive(-icon-color, 50%);
+    -fx-background-color: -new-color;
+    -fx-fill: -new-color;
 }
 
 #theme {
