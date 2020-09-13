@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="root" alignment="TOP_CENTER" prefHeight="350.0" prefWidth="252" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pleon.donim.controller.SettingsController">
+
+       <AnchorPane fx:id="title_bar">
+
+           <HBox>
+            <ImageView>
+                <HBox.margin>
+                    <Insets left="4" right="4" />
+                </HBox.margin>
+<!--                                <Image url="/img/logo.svg" requestedWidth="16" requestedHeight="25"/>-->
+            </ImageView>
+
+               <Label fx:id="title" prefHeight="25" text="Settings" />
+        </HBox>
+
+           <StackPane fx:id="close" onMouseClicked="#close" AnchorPane.rightAnchor="0">
+            <SVGPath fx:id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
+            </SVGPath>
+        </StackPane>
+    </AnchorPane>
+
+
+       <VBox alignment="CENTER" spacing="20.0">
+        <HBox alignment="CENTER_LEFT">
+          <!--            <SVGPath fx:id="theme_icon" content="M20 15.31l2.6-2.6c.39-.39.39-1.02 0-1.41L20 8.69V5c0-.55-.45-1-1-1h-3.69l-2.6-2.6c-.39-.39-1.02-.39-1.41 0L8.69 4H5c-.55 0-1 .45-1 1v3.69l-2.6 2.6c-.39.39-.39 1.02 0 1.41L4 15.3V19c0 .55.45 1 1 1h3.69l2.6 2.6c.39.39 1.02.39 1.41 0l2.6-2.6H19c.55 0 1-.45 1-1v-3.69zm-8 1.59V7.1c0-.61.55-1.11 1.15-.99C15.91 6.65 18 9.08 18 12s-2.09 5.35-4.85 5.89c-.6.12-1.15-.38-1.15-.99z" scaleX="0.75" scaleY="0.75">-->
+          <!--            </SVGPath>-->
+
+          <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
+          <Label styleClass="material-icons" text="" />
+          <ToggleButton contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0);" text="Switch to dark theme" textAlignment="CENTER">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <font>
+               <Font name="Droid Sans Mono" size="12.0" />
+            </font>
+         </ToggleButton>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+<!--                <SVGPath fx:id="theme_icon1" content="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z" scaleX="0.75" scaleY="0.75" />-->
+
+              <Label styleClass="material-icons" text="" />
+              <Label text="Focus duration:">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </Label>
+                <TextField alignment="CENTER" prefWidth="28.0" promptText="35">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </TextField>
+                <Label text="min">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </Label>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+<!--                <SVGPath fx:id="theme_icon11" content="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" scaleX="0.75" scaleY="0.75" />-->
+              <Label styleClass="material-icons" text="" />
+              <Label text="Break duration:">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </Label>
+                <TextField alignment="CENTER" prefWidth="28.0" promptText="5">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </TextField>
+                <Label text="min">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="Droid Sans Mono" size="12.0" />
+               </font>
+                </Label>
+            </children>
+        </HBox>
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+    </VBox>
+
+</VBox>
