@@ -1,3 +1,17 @@
+@font-face {
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    src: url(/font/material-icons.ttf);
+}
+
+.material-icons {
+    /* Should be the actual name of the font (open the ttf to view it) */
+    -fx-font-family: "Material Icons";
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+    -fx-font-size: 24px;  /* Preferred icon size is 24px */
+}
+
 * {
     -theme-color: #1985ff;
     -menu-color: #fff;
