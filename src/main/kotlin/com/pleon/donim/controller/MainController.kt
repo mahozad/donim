@@ -62,6 +62,7 @@ class MainController : BaseController() {
     private val timeline = Timeline()
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
+    private var settingsStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
     private var rotateAngles = arrayOf(0.000, 0.215, 0.891, 2.077, 3.831, 6.217, 9.311, 13.198, 17.975, 23.750,
             30.638, 38.758, 48.221, 59.108, 71.446, 85.171, 100.099, 115.919, 132.226, 148.587, 164.611,
             180.000, 194.564, 208.205, 220.894, 232.649, 243.511, 253.537, 262.788, 271.324, 279.202,
@@ -191,7 +192,15 @@ class MainController : BaseController() {
     fun toggleTheme() = DecorationUtil.toggleTheme()
 
     fun showSettings() {
+        if (settingsStage.isShowing) return
 
+        val root = FXMLLoader.load<Parent>(MainController::class.java.getResource("/fxml/scene-settings.fxml"))
+        settingsStage.isResizable = false
+        settingsStage.title = "Settings"
+        settingsStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        settingsStage.icons.add(Image("/img/logo.svg"))
+        settingsStage.show()
+        centerOnScreen(settingsStage)
     }
 
     fun showAbout() {
