@@ -6,6 +6,7 @@ app-settings.properties
 /build/
 
 ### IntelliJ IDEA ###
+.idea/
 /out/
 *.iws
 *.iml
