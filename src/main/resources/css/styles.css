@@ -189,6 +189,7 @@ TextField {
     -fx-pref-width: 56;
     -fx-focus-traversable: false;
     -fx-background-color: -btn-color;
+    -fx-text-fill: #454545;
     -fx-font-weight: bold;
     -fx-cursor: default;
 }
@@ -199,6 +200,7 @@ TextField {
 
 .dark .btn {
     -fx-background-color: -btn-color-dark;
+    -fx-text-fill: #bbb;
 }
 
 .dark .btn .icon {
