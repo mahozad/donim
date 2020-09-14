@@ -86,6 +86,20 @@ TextField {
     -fx-background-color: transparent;
     -fx-text-fill: -theme-color;
     -fx-cursor: HAND;
+    -fx-border-color: -theme-color;
+    -fx-border-radius: 4;
+}
+
+#toggleTheme:hover {
+    -new-color: derive(-theme-color, -30%);
+    -fx-text-fill: -new-color;
+    -fx-border-color: -new-color;
+}
+
+.dark #toggleTheme:hover {
+    -new-color: derive(-theme-color, +20%);
+    -fx-border-color: -new-color;
+    -fx-text-fill: -new-color;
 }
 
 #link {
