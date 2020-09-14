@@ -77,7 +77,17 @@ class MainController : BaseController() {
         createTrayIcon()
         setupTrayIconAnimation()
         setupMainTimeline()
+        applyUserPreferences()
         listenForSettingsChanges()
+    }
+
+    private fun applyUserPreferences() {
+        val focusDuration = PersistentSettings.get("focus-duration")
+        val breakDuration = PersistentSettings.get("break-duration")
+        WORK.setLength(focusDuration)
+        BREAK.setLength(breakDuration)
+        remainingTimeString.set(format(period.length))
+        remainingTime = period.length
     }
 
     private fun listenForSettingsChanges() {
