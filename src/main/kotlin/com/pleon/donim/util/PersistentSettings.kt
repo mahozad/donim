@@ -19,7 +19,7 @@ object PersistentSettings : Settings {
         } catch (e: FileNotFoundException) {
             Files.createFile(Path.of(FILE_NAME))
         } catch (e: Exception) {
-            print(e)
+            e.printStackTrace()
         }
     }
 
@@ -29,7 +29,7 @@ object PersistentSettings : Settings {
         properties.store(outputStream, null)
         outputStream.close()
     } catch (e: Exception) {
-        print(e)
+        e.printStackTrace()
     }
 
     override fun get(name: String): String {
