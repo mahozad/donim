@@ -70,6 +70,12 @@ Label {
     -fx-fill: #ccc;
 }
 
+#toggleTheme {
+    -fx-background-color: transparent;
+    -fx-text-fill: -theme-color;
+    -fx-cursor: HAND;
+}
+
 #link {
     -fx-font-size: 12;
     -fx-text-fill: -theme-color;
