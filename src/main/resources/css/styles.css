@@ -70,6 +70,18 @@ Label {
     -fx-fill: #ccc;
 }
 
+TextField {
+    -fx-prompt-text-fill: #999;
+    -fx-background-color: #ccc;
+    -fx-text-fill: -theme-color;
+}
+
+.dark TextField {
+    -fx-prompt-text-fill: #888;
+    -fx-background-color: #555;
+    -fx-text-fill: -theme-color;
+}
+
 #toggleTheme {
     -fx-background-color: transparent;
     -fx-text-fill: -theme-color;
