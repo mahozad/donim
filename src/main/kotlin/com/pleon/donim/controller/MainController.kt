@@ -11,11 +11,13 @@ import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import com.pleon.donim.util.ImageUtil.rotateImage
 import com.pleon.donim.util.ImageUtil.tintImage
+import com.pleon.donim.util.PersistentSettings
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
+import javafx.collections.MapChangeListener
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -75,6 +77,19 @@ class MainController : BaseController() {
         createTrayIcon()
         setupTrayIconAnimation()
         setupMainTimeline()
+        listenForSettingsChanges()
+    }
+
+    private fun listenForSettingsChanges() {
+        PersistentSettings.getObservableProperties().addListener(MapChangeListener {
+            if (it.key == "focus-duration") {
+                WORK.length = Duration.minutes(it.valueAdded.toDouble())
+            } else if (it.key == "break-duration") {
+                BREAK.length = Duration.minutes(it.valueAdded.toDouble())
+            }
+            remainingTime = period.length
+            if (!paused) restart()
+        })
     }
 
     private fun createTrayIcon() {
