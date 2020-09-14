@@ -16,7 +16,7 @@ object DecorationUtil {
     enum class Theme { DARK, LIGHT }
 
     private var theme = SimpleObjectProperty<Theme>()
-    private val settings: Settings = PersistentSettings()
+    private val settings: Settings = PersistentSettings
 
     init {
         try {
