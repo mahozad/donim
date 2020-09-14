@@ -191,7 +191,18 @@ class MainController : BaseController() {
     fun showSettings() {
         if (settingsStage.isShowing) return
 
-        val root = FXMLLoader.load<Parent>(MainController::class.java.getResource("/fxml/scene-settings.fxml"))
+        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/scene-settings.fxml"))
+        val root: Parent = fxmlLoader.load()
+        val settingsController: SettingsController = fxmlLoader.getController()
+        val focusDurationProperty = settingsController.getObservableFocusDuration()
+        val breakDurationProperty = settingsController.getObservableBreakDuration()
+        focusDurationProperty.addListener { observable, oldValue, newValue ->
+            setRemainingTimeString(newValue)
+        }
+        breakDurationProperty.addListener { observable, oldValue, newValue ->
+            setRemainingTimeString(newValue)
+        }
+
         settingsStage.isResizable = false
         settingsStage.title = "Settings"
         settingsStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
