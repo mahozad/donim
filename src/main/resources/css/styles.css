@@ -53,6 +53,14 @@
     -fx-background-color: #383838;
 }
 
+Label {
+    -fx-text-fill: #555;
+}
+
+.dark Label {
+    -fx-text-fill: #aaa;
+}
+
 .about {
     -fx-fill: #333;
     -fx-font-size: 12;
