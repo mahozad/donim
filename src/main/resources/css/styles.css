@@ -90,6 +90,10 @@ TextField {
     -fx-border-radius: 4;
 }
 
+#toggleTheme:focused {
+    -fx-border-width: 1.5;
+}
+
 #toggleTheme:hover {
     -new-color: derive(-theme-color, -30%);
     -fx-text-fill: -new-color;
