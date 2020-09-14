@@ -83,9 +83,9 @@ class MainController : BaseController() {
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
             if (it.key == "focus-duration") {
-                WORK.length = Duration.minutes(it.valueAdded.toDouble())
+                WORK.setLength(it.valueAdded)
             } else if (it.key == "break-duration") {
-                BREAK.length = Duration.minutes(it.valueAdded.toDouble())
+                BREAK.setLength(it.valueAdded)
             }
             remainingTime = period.length
             if (!paused) restart()
