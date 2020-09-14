@@ -18,6 +18,8 @@ class SettingsController : BaseController() {
 
     override fun initialize() {
         super.initialize()
+        focusDuration.setOnMouseClicked { focusDuration.selectAll() }
+        breakDuration.setOnMouseClicked { breakDuration.selectAll() }
         setInitialSettingValues()
         setupListeners()
     }
