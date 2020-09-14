@@ -8,23 +8,23 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 
-class PersistentSettings : Settings {
+object PersistentSettings : Settings {
 
     private val properties = Properties()
-    private val fileName = "app-settings.properties"
+    private const val FILE_NAME = "app-settings.properties"
 
     init {
         try {
-            properties.load(FileInputStream(fileName))
+            properties.load(FileInputStream(FILE_NAME))
         } catch (e: FileNotFoundException) {
-            Files.createFile(Path.of(fileName))
+            Files.createFile(Path.of(FILE_NAME))
         } catch (e: Exception) {
             print(e)
         }
     }
 
     override fun set(name: String, value: String) = try {
-        val outputStream = FileOutputStream(fileName)
+        val outputStream = FileOutputStream(FILE_NAME)
         properties.setProperty(name, value)
         properties.store(outputStream, null)
         outputStream.close()
