@@ -1,10 +1,9 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.hostServicesInstance
-import javafx.fxml.FXML
-import javafx.scene.control.Hyperlink
+import com.pleon.donim.util.DecorationUtil
 
 class SettingsController : BaseController() {
 
     fun close() = closeWindow(false)
+    fun toggleTheme() = DecorationUtil.toggleTheme()
 }
