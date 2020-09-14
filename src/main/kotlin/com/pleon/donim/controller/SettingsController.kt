@@ -8,6 +8,7 @@ import com.pleon.donim.util.PersistentSettings
 import javafx.beans.value.ObservableStringValue
 import javafx.fxml.FXML
 import javafx.scene.control.TextField
+import javafx.scene.control.TextFormatter
 import javafx.scene.control.ToggleButton
 
 class SettingsController : BaseController() {
@@ -16,12 +17,24 @@ class SettingsController : BaseController() {
     @FXML private lateinit var breakDuration: TextField
     @FXML private lateinit var toggleTheme: ToggleButton
 
+    private val durationRegex = Regex("\\d{0,2}")
+
     override fun initialize() {
         super.initialize()
+        setupFormatters()
         focusDuration.setOnMouseClicked { focusDuration.selectAll() }
         breakDuration.setOnMouseClicked { breakDuration.selectAll() }
         setInitialSettingValues()
         setupListeners()
+    }
+
+    private fun setupFormatters() {
+        focusDuration.textFormatter = TextFormatter<String> {
+           return@TextFormatter if (it.controlNewText.matches(durationRegex)) it else null
+        }
+        breakDuration.textFormatter = TextFormatter<String> {
+            return@TextFormatter if (it.controlNewText.matches(durationRegex)) it else null
+        }
     }
 
     private fun setInitialSettingValues() {
