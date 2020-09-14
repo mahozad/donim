@@ -2,11 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.*?>
-
 <VBox fx:id="root" alignment="TOP_CENTER" prefHeight="350.0" prefWidth="252" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pleon.donim.controller.SettingsController">
 
        <AnchorPane fx:id="title_bar">
@@ -36,7 +35,7 @@
 
           <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
           <Label styleClass="material-icons" text="" />
-          <ToggleButton contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0);" text="Switch to dark theme" textAlignment="CENTER">
+          <ToggleButton onAction="#toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0);" text="Switch to dark theme" textAlignment="CENTER">
             <HBox.margin>
                <Insets />
             </HBox.margin>
