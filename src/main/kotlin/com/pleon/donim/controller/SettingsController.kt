@@ -1,5 +1,8 @@
 package com.pleon.donim.controller
 
+import com.pleon.donim.exception.SettingNotFoundException
+import com.pleon.donim.model.DEFAULT_BREAK_DURATION
+import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
 import com.pleon.donim.util.DecorationUtil
 import com.pleon.donim.util.PersistentSettings
 import javafx.beans.value.ObservableStringValue
@@ -20,14 +23,23 @@ class SettingsController : BaseController() {
     }
 
     private fun setInitialSettingValues() {
-        focusDuration.text = PersistentSettings.get("focus-duration")
-        breakDuration.text = PersistentSettings.get("break-duration")
-        if (PersistentSettings.get("theme") == DecorationUtil.Theme.DARK.name) {
-            toggleTheme.isSelected = true
-            toggleTheme.text = "Switch to light theme"
-        } else {
-            toggleTheme.isSelected = false
-            toggleTheme.text = "Switch to dark theme"
+        try {
+            focusDuration.text = PersistentSettings.get("focus-duration")
+            breakDuration.text = PersistentSettings.get("break-duration")
+        } catch (e: SettingNotFoundException) {
+            focusDuration.promptText = DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString()
+            breakDuration.promptText = DEFAULT_BREAK_DURATION.toMinutes().toInt().toString()
+        }
+        try {
+            if (PersistentSettings.get("theme") == DecorationUtil.Theme.DARK.name) {
+                toggleTheme.isSelected = true
+                toggleTheme.text = "Switch to light theme"
+            } else {
+                toggleTheme.isSelected = false
+                toggleTheme.text = "Switch to dark theme"
+            }
+        } catch (e: SettingNotFoundException) {
+            // That's fine, do nothing
         }
     }
 
