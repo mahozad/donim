@@ -118,9 +118,9 @@
                 </Label>
             </children>
         </HBox>
-         <Button styleClass="btn" text="Save" onAction="#close">
+         <Button defaultButton="true" onAction="#close" styleClass="btn" text="Save">
            <HBox.margin>
-             <Insets top="20" bottom="20"/>
+             <Insets bottom="20" top="20" />
            </HBox.margin>
          </Button>
       <padding>
