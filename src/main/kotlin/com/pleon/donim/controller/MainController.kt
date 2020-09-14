@@ -1,6 +1,9 @@
 package com.pleon.donim.controller
 
 import com.pleon.donim.APP_NAME
+import com.pleon.donim.exception.SettingNotFoundException
+import com.pleon.donim.model.DEFAULT_BREAK_DURATION
+import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
@@ -82,10 +85,13 @@ class MainController : BaseController() {
     }
 
     private fun applyUserPreferences() {
-        val focusDuration = PersistentSettings.get("focus-duration")
-        val breakDuration = PersistentSettings.get("break-duration")
-        WORK.setLength(focusDuration)
-        BREAK.setLength(breakDuration)
+        try {
+            WORK.setLength(PersistentSettings.get("focus-duration"))
+            BREAK.setLength(PersistentSettings.get("break-duration"))
+        } catch (e: SettingNotFoundException) {
+            WORK.setLength(DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString())
+            BREAK.setLength(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
+        }
         remainingTimeString.set(format(period.length))
         remainingTime = period.length
     }

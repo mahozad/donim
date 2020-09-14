@@ -36,7 +36,7 @@
 
           <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
           <Label styleClass="material-icons" text="" />
-          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" text="Switch to dark theme" textAlignment="CENTER">
+          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" text="Switch to light theme" textAlignment="CENTER">
             <HBox.margin>
                <Insets />
             </HBox.margin>
@@ -64,7 +64,7 @@
                   <Font name="Droid Sans Mono" size="12.0" />
                </font>
                 </Label>
-                <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="30.0" promptText="35">
+                <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="30.0">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -97,7 +97,7 @@
                   <Font name="Droid Sans Mono" size="12.0" />
                </font>
                 </Label>
-                <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="30.0" promptText="5">
+                <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="30.0">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
