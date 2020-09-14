@@ -8,7 +8,6 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
-import com.pleon.donim.util.DecorationUtil
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import com.pleon.donim.util.ImageUtil.rotateImage
 import com.pleon.donim.util.ImageUtil.tintImage
@@ -188,8 +187,6 @@ class MainController : BaseController() {
 
     private fun format(duration: Duration) = String.format("%02d:%02d",
             duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
-
-    fun toggleTheme() = DecorationUtil.toggleTheme()
 
     fun showSettings() {
         if (settingsStage.isShowing) return
