@@ -14,11 +14,11 @@ import javafx.util.Duration
 class SplashController : BaseController() {
 
     @FXML private lateinit var brand: Node
-
-    private val nextRoot = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-main.fxml"))
+    private lateinit var nextRoot: Parent
 
     override fun initialize() {
         super.initialize()
+        nextRoot = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
         nextRoot.opacity = 0.0
         rotate(brand, byAngle = 360.0, durationMillis = 2000, delayMillis = 500)
         transitionToNextScene()
