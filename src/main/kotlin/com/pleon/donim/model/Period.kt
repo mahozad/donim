@@ -11,17 +11,26 @@ val DEFAULT_BREAK_DURATION = Duration.minutes(2.0)
 enum class Period(var length: Duration,
                   val baseColor: Color,
                   val notification: String,
-                  val notificationType: MessageType) {
+                  val notificationType: MessageType,
+                  private val defaultLength: Duration) {
 
-    // FIXME: Handle empty or not existent cases
-    WORK(Duration.minutes(PersistentSettings.get("focus-duration").toDouble()),
+    WORK(DEFAULT_FOCUS_DURATION,
             hsb(0.0, 0.85, 1.0),
             "You can now use the system",
-            MessageType.INFO),
+            MessageType.INFO,
+            DEFAULT_FOCUS_DURATION),
 
-    // FIXME: Handle empty or not existent cases
-    BREAK(Duration.minutes(PersistentSettings.get("break-duration").toDouble()),
+    BREAK(DEFAULT_BREAK_DURATION,
             hsb(100.0, 0.85, 1.0),
             "Please take a break and return later",
-            MessageType.WARNING)
+            MessageType.WARNING,
+            DEFAULT_BREAK_DURATION);
+
+    fun setLength(length: String) {
+        if (length.isNotBlank()) {
+            this.length = Duration.minutes(length.toDouble())
+        } else {
+            this.length = defaultLength
+        }
+    }
 }
