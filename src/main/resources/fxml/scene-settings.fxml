@@ -60,7 +60,7 @@
                   <Font name="Droid Sans Mono" size="12.0" />
                </font>
                 </Label>
-                <TextField alignment="CENTER" prefWidth="28.0" promptText="35">
+                <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="28.0" promptText="35">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -90,7 +90,7 @@
                   <Font name="Droid Sans Mono" size="12.0" />
                </font>
                 </Label>
-                <TextField alignment="CENTER" prefWidth="28.0" promptText="5">
+                <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="28.0" promptText="5">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
