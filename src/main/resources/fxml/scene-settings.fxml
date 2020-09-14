@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
@@ -15,7 +16,7 @@
                 <HBox.margin>
                     <Insets left="4" right="4" />
                 </HBox.margin>
-<!--                                <Image url="/img/logo.svg" requestedWidth="16" requestedHeight="25"/>-->
+              <Image url="@/img/logo.svg" requestedWidth="16" requestedHeight="25"/>
             </ImageView>
 
                <Label fx:id="title" prefHeight="25" text="Settings" />
