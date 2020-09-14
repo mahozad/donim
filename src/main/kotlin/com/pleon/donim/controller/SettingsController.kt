@@ -25,12 +25,13 @@ class SettingsController : BaseController() {
     }
 
     private fun setInitialSettingValues() {
+        focusDuration.promptText = DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString()
+        breakDuration.promptText = DEFAULT_BREAK_DURATION.toMinutes().toInt().toString()
         try {
             focusDuration.text = PersistentSettings.get("focus-duration")
             breakDuration.text = PersistentSettings.get("break-duration")
         } catch (e: SettingNotFoundException) {
-            focusDuration.promptText = DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString()
-            breakDuration.promptText = DEFAULT_BREAK_DURATION.toMinutes().toInt().toString()
+            // That's fine, do nothing
         }
         try {
             if (PersistentSettings.get("theme") == DecorationUtil.Theme.DARK.name) {
