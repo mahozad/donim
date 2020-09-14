@@ -1,10 +1,12 @@
 package com.pleon.donim.model
 
-import com.pleon.donim.util.PersistentSettings
 import javafx.scene.paint.Color
 import javafx.scene.paint.Color.hsb
 import javafx.util.Duration
 import java.awt.TrayIcon.MessageType
+
+val DEFAULT_FOCUS_DURATION = Duration.minutes(25.0)
+val DEFAULT_BREAK_DURATION = Duration.minutes(2.0)
 
 enum class Period(var length: Duration,
                   val baseColor: Color,
