@@ -36,7 +36,7 @@
 
           <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
           <Label styleClass="material-icons" text="" />
-          <ToggleButton contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" style="-fx-background-color: rgba(0,0,0,0);" text="Switch to dark theme" textAlignment="CENTER">
+          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" text="Switch to dark theme" textAlignment="CENTER">
             <HBox.margin>
                <Insets />
             </HBox.margin>
