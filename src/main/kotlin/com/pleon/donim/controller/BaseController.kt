@@ -22,10 +22,9 @@ open class BaseController {
     @FXML protected open fun initialize() {
         DecorationUtil.applyThemeTo(root)
         DecorationUtil.setThemeChangedListener { DecorationUtil.applyThemeTo(root) }
-        makeWindowMovable()
     }
 
-    private fun makeWindowMovable() {
+    fun makeWindowMovable() {
         root.setOnMousePressed {
             windowOffsetX = it.sceneX
             windowOffsetY = it.sceneY
