@@ -8,8 +8,30 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
 import javafx.stage.Screen
 import javafx.stage.Stage
+import javafx.stage.Window
 
 private val DEFAULT_THEME = DARK
+
+enum class SnapSide { LEFT, RIGHT }
+
+fun Stage.snapTo(other: Window, side: SnapSide) {
+    if (side == SnapSide.LEFT) {
+        this.x = other.x - other.width + 16
+    } else {
+        this.x = other.x + other.width - 16
+    }
+    this.y = other.y - 3
+    other.xProperty().addListener { _, _, newValue ->
+        if (side == SnapSide.LEFT) {
+            this.x = newValue.toDouble() - other.width + 16
+        } else {
+            this.x = newValue.toDouble() + other.width - 16
+        }
+    }
+    other.yProperty().addListener { _, _, newValue ->
+        this.y = newValue.toDouble()
+    }
+}
 
 object DecorationUtil {
 
