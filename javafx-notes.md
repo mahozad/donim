@@ -37,3 +37,7 @@ see [docs](https://wiki.openjdk.java.net/display/OpenJFX/Node+Orientation+in+Jav
 
 See [this post](https://stackoverflow.com/a/49833163) for how to add custom nodes (and enable working with scenes that
 contain them) in scene builder
+
+---
+
+See javafx.beans.binding.Bindings class for creating useful bindings with its static methods.
