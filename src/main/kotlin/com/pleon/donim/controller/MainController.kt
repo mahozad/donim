@@ -15,6 +15,8 @@ import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import com.pleon.donim.util.ImageUtil.rotateImage
 import com.pleon.donim.util.ImageUtil.tintImage
 import com.pleon.donim.util.PersistentSettings
+import com.pleon.donim.util.SnapSide
+import com.pleon.donim.util.snapTo
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
@@ -243,7 +245,7 @@ class MainController : BaseController() {
         settingsStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         settingsStage.icons.add(Image("/img/logo.svg"))
         settingsStage.show()
-        centerOnScreen(settingsStage)
+        settingsStage.snapTo(this.root.scene.window, SnapSide.LEFT)
     }
 
     fun showAbout() {
@@ -255,6 +257,6 @@ class MainController : BaseController() {
         aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         aboutStage.icons.add(Image("/img/logo.svg"))
         aboutStage.show()
-        centerOnScreen(aboutStage)
+        aboutStage.snapTo(this.root.scene.window, SnapSide.RIGHT)
     }
 }
