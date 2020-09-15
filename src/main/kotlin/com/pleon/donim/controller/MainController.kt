@@ -20,7 +20,6 @@ import javafx.animation.Timeline
 import javafx.application.Platform
 import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.MapChangeListener
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -98,17 +97,14 @@ class MainController : BaseController() {
 
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
-
-            val previousPeriodLength = period.length
+            if (paused && remainingTime.get() == period.length) {
+                remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
+            }
 
             if (it.key == "focus-duration") {
                 WORK.setLength(it.valueAdded)
             } else if (it.key == "break-duration") {
                 BREAK.setLength(it.valueAdded)
-            }
-
-            if (paused && remainingTime.get() == previousPeriodLength) {
-                remainingTime.set(period.length)
             }
         })
     }
@@ -144,7 +140,7 @@ class MainController : BaseController() {
     private fun setupTrayIconAnimation() {
         Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 8000)
         trayAnimation.cycleCount = rotateAngles.size
-        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), EventHandler<ActionEvent> {
+        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
             val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
             trayIcon.image = tintImage(rotateImage(trayImage, rotateAngles[trayFrameNumber]), hueFactor)
             trayFrameNumber = (trayFrameNumber + 1) % rotateAngles.size
@@ -154,9 +150,9 @@ class MainController : BaseController() {
     private fun fraction() = remainingTime.get().toMillis() / (timeline.cycleCount*1000/*ms*/)
 
     private fun setupMainTimeline() {
-        timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
+        timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
             progressBar.tick(fraction(), period.baseColor)
-            remainingTime.set( remainingTime.get().subtract(Duration.seconds(1.0)))
+            remainingTime.set(remainingTime.get().subtract(Duration.seconds(1.0)))
         }))
         timeline.setOnFinished {
             period = if (period == WORK) BREAK else WORK
@@ -242,7 +238,7 @@ class MainController : BaseController() {
     fun showAbout() {
         if (aboutStage.isShowing) return
 
-        val root = FXMLLoader.load<Parent>(MainController::class.java.getResource("/fxml/scene-about.fxml"))
+        val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-about.fxml"))
         aboutStage.isResizable = false
         aboutStage.title = "About"
         aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
