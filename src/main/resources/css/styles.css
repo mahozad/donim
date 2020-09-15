@@ -147,8 +147,13 @@ TextField {
     /*-fx-background-color: #f00;*/
 }
 
+/* right click on a text field to see one of these menus */
 .menu-item .label {
-    -fx-text-fill: #f0f;
+    -fx-text-fill: #555;
+}
+
+.dark .menu-item .label {
+    -fx-text-fill: #aaa;
 }
 
 #close, #minimize, #about {
