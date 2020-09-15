@@ -2,7 +2,7 @@
 - Make a jar of app in Intellij -> project settings -> artifacts -> new -> jar from module main
 	(The result will be in the Intellij output folder: out/artifacts/app/...)
 - Unneeded files in the jar such as javafxweb.dll can be deleted to reduce its size significantly
-- In launch4j specify at least the following in each tab:
+- In launch4j, either import a config file stored next to this guide file or specify at least the following in each tab:
 	- Basic tab: Outputfile, Jar, Icon
 	- Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
 	- JRE tab: Min JRE version (10)
