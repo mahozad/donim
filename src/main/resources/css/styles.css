@@ -152,6 +152,15 @@ TextField {
     -fx-text-fill: #555;
 }
 
+/* menu item highlight color */
+.menu-item:focused {
+    -fx-background-color: derive(-theme-color, 20%);
+}
+
+.dark .menu-item:focused {
+    -fx-background-color: derive(-theme-color, -20%);
+}
+
 .dark .menu-item .label {
     -fx-text-fill: #aaa;
 }
