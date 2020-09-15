@@ -194,7 +194,7 @@ class MainController : BaseController() {
         val duration = Duration.millis(100.0)
         fade(root, OUT, delay, duration, EventHandler {
             root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
-            (root.scene.window as Stage).hide()
+            root.scene.window.hide()
         })
         move(root.scene.window, BOTTOM_RIGHT, delay, duration)
     }
