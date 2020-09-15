@@ -12,7 +12,7 @@ enum class Period(var length: Duration,
                   val baseColor: Color,
                   val notification: String,
                   val notificationType: MessageType,
-                  private val defaultLength: Duration) {
+                  val defaultLength: Duration) {
 
     WORK(DEFAULT_FOCUS_DURATION,
             hsb(0.0, 0.85, 1.0),

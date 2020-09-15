@@ -61,7 +61,7 @@ class MainController : BaseController() {
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
-    private var remainingTime = SimpleObjectProperty(period.length)
+    private var remainingTime = SimpleObjectProperty<Duration>()
     private val timeline = Timeline()
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
@@ -98,9 +98,12 @@ class MainController : BaseController() {
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
             if (paused && remainingTime.get() == period.length) {
-                if (it.key == "focus-duration" && period == WORK ||
-                        it.key == "break-duration" && period == BREAK) {
-                    remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
+                if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
+                    try {
+                        remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
+                    } catch (e: Exception) {
+                        remainingTime.set(period.defaultLength)
+                    }
                 }
             }
 
