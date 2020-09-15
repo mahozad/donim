@@ -32,3 +32,8 @@ like this:
     node.nodeOrientation = NodeOrientation.RIGHT_TO_LEFT
     
 see [docs](https://wiki.openjdk.java.net/display/OpenJFX/Node+Orientation+in+JavaFX) for more info.
+
+---
+
+See [this post](https://stackoverflow.com/a/49833163) for how to add custom nodes (and enable working with scenes that
+contain them) in scene builder
