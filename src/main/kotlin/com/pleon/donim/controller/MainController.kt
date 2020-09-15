@@ -18,8 +18,7 @@ import com.pleon.donim.util.PersistentSettings
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
-import javafx.beans.property.SimpleStringProperty
-import javafx.beans.property.StringProperty
+import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.MapChangeListener
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -32,6 +31,7 @@ import javafx.scene.image.Image
 import javafx.scene.media.AudioClip
 import javafx.scene.paint.Color
 import javafx.scene.shape.SVGPath
+import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
@@ -52,6 +52,7 @@ class MainController : BaseController() {
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
     @FXML private lateinit var skip: Button
+    @FXML private lateinit var time: Text
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
@@ -61,8 +62,7 @@ class MainController : BaseController() {
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
-    private val remainingTimeString = SimpleStringProperty(format(period.length))
-    private var remainingTime = period.length
+    private var remainingTime = SimpleObjectProperty(period.length)
     private val timeline = Timeline()
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
@@ -77,6 +77,7 @@ class MainController : BaseController() {
 
     override fun initialize() {
         super.initialize()
+        remainingTime.addListener { _, _, newValue -> time.text = format(newValue) }
         createTrayIcon()
         setupTrayIconAnimation()
         setupMainTimeline()
@@ -92,19 +93,23 @@ class MainController : BaseController() {
             WORK.setLength(DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString())
             BREAK.setLength(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
         }
-        remainingTimeString.set(format(period.length))
-        remainingTime = period.length
+        remainingTime.set(period.length)
     }
 
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
+
+            val previousPeriodLength = period.length
+
             if (it.key == "focus-duration") {
                 WORK.setLength(it.valueAdded)
             } else if (it.key == "break-duration") {
                 BREAK.setLength(it.valueAdded)
             }
-            remainingTime = period.length
-            if (!paused) restart()
+
+            if (paused && remainingTime.get() == previousPeriodLength) {
+                remainingTime.set(period.length)
+            }
         })
     }
 
@@ -146,13 +151,12 @@ class MainController : BaseController() {
         }))
     }
 
-    private fun fraction() = remainingTime.toMillis() / period.length.toMillis()
+    private fun fraction() = remainingTime.get().toMillis() / (timeline.cycleCount*1000/*ms*/)
 
     private fun setupMainTimeline() {
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), EventHandler {
-            setRemainingTimeString(format(remainingTime))
             progressBar.tick(fraction(), period.baseColor)
-            remainingTime = remainingTime.subtract(Duration.seconds(1.0))
+            remainingTime.set( remainingTime.get().subtract(Duration.seconds(1.0)))
         }))
         timeline.setOnFinished {
             period = if (period == WORK) BREAK else WORK
@@ -162,8 +166,8 @@ class MainController : BaseController() {
 
     private fun startTimer(shouldNotify: Boolean, shouldResetTimer: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
-        if (shouldResetTimer) remainingTime = period.length
-        timeline.cycleCount = remainingTime.toSeconds().toInt()
+        if (shouldResetTimer) remainingTime.set(period.length)
+        timeline.cycleCount = remainingTime.get().toSeconds().toInt()
         timeline.play()
         trayAnimation.play()
         paused = false
@@ -223,16 +227,8 @@ class MainController : BaseController() {
         if (settingsStage.isShowing) return
 
         val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/scene-settings.fxml"))
+        // val settingsController: SettingsController = fxmlLoader.getController()
         val root: Parent = fxmlLoader.load()
-        val settingsController: SettingsController = fxmlLoader.getController()
-        val focusDurationProperty = settingsController.getObservableFocusDuration()
-        val breakDurationProperty = settingsController.getObservableBreakDuration()
-        focusDurationProperty.addListener { observable, oldValue, newValue ->
-            setRemainingTimeString(newValue)
-        }
-        breakDurationProperty.addListener { observable, oldValue, newValue ->
-            setRemainingTimeString(newValue)
-        }
 
         settingsStage.isResizable = false
         settingsStage.title = "Settings"
@@ -252,19 +248,5 @@ class MainController : BaseController() {
         aboutStage.icons.add(Image("/img/logo.svg"))
         aboutStage.show()
         centerOnScreen(aboutStage)
-    }
-
-    fun getRemainingTimeString(): String {
-        return remainingTimeString.get()
-    }
-
-    @Suppress("unused")
-    fun remainingTimeStringProperty(): StringProperty {
-        return remainingTimeString
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun setRemainingTimeString(remainingTimeString: String) {
-        this.remainingTimeString.set(remainingTimeString)
     }
 }
