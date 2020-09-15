@@ -20,7 +20,7 @@ and it will be injected automatically by the FXMLLoader:
 
 Note that name of the field should be "resources".
 
-see [this](https://stackoverflow.com/q/26325403),
+See [this](https://stackoverflow.com/q/26325403),
 [this](https://stackoverflow.com/q/20107463)
 and [this](https://stackoverflow.com/q/44124202) for more info.
 
@@ -31,7 +31,7 @@ like this:
 
     node.nodeOrientation = NodeOrientation.RIGHT_TO_LEFT
     
-see [docs](https://wiki.openjdk.java.net/display/OpenJFX/Node+Orientation+in+JavaFX) for more info.
+See [docs](https://wiki.openjdk.java.net/display/OpenJFX/Node+Orientation+in+JavaFX) for more info.
 
 ---
 
