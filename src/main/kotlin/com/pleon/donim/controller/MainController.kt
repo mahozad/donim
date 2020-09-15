@@ -190,6 +190,10 @@ class MainController : BaseController() {
     }
 
     fun minimize() {
+        // Close other stages
+        if (aboutStage.isShowing) aboutStage.close()
+        if (settingsStage.isShowing) settingsStage.close()
+
         val delay = Duration.millis(0.0)
         val duration = Duration.millis(100.0)
         fade(root, OUT, delay, duration, EventHandler {
