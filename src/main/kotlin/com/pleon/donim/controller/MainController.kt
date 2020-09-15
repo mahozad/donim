@@ -179,8 +179,9 @@ class MainController : BaseController() {
     }
 
     fun close() {
-        // Not needed if you do not care about it be closed after process is finished
+        // Not needed if you do not care about other stages to be closed after process is finished
         if (aboutStage.isShowing) aboutStage.close()
+        if (settingsStage.isShowing) settingsStage.close()
 
         closeWindow(true)
     }
