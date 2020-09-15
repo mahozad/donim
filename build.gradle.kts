@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.pleon"
-version = "0.9.2"
+version = "1.0.0-alpha"
 
 repositories {
     jcenter()
