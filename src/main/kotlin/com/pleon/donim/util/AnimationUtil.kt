@@ -53,7 +53,7 @@ object AnimationUtil {
 
     fun rotate(node: Node, byAngle: Double, delay: Duration, duration: Duration) {
         val rotate = RotateTransition(duration, node)
-        rotate.interpolator = Interpolator.EASE_BOTH
+        rotate.interpolator = Interpolator.SPLINE(0.4, 0.25, 0.16, 1.0)
         rotate.delay = delay
         rotate.byAngle = byAngle
         rotate.play()
