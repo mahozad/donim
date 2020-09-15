@@ -19,6 +19,14 @@
     src: url(/font/material-icons.ttf);
 }
 
+.mono-font {
+    /* Should be the actual name of the font (open the ttf to view it) */
+    -fx-font-family: "Droid Sans Mono";
+    -fx-font-weight: normal;
+    -fx-font-style: normal;
+    -fx-font-size: 12px;
+}
+
 .material-icons {
     /* Should be the actual name of the font (open the ttf to view it) */
     -fx-font-family: "Material Icons";
