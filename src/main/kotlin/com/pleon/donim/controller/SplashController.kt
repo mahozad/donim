@@ -21,19 +21,19 @@ class SplashController : BaseController() {
         nextRoot = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
         nextRoot.opacity = 0.0
         val delay = Duration.millis(500.0)
-        val duration = Duration.millis(2000.0)
+        val duration = Duration.millis(3000.0)
         rotate(brand, byAngle = 360.0, delay, duration)
         transitionToNextScene()
     }
 
     private fun transitionToNextScene() {
         fade(root, OUT,
-                delay = Duration.millis(2000.0),
+                delay = Duration.millis(3000.0),
                 duration = Duration.millis(200.0),
                 onFinished = EventHandler { root.scene.root = nextRoot })
 
         fade(nextRoot, IN,
-                delay = Duration.millis(2500.0),
+                delay = Duration.millis(3500.0),
                 duration = Duration.millis(200.0))
     }
 }
