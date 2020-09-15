@@ -25,11 +25,11 @@ open class BaseController {
     }
 
     fun makeWindowMovable() {
-        root.setOnMousePressed {
+        root.lookup("#title_bar")?.setOnMousePressed {
             windowOffsetX = it.sceneX
             windowOffsetY = it.sceneY
         }
-        root.setOnMouseDragged {
+        root.lookup("#title_bar")?.setOnMouseDragged {
             root.scene.window.x = it.screenX - windowOffsetX
             root.scene.window.y = it.screenY - windowOffsetY
         }
