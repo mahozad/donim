@@ -6,7 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.*?>
 <VBox fx:id="root" alignment="TOP_CENTER" prefWidth="252.0" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pleon.donim.controller.SettingsController">
 
        <AnchorPane fx:id="title_bar">
@@ -36,13 +35,10 @@
 
           <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
           <Label styleClass="material-icons" text="" />
-          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" text="Switch to light theme" textAlignment="CENTER">
+          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" text="Switch to light theme" textAlignment="CENTER" styleClass="mono-font">
             <HBox.margin>
                <Insets />
             </HBox.margin>
-            <font>
-               <Font name="Droid Sans Mono" size="12.0" />
-            </font>
             <padding>
                <Insets top="-0.1" />
             </padding>
@@ -56,32 +52,23 @@
 <!--                <SVGPath fx:id="theme_icon1" content="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z" scaleX="0.75" scaleY="0.75" />-->
 
               <Label styleClass="material-icons" text="" />
-              <Label text="Focus duration:">
+              <Label text="Focus duration:" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                 </Label>
-                <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="30.0">
+                <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="30.0" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                <padding>
                   <Insets top="-0.4" />
                </padding>
                 </TextField>
-                <Label text="min">
+                <Label text="min" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                 </Label>
             </children>
         </HBox>
@@ -89,32 +76,23 @@
             <children>
 <!--                <SVGPath fx:id="theme_icon11" content="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" scaleX="0.75" scaleY="0.75" />-->
               <Label styleClass="material-icons" text="" />
-              <Label text="Break duration:">
+              <Label text="Break duration:" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                 </Label>
-                <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="30.0">
+                <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="30.0" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                <padding>
                   <Insets top="-0.4" />
                </padding>
                 </TextField>
-                <Label text="min">
+                <Label text="min" styleClass="mono-font">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <font>
-                  <Font name="Droid Sans Mono" size="12.0" />
-               </font>
                 </Label>
             </children>
         </HBox>
