@@ -76,6 +76,7 @@ class MainController : BaseController() {
 
     override fun initialize() {
         super.initialize()
+        super.makeWindowMovable()
         remainingTime.addListener { _, _, newValue -> time.text = format(newValue) }
         createTrayIcon()
         setupTrayIconAnimation()
