@@ -20,7 +20,7 @@ object AnimationUtil {
         IN, OUT
     }
 
-    fun fade(fadeMode: FadeMode, node: Node, delay: Duration, duration: Duration,
+    fun fade(node: Node, fadeMode: FadeMode, delay: Duration, duration: Duration,
              onFinished: EventHandler<ActionEvent>? = null) {
         val fade = FadeTransition(duration, node)
         fade.delay = delay
@@ -30,7 +30,7 @@ object AnimationUtil {
         fade.play()
     }
 
-    fun move(moveDirection: MoveDirection, window: Window,
+    fun move(window: Window, moveDirection: MoveDirection,
              delay: Duration, duration: Duration,
              onFinished: EventHandler<ActionEvent>? = null) {
 
@@ -51,10 +51,10 @@ object AnimationUtil {
         timeline.play()
     }
 
-    fun rotate(node: Node, byAngle: Double, durationMillis: Int, delayMillis: Int) {
-        val rotate = RotateTransition(Duration.millis(durationMillis.toDouble()), node)
+    fun rotate(node: Node, byAngle: Double, delay: Duration, duration: Duration) {
+        val rotate = RotateTransition(duration, node)
         rotate.interpolator = Interpolator.EASE_BOTH
-        rotate.delay = Duration.millis(delayMillis.toDouble())
+        rotate.delay = delay
         rotate.byAngle = byAngle
         rotate.play()
     }
