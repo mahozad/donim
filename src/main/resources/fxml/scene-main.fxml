@@ -63,7 +63,7 @@
         <padding>
             <Insets top="8" right="6" left="6" bottom="4"/>
         </padding>
-        <Text text="${controller.remainingTimeString}" styleClass="time"/>
+        <Text fx:id="time" styleClass="time"/>
         <CircularProgressBar fx:id="progressBar"
                              width="188"
                              height="188"
