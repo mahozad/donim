@@ -18,10 +18,6 @@
     <mutexName>Donim</mutexName>
     <windowTitle></windowTitle>
   </singleInstance>
-  <classPath>
-    <mainClass>com.pleon.donim.MainKt</mainClass>
-    <cp>.</cp>
-  </classPath>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
