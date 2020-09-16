@@ -1,7 +1,11 @@
 - Download and install Launch4j
-- Make a jar of app in Intellij -> project settings -> artifacts -> new -> jar from module main
-	(The result will be in the Intellij output folder: out/artifacts/app/...)
-- Unneeded files in the jar such as javafxweb.dll can be deleted to reduce its size significantly
+- Go to IntelliJ -> Project Structure -> Artifacts -> Add -> JAR from module "Donim.main" and main class "com.pleon.donim.MainKt" and click ok.
+  Now still in Artifacts tab, click on the just-created artifact and in the output layout tab click the plus button -> directory content and select the src/main/resources folder;
+  this way the resources will be included in the jar file and there will be no need to copy contents of resources folder to directory of .exe file.
+  To reduce size of the JAR file, delete unused jars in the Output Layout tab. Some unneeded Jars:
+  annotations, javafxweb, javafxswing, xalan, commons-logging, commons-io, kotlin-stdlib-jdk7, all non-win variants of javafx libs (like javafx-base)
+- Now build the JAR file by going to IntelliJ -> Build -> Build Artifacts... -> the artifact name from last step -> Rebuild.
+  The result JAR file will be in IntelliJ output directory: out/artifacts/...
 - In launch4j, either import a config file stored next to this guide file or specify at least the following in each tab:
 	- Basic tab: Outputfile, Jar, Icon
 	- Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
