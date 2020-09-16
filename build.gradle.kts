@@ -9,6 +9,10 @@ plugins {
     // Note that dokka includes a javadoc task as well so there's no need to configure or use the
     // traditional javadoc task in gradle.
     id("org.jetbrains.dokka") version "1.4.0"
+    // A gradle plugin to create fat (uber) jars. The "jar" task only creates a jar of the application
+    // itself without embedding the dependency jars in the resulting file. This plugin, on the other hand,
+    // creates an uber jar file with the task named "shadowJar".
+    id ("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 group = "com.pleon"
