@@ -125,7 +125,7 @@ class MainController : BaseController() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
-            trayImage = ImageIO.read(javaClass.getResource("/img/tray.png"))
+            trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
             trayIcon = TrayIcon(trayImage, APP_NAME, makePopupMenu(stage))
             trayIcon.addActionListener { Platform.runLater { stage.show().also { centerOnScreen(stage) } } }
             SystemTray.getSystemTray().add(trayIcon)
