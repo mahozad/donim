@@ -25,12 +25,6 @@ repositories {
 
 application {
     mainClassName = "com.pleon.donim.Main"
-
-    // JVM arguments; To prevent errors from javafxsvg library
-    applicationDefaultJvmArgs = listOf(
-            "--add-exports=javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED",
-            "--add-exports=javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED"
-    )
 }
 
 // Configure some settings of dokka. This is totally optional and can be removed.
@@ -84,7 +78,6 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin 1.4
-    implementation("de.codecentric.centerdevice:javafxsvg:1.3.0")
     implementation("com.jhlabs:filters:2.0.235-1")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
