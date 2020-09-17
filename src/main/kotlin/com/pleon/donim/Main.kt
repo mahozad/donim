@@ -45,7 +45,7 @@ class Main : Application() {
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.isResizable = false
         primaryStage.title = APP_NAME
-        primaryStage.icons.add(Image("/img/logo.svg"))
+        primaryStage.icons.add(Image("/img/logo.png"))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
         centerOnScreen(primaryStage)

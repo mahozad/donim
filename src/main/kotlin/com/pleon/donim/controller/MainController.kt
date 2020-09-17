@@ -246,7 +246,7 @@ class MainController : BaseController() {
         settingsStage.isResizable = false
         settingsStage.title = "Settings"
         settingsStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
-        settingsStage.icons.add(Image("/img/logo.svg"))
+        settingsStage.icons.add(Image("/img/logo.png"))
         settingsStage.show()
         settingsStage.snapTo(this.root.scene.window, SnapSide.LEFT)
     }
@@ -258,7 +258,7 @@ class MainController : BaseController() {
         aboutStage.isResizable = false
         aboutStage.title = "About"
         aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
-        aboutStage.icons.add(Image("/img/logo.svg"))
+        aboutStage.icons.add(Image("/img/logo.png"))
         aboutStage.show()
         aboutStage.snapTo(this.root.scene.window, SnapSide.RIGHT)
     }

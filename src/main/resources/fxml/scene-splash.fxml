@@ -12,7 +12,7 @@
       fx:controller="com.pleon.donim.controller.SplashController">
 
     <ImageView fx:id="brand">
-        <Image url="/img/logo.svg" requestedWidth="64" requestedHeight="64"/>
+        <Image url="@/img/logo.png" requestedWidth="64" requestedHeight="64"/>
     </ImageView>
 
 </VBox>

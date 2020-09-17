@@ -11,15 +11,16 @@
        <AnchorPane fx:id="title_bar">
 
            <HBox>
-            <ImageView>
-                <HBox.margin>
-                    <Insets left="4" right="4" />
-                </HBox.margin>
-              <Image requestedHeight="25" requestedWidth="16" url="@/img/logo.svg" />
-            </ImageView>
-
-               <Label fx:id="title" prefHeight="25" text="Settings" />
-        </HBox>
+             <VBox alignment="CENTER">
+               <HBox.margin>
+                 <Insets left="4" right="4" />
+               </HBox.margin>
+               <ImageView>
+                 <Image requestedHeight="18" requestedWidth="18" url="@/img/logo-header.png" />
+               </ImageView>
+             </VBox>
+             <Label fx:id="title" prefHeight="25" text="Settings" />
+           </HBox>
 
            <StackPane fx:id="close" onMouseClicked="#close" AnchorPane.rightAnchor="0">
             <SVGPath fx:id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
@@ -35,7 +36,7 @@
 
           <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
           <Label styleClass="material-icons" text="" />
-          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" text="Switch to light theme" textAlignment="CENTER" styleClass="mono-font">
+          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" styleClass="mono-font" text="Switch to light theme" textAlignment="CENTER">
             <HBox.margin>
                <Insets />
             </HBox.margin>
@@ -52,7 +53,7 @@
 <!--                <SVGPath fx:id="theme_icon1" content="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z" scaleX="0.75" scaleY="0.75" />-->
 
               <Label styleClass="material-icons" text="" />
-              <Label text="Focus duration:" styleClass="mono-font">
+              <Label styleClass="mono-font" text="Focus duration:">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -65,7 +66,7 @@
                   <Insets top="-0.4" />
                </padding>
                 </TextField>
-                <Label text="min" styleClass="mono-font">
+                <Label styleClass="mono-font" text="min">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -76,7 +77,7 @@
             <children>
 <!--                <SVGPath fx:id="theme_icon11" content="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" scaleX="0.75" scaleY="0.75" />-->
               <Label styleClass="material-icons" text="" />
-              <Label text="Break duration:" styleClass="mono-font">
+              <Label styleClass="mono-font" text="Break duration:">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -89,7 +90,7 @@
                   <Insets top="-0.4" />
                </padding>
                 </TextField>
-                <Label text="min" styleClass="mono-font">
+                <Label styleClass="mono-font" text="min">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
