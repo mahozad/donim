@@ -3,6 +3,8 @@
 
 # ![logo](src/main/resources/img/logo.svg) Donim
 
+![Main screen](screenshot/main-screen.png)
+
 For creating an installer for app with new jpackage tool in Java 14:
 jpackage -i ./ --main-class com.pleon.donim.MainKt --main-jar Donim.main.jar --win-dir-chooser --name Donim
 
