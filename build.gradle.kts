@@ -55,9 +55,13 @@ tasks.dokkaHtml.configure {
 
 javafx {
     version = "15"
+    // The javafx modules that contain features (classes, functions etc) that we are using in our application
     modules(
-            "javafx.base", "javafx.controls", "javafx.fxml",
-            "javafx.graphics", "javafx.media", "javafx.web", "javafx.swing"
+            "javafx.base",
+            "javafx.controls",
+            "javafx.graphics",
+            "javafx.media",
+            "javafx.fxml"
     )
 }
 
