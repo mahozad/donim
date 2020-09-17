@@ -3,3 +3,6 @@ it might be because of URLs used in images or something similar.
 Try to remove the URLs and then restart the IDEA to fix the problem.
 
 The IDEA configuration for running the application is stored in a file in .run directory that you can use.
+
+If you want to use a feature from a specific javafx module (for example javafx-web) remember to
+define this module name in gradle build file and also in --add-modules jvm argument.
