@@ -1,19 +1,15 @@
-module Donim.main {
-
-    // Java
-    requires java.base;
-    requires kotlin.stdlib;
+module com.pleon.donim {
     requires java.desktop;
+    requires kotlin.stdlib;
 
-    // 3rd party
-    requires javafxsvg;
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires javafx.media;
+    requires javafx.fxml;
 
-    // Java-FX
-    requires transitive javafx.base;
-    requires transitive javafx.graphics;
-    requires transitive javafx.controls;
-    requires transitive javafx.fxml;
-    requires transitive javafx.web;
+    requires javafxsvg; // The de.codecentric.centerdevice:javafxsvg library
+    requires filters; // The com.jhlabs:filters library
 
-    // exports com.pleon.donim;
+    opens com.pleon.donim;
+    exports com.pleon.donim;
 }
