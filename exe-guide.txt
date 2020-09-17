@@ -9,6 +9,7 @@
     - Add a gradle plugin named "shadow" and use the task "shadowJar" to build the jar. See https://github.com/johnrengelman/shadow.
 - Now build the JAR file by going to IntelliJ -> Build -> Build Artifacts... -> the artifact name from last step -> Rebuild.
   The result JAR file will be in IntelliJ output directory: out/artifacts/...
+- The jar can be shrunk with proguard (https://github.com/Guardsquare/proguard/releases)
 - In launch4j, either import a config file stored next to this guide file or specify at least the following in each tab:
 	- Basic tab: Outputfile, Jar, Icon
 	- (THIS IS OPTIONAL) Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
