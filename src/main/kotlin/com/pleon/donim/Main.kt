@@ -1,7 +1,6 @@
 package com.pleon.donim
 
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
-import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory
 import javafx.application.Application
 import javafx.application.HostServices
 import javafx.application.Platform
@@ -39,7 +38,6 @@ fun main(args: Array<String>) {
 class Main : Application() {
 
     override fun start(primaryStage: Stage) {
-        SvgImageLoaderFactory.install() // Enable svg wherever other formats are applicable
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
         hostServicesInstance = this.hostServices
 
