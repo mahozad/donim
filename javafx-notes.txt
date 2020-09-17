@@ -1,3 +1,5 @@
 If Intellij does not open an fxml file in Scene Builder tab of IDEA and shows error,
 it might be because of URLs used in images or something similar.
 Try to remove the URLs and then restart the IDEA to fix the problem.
+
+The IDEA configuration for running the application is stored in a file in .run directory that you can use.
