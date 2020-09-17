@@ -22,7 +22,7 @@
                 <HBox.margin>
                     <Insets left="4" right="4"/>
                 </HBox.margin>
-                <Image url="/img/logo-path-only.svg" requestedWidth="16" requestedHeight="25"/>
+                <Image url="@/img/logo.svg" requestedWidth="16" requestedHeight="25"/>
             </ImageView>
 
             <Label fx:id="title" prefHeight="25" text="Donim"/>
