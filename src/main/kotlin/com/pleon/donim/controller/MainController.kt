@@ -90,9 +90,12 @@ class MainController : BaseController() {
     private fun applyUserPreferences() {
         try {
             WORK.setLength(PersistentSettings.get("focus-duration"))
-            BREAK.setLength(PersistentSettings.get("break-duration"))
         } catch (e: SettingNotFoundException) {
             WORK.setLength(DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString())
+        }
+        try {
+            BREAK.setLength(PersistentSettings.get("break-duration"))
+        } catch (e: SettingNotFoundException) {
             BREAK.setLength(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
         }
         remainingTime.set(period.length)
