@@ -13,7 +13,7 @@ import java.util.*
 object PersistentSettings : Settings {
 
     private val properties = Properties()
-    private const val FILE_NAME = "app-settings.properties"
+    private const val FILE_NAME = "preferences.properties"
     private val observableProperties = FXCollections.observableMap(properties)
 
     init {
