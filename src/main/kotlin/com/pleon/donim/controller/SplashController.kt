@@ -13,6 +13,8 @@ import javafx.util.Duration
 
 class SplashController : BaseController() {
 
+    // TODO: Set splash screen to be always on top
+
     @FXML private lateinit var brand: Node
     private lateinit var nextRoot: Parent
 
