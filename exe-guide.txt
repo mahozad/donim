@@ -1,9 +1,11 @@
 - Download and install Launch4j
 - Now we should build the application uber (fat) jar file (jar containing all app dependencies). There are two ways:
-    - Go to IntelliJ -> Project Structure -> Artifacts -> Add -> JAR from module "Donim.main" and main class "com.pleon.donim.MainKt" and click ok.
+    - Go to IntelliJ -> Project Structure -> Artifacts -> Add -> JAR from module "Donim.main" and main class "com.pleon.donim.MainKt" and manifest location in src/main/resources and click ok.
       Now still in Artifacts tab, click on the just-created artifact and in the output layout tab click the plus button -> directory content and select the src/main/resources folder;
-      this way the resources will be included in the jar file and there will be no need to copy contents of resources folder to directory of .exe file.
+      this way the resources (including the manifest) will be included in the jar file and there will be no need to copy contents of resources folder to directory of .exe file.
       Make sure that the manifest is located in src\main\resources so the jar can be executed right away with "java -jar" without further config.
+      There is a bug in IntelliJ that may not copy the manifest into the jar. If the manifest content in jar/META-INF/MANIFEST.MF is not that of the application,
+      simply copy the content of the application manifest and replace in manifest file of the jar.
       To reduce size of the JAR file, delete unused jars in the Output Layout tab. Some unneeded Jars:
       annotations, commons-io, commons-logging, kotlin-stdlib-jdk7, xalan, all non-win variants of javafx libs (like javafx-base)
     - Add a gradle plugin named "shadow" and use the task "shadowJar" to build the jar. See https://github.com/johnrengelman/shadow.
