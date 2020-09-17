@@ -5,7 +5,7 @@
       this way the resources will be included in the jar file and there will be no need to copy contents of resources folder to directory of .exe file.
       Make sure that the manifest is located in src\main\resources so the jar can be executed right away with "java -jar" without further config.
       To reduce size of the JAR file, delete unused jars in the Output Layout tab. Some unneeded Jars:
-      annotations, javafxweb, javafxswing, xalan, commons-logging, commons-io, kotlin-stdlib-jdk7, all non-win variants of javafx libs (like javafx-base)
+      annotations, commons-io, commons-logging, kotlin-stdlib-jdk7, xalan, all non-win variants of javafx libs (like javafx-base)
     - Add a gradle plugin named "shadow" and use the task "shadowJar" to build the jar. See https://github.com/johnrengelman/shadow.
 - Now build the JAR file by going to IntelliJ -> Build -> Build Artifacts... -> the artifact name from last step -> Rebuild.
   The result JAR file will be in IntelliJ output directory: out/artifacts/...
