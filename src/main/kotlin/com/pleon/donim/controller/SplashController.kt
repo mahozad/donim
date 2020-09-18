@@ -20,7 +20,7 @@ class SplashController : BaseController() {
 
     override fun initialize() {
         super.initialize()
-        nextRoot = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
+        nextRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/scene-main.fxml"))
         nextRoot.opacity = 0.0
         val delay = Duration.millis(500.0)
         val duration = Duration.millis(3000.0)

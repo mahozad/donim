@@ -41,11 +41,29 @@ class Main : Application() {
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
         hostServicesInstance = this.hostServices
 
-        val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
+        println(javaClass.getResource("/com.pleon.donim/fxml/scene-splash.fxml"))
+        println(javaClass.getResource("com.pleon.donim/fxml/scene-splash.fxml"))
+        println(javaClass.getResource("com.pleon.donim/scene-splash.fxml"))
+        println(javaClass.getResource("/com.pleon.donim/scene-splash.fxml"))
+        println(javaClass.getResource("/com/pleon/donim/scene-splash.fxml"))
+        println(javaClass.getResource("com/pleon/donim/scene-splash.fxml"))
+        println(javaClass.getResource("/com/pleon/donim/fxml/scene-splash.fxml"))
+        println(javaClass.getResource("com/pleon/donim/fxml/scene-splash.fxml"))
+        println(javaClass.getResourceAsStream("/fxml/scene-splash.fxml"))
+        println(javaClass.getResourceAsStream("fxml/scene-splash.fxml"))
+        println(javaClass.getResource("/fxml/scene-splash.fxml"))
+        println(javaClass.getResource("fxml/scene-splash.fxml"))
+        println(javaClass.classLoader.getResource("/fxml/scene-splash.fxml"))
+        println(javaClass.classLoader.getResource("fxml/scene-splash.fxml"))
+        println(javaClass.module.classLoader.getResource("fxml/scene-splash.fxml"))
+        println(ClassLoader.getSystemResource("fxml/scene-splash.fxml"))
+
+
+        val root: Parent = FXMLLoader.load(ClassLoader.getSystemResource("fxml/scene-splash.fxml"))
         primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
         primaryStage.isResizable = false
         primaryStage.title = APP_NAME
-        primaryStage.icons.add(Image("/img/logo.png"))
+        primaryStage.icons.add(Image(ClassLoader.getSystemResource("img/logo.png").toURI().toString()))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
         centerOnScreen(primaryStage)
