@@ -11,7 +11,7 @@ module donim.application {
     // The com.jhlabs:filters library
     requires filters;
 
-    exports com.pleon.donim;
-    exports com.pleon.donim.node;
-    opens com.pleon.donim.controller;
+    exports com.pleon.donim to javafx.graphics;
+    opens com.pleon.donim.node to javafx.fxml;
+    opens com.pleon.donim.controller to javafx.fxml;
 }
