@@ -9,7 +9,8 @@ module donim.application {
     requires javafx.media;
     requires javafx.fxml;
 
-    requires filters; // The com.jhlabs:filters library
+    // The com.jhlabs:filters library
+    requires filters;
 
     exports com.pleon.donim;
     exports com.pleon.donim.node;
