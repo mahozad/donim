@@ -4,7 +4,6 @@ module donim.application {
     requires kotlin.stdlib;
 
     requires javafx.base;
-    requires javafx.graphics;
     requires javafx.controls;
     requires javafx.media;
     requires javafx.fxml;
