@@ -6,3 +6,6 @@ The IDEA configuration for running the application is stored in a file in .run d
 
 If you want to use a feature from a specific javafx module (for example javafx-web) remember to
 define this module name in gradle build file and also in --add-modules jvm argument.
+
+
+The official javafx sample for IntelliJ/Eclipse, Gradle/Maven etc: https://github.com/openjfx/samples/tree/master/IDE/IntelliJ
