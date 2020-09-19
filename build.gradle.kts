@@ -24,6 +24,7 @@ repositories {
 }
 
 application {
+    // Either Main or MainKt classes are acceptable
     mainClassName = "com.pleon.donim.Main"
 }
 
