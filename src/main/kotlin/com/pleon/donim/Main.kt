@@ -48,6 +48,7 @@ class Main : Application() {
         primaryStage.icons.add(Image("/img/logo.png"))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
         primaryStage.show()
+        primaryStage.toFront()
         centerOnScreen(primaryStage)
     }
 }
