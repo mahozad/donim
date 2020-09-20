@@ -80,6 +80,7 @@ tasks.withType<KotlinCompile> {
 dependencies {
     // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin 1.4
     implementation("com.jhlabs:filters:2.0.235-1")
+    // See https://kotlinlang.org/api/latest/kotlin.test/ for info about the following 2 dependencies
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.5.0")
