@@ -41,6 +41,15 @@ class Main : Application() {
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
         hostServicesInstance = this.hostServices
 
+        // println(Alaki::class.java.getResource("fxml/scene-splash.fxml"))
+        println(Main::class.java.getResource("./scene-splash.fxml"))
+        println(Main::class.java.getResource("/./scene-splash.fxml"))
+        println(javaClass.getResource("scene-splash.fxml"))
+        println(javaClass.getResource("/scene-splash.fxml"))
+        println(javaClass.getResource("/alaki.txt"))
+        println(javaClass.getResource("alaki.txt"))
+
+
         println(javaClass.getResource("/com.pleon.donim/fxml/scene-splash.fxml"))
         println(javaClass.getResource("com.pleon.donim/fxml/scene-splash.fxml"))
         println(javaClass.getResource("com.pleon.donim/scene-splash.fxml"))
