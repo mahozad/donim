@@ -12,7 +12,7 @@ plugins {
     // A gradle plugin to create fat (uber) jars. The "jar" task only creates a jar of the application
     // itself without embedding the dependency jars in the resulting file. This plugin, on the other hand,
     // creates an uber jar file with the task named "shadowJar".
-    id ("com.github.johnrengelman.shadow") version "6.0.0"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 group = "com.pleon"
@@ -83,7 +83,11 @@ dependencies {
     // See https://kotlinlang.org/api/latest/kotlin.test/ for info about the following 2 dependencies
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.5.0")
-    testImplementation("org.assertj:assertj-core:3.13.2")
-    testImplementation("io.mockk:mockk:1.9.3")
+    // Aggregator artifact that transitively pulls in dependencies on junit-jupiter-api,
+    // junit-jupiter-params, and junit-jupiter-engine for simplified dependency management
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
+    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
+    testImplementation("org.assertj:assertj-core:3.17.2")
+    testImplementation("io.mockk:mockk:1.10.0")
 }
