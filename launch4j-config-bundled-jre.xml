@@ -4,9 +4,9 @@
   <headerType>gui</headerType>
   <jar>C:\Users\Mahdi\Desktop\Donim.main.jar</jar>
   <outfile>C:\Users\Mahdi\Desktop\Donim.exe</outfile>
-  <errTitle>Java not installed</errTitle>
+  <errTitle>Java not installed!</errTitle>
   <cmdLine></cmdLine>
-  <chdir></chdir>
+  <chdir>.</chdir>
   <priority>normal</priority>
   <downloadUrl>https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12/OpenJDK14U-jre_x86-32_windows_hotspot_14.0.2_12.msi</downloadUrl>
   <supportUrl></supportUrl>
@@ -27,4 +27,11 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
+  <messages>
+    <startupErr>An error occurred while starting Donim.</startupErr>
+    <bundledJreErr>Donim was configured to use a bundled Java Runtime Environment but the runtime is missing or corrupted.</bundledJreErr>
+    <jreVersionErr>Donim requires Java Runtime Environment</jreVersionErr>
+    <launcherErr>Cannot detect Java Runtime Environment.</launcherErr>
+    <instanceAlreadyExistsMsg>Donim is already running.</instanceAlreadyExistsMsg>
+  </messages>
 </launch4jConfig>
