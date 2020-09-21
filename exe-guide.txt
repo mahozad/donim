@@ -21,3 +21,6 @@
     Another option is to copy everything in resources folder to the jar file and then read the files
     with getResourceAsStream instead of getResource in the code
 - Click Test wrapper [play icon] (or double click .exe)
+
+
+also see install4j application for making executable java programs
