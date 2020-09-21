@@ -1,0 +1,23 @@
+﻿Make sure that you have downloaded the jmod files of javafx from its official website and extracted somewhere.
+1- create the application jar (not uber jar) with gradle:jar task
+2- create the modular uber jar with intellij artifact (refer to exe guide for more info)
+3- copy the module-info.class file in intellij uber jar to gradle jar and delete the intellij jar
+4- copy the filters librery jar to the location of the gradle jar
+5- create module-info.java file for filters library with this command:
+    jdeps --generate-module-info . filters.jar
+    see https://stackoverflow.com/q/47222226/8583692
+6- extract the filters jar with winrar and place the previous module-info.java file in the created directory
+7- go into the created directory and execute the following command to generate the module-info.class:
+    javac module-info.java -d .
+8- patch the new created module-info.java file into the filters library jar with this command (or simply open the library with winrar and drag the module-info.class into it):
+    javac --patch-module filters=. module-info.java (or maybe module-info.class?)
+9- run the folloing command (make sure that the kotlin compiler libraries are the latest versions to ensure they are modular):
+    jlink --add-modules donim.application --module-path "./";"C:\Program Files\Kotlin\kotlinc\lib\kotlin-stdlib.jar";"C:\Program Files\javafx-sdk-15\jmods" --output jre --strip-debug --compress 2 --no-header-files --no-man-pages
+
+Now the resulting folder is the minimum JRE needed to run the application.
+
+10- try running the jar file with the new minimum JRE like this:
+    cd jre/bin
+    java.exe -jar ../../myjar.jar
+
+    if the jar doesn't run try running the uber jar.
