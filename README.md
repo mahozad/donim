@@ -10,3 +10,6 @@ jpackage -i ./ --main-class com.pleon.donim.MainKt --main-jar Donim.main.jar --w
 
 A striking similarity between my logo and this (Notice the colors!):
 https://marketplace.atlassian.com/apps/1221739/squadcast-for-jira-server?hosting=server&tab=overview
+
+
+Use https://icoconvert.com/ to make icon files
