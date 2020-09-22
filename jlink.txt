@@ -25,3 +25,5 @@ Now the resulting folder is the minimum JRE needed to run the application.
 11- you can also make the .exe file created with launch4j (see exe guide for more info) to run with
 this JRE. just go to launch4j -> JRE tab -> specify the "Bundled JRE path" to "./jre"
 (or whatever the path is relative to .exe file)
+
+12- further you can create a single installer file for the exe + jre by Inno Setup
