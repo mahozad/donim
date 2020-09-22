@@ -8,7 +8,7 @@ plugins {
     // Official kotlin tool to generate kdoc, javadoc, markdown and other types of documentation.
     // Note that dokka includes a javadoc task as well so there's no need to configure or use the
     // traditional javadoc task in gradle.
-    id("org.jetbrains.dokka") version "1.4.0"
+    id("org.jetbrains.dokka") version "1.4.10"
     // A gradle plugin to create fat (uber) jars. The "jar" task only creates a jar of the application
     // itself without embedding the dependency jars in the resulting file. This plugin, on the other hand,
     // creates an uber jar file with the task named "shadowJar".
