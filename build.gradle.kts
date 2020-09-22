@@ -63,6 +63,10 @@ tasks.withType<Wrapper> {
     // Add a gradle wrapper script to your source folders (by running the wrapper task).
     // The wrapper script when invoked, downloads the defined gradle version, and executes it.
     // By distributing the wrapper with your project, anyone can work with it without needing to install Gradle beforehand
+    // NOTE: Gradle versions above 6.3 currently do not work with JPMS.
+    //  see https://stackoverflow.com/q/63997525
+    //  and https://github.com/openjfx/javafx-gradle-plugin/issues/89
+    //  and https://github.com/java9-modularity/gradle-modules-plugin/issues/165
     gradleVersion = "6.6"
 }
 
