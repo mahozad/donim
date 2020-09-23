@@ -11,10 +11,14 @@
     </linearGradient>
   </defs>
   <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <animateTransform attributeName="transform"
-                      type="rotate" from="0 16 16" to="360 16 16" dur="8s"
-                      fill="freeze"
-                      repeatCount="indefinite"/>
+    <animateTransform id="anim" attributeName="transform"
+                      type="rotate" from="0 16 16" to="360 16 16"
+                      dur="3s"
+                      begin="0s; anim.end + 5s"
+                      calcMode="spline"
+                      keyTimes="0; 1"
+                      keySplines="0.4, 0.2, 0.25, 1.0"
+                      fill="freeze"/>
     <path d="m16 13c-7 0-11 5-10 11-7-8-1-21 10-21m5 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5z" fill="url(#grad1)" stroke="url(#grad1)"/>
     <path d="m16 19c7 0 11-5 10-11 7 8 1 21-10 21m-5-5a5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5z" fill="url(#grad2)" stroke="url(#grad2)"/>
   </g>
