@@ -12,7 +12,7 @@
   </defs>
   <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <animateTransform id="anim" attributeName="transform"
-                      type="rotate" from="0 16 16" to="360 16 16"
+                      type="rotate" from="0 16 16" to="180 16 16"
                       dur="3s"
                       begin="0s; anim.end + 5s"
                       calcMode="spline"
