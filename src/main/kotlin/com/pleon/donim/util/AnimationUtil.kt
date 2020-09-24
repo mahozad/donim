@@ -20,6 +20,8 @@ object AnimationUtil {
         IN, OUT
     }
 
+    private val interpolator: Interpolator = Interpolator.SPLINE(0.4, 0.2, 0.25, 1.0)
+
     fun fade(node: Node, fadeMode: FadeMode, delay: Duration, duration: Duration,
              onFinished: EventHandler<ActionEvent>? = null) {
         val fade = FadeTransition(duration, node)
@@ -57,5 +59,9 @@ object AnimationUtil {
         rotate.delay = delay
         rotate.byAngle = byAngle
         rotate.play()
+    }
+
+    fun interpolate(startValue: Int, endValue: Int, fraction: Double): Double {
+        return interpolator.interpolate(startValue.toDouble(), endValue.toDouble(), fraction)
     }
 }
