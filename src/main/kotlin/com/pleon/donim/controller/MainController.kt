@@ -149,7 +149,7 @@ class MainController : BaseController() {
         trayAnimation.cycleCount = totalFrameNumbers
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
             val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
-            val angle = interpolate(0, 360, trayFrameNumber / totalFrameNumbers.toDouble())
+            val angle = interpolate(0, 180, trayFrameNumber / totalFrameNumbers.toDouble())
             trayIcon.image = tintImage(rotateImage(trayImage, angle), hueFactor)
             trayFrameNumber = (trayFrameNumber + 1) % totalFrameNumbers
         }))
