@@ -13,13 +13,6 @@ So it basically means something that consists of two parts (or two halves).
 The logo is inspired from the well-known [yin and yang][1] symbol.  
 I found a striking similarity between Donim logo and [this][2] (notice the colors!).
 
-For creating an installer for app with new jpackage tool in Java 14:
-jpackage -i ./ --main-class com.pleon.donim.MainKt --main-jar Donim.main.jar --win-dir-chooser --name Donim
-
-A striking similarity between my logo and this (Notice the colors!):
-https://marketplace.atlassian.com/apps/1221739/squadcast-for-jira-server?hosting=server&tab=overview
-
-
 Use https://icoconvert.com/ to make icon files
 
 [1]: https://en.wikipedia.org/wiki/Yin_and_yang
