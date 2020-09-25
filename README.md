@@ -6,11 +6,11 @@
 ![Main screen](screenshot/main-screen.png)
 
 ### The name
-Donim is composed of two Persian words: "do" meaning *two* and "nim" meaning *half*.
+Donim is composed of two Persian words: "do" meaning *two* and "nim" meaning *half*.  
 So it basically means something that consists of two parts (or two halves).
 
 ### The logo
-The logo is inspired from the well-known [yin and yang][1] symbol.
+The logo is inspired from the well-known [yin and yang][1] symbol.  
 I found a striking similarity between Donim logo and [this][2] (notice the colors!).
 
 For creating an installer for app with new jpackage tool in Java 14:
