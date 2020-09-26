@@ -4,6 +4,7 @@ import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.testfx.api.FxRobot
@@ -47,7 +48,7 @@ class MainTest {
     /**
      * @param robot Will be injected by the test runner.
      */
-    @Test
+    @Disabled @Test
     fun `when button is clicked text changes` (robot: FxRobot) {
         // when:
         robot.clickOn(".button")
