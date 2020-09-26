@@ -1,14 +1,13 @@
 package com.pleon.donim
 
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
+import com.pleon.donim.util.buildTransparentScene
 import javafx.application.Application
 import javafx.application.HostServices
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
-import javafx.scene.Scene
 import javafx.scene.image.Image
-import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
@@ -42,7 +41,7 @@ class Main : Application() {
         hostServicesInstance = this.hostServices
 
         val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
-        primaryStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }
+        primaryStage.scene = buildTransparentScene(root)
         primaryStage.isResizable = false
         primaryStage.title = APP_NAME
         primaryStage.icons.add(Image("/img/logo.png"))

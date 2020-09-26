@@ -1,9 +1,9 @@
 package com.pleon.donim.controller
 
+import com.pleon.donim.util.buildTransparentScene
 import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.scene.Parent
-import javafx.scene.Scene
 import javafx.stage.Stage
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -27,7 +27,7 @@ class SplashControllerTest {
     private fun start(stage: Stage) {
         val layout: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
         logo = layout.lookup("#brand")
-        stage.scene = Scene(layout)
+        stage.scene = buildTransparentScene(layout)
         stage.show()
     }
 
