@@ -31,6 +31,11 @@ class SplashControllerTest {
         stage.show()
     }
 
+    @Test
+    fun `scene should have transparent fill`() {
+        assertThat(logo.scene.fill.isOpaque).isFalse()
+    }
+
     /**
      * @param robot will be injected by the test runner.
      */
