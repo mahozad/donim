@@ -32,7 +32,7 @@
     -fx-font-family: "Material Icons";
     -fx-font-weight: normal;
     -fx-font-style: normal;
-    -fx-font-size: 22px;  /* Preferred icon size is 24px */
+    -fx-font-size: 18px;  /* Preferred icon size is 24px */
 }
 
 /* Rules for sizing the icon. */
