@@ -53,7 +53,7 @@
             <children>
 <!--                <SVGPath fx:id="theme_icon1" content="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z" scaleX="0.75" scaleY="0.75" />-->
 
-              <Label styleClass="material-icons" text="" />
+              <Label styleClass="material-icons" text="&#xe417;" />
               <Label styleClass="mono-font" text="Focus duration:">
                     <HBox.margin>
                         <Insets />
