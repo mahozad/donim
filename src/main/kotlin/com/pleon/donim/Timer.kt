@@ -3,7 +3,7 @@ package com.pleon.donim
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.property.ReadOnlyObjectWrapper
-import java.time.Duration
+import javafx.util.Duration
 
 class Timer(private val duration: Duration) {
 
@@ -16,8 +16,8 @@ class Timer(private val duration: Duration) {
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
-        timeline.keyFrames.add(KeyFrame(javafx.util.Duration.seconds(1.0), {
-            remainingTime = remainingTime.minusSeconds(1)
+        timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
+            remainingTime = remainingTime.subtract(Duration.seconds(1.0))
             remainingTimeProperty.set(remainingTime)
         }))
         timeline.play()

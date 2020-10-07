@@ -1,13 +1,13 @@
 package com.pleon.donim
 
 import javafx.stage.Stage
+import javafx.util.Duration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.testfx.api.FxRobot
 import org.testfx.framework.junit5.ApplicationExtension
 import org.testfx.framework.junit5.Start
-import java.time.Duration
 
 @ExtendWith(ApplicationExtension::class)
 class TimerTest {
@@ -17,7 +17,7 @@ class TimerTest {
 
     @Start
     fun start(stage: Stage) {
-        duration = Duration.ofSeconds(60)
+        duration = Duration.seconds(60.0)
         timer = Timer(duration)
     }
 
@@ -76,9 +76,8 @@ class TimerTest {
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime)
-                .isGreaterThanOrEqualTo(duration.minusMillis(1))
-                .isLessThanOrEqualTo(duration)
+        assertThat(remainingTime).isGreaterThanOrEqualTo(duration.subtract(Duration.millis(1.0)))
+        assertThat(remainingTime).isLessThanOrEqualTo(duration)
     }
 
     @Test
