@@ -29,7 +29,6 @@ class Timer(val duration: Duration, val updateRate: Duration) {
     }
 
     fun reset() {
-        remainingTimeProperty.set(duration)
         timeline.playFromStart()
     }
 }
