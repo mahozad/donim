@@ -11,17 +11,19 @@
     </linearGradient>
   </defs>
   <g>
-    <path fill="#1a1a1a" d="m256 272.44v-190l-205 95z"/>
-    <path fill="#131313" d="m256 272.44v-190l210 95z"/>
+    <path stroke="#141414" stroke-width="2" d="m 256 272 v -192"/>
+    <path fill="#121212" d="m 256 272 v -192 l 208 96 z"/>
+    <path fill="#171717" d="m 256 272 v -192 l -208 96 z"/>
   </g>
-  <g stroke-width="2" stroke-linejoin="round" transform="matrix(11.621,0,0,11.621,70.064,-23.242)">
+  <g stroke-width="2" stroke-linejoin="round" transform="matrix(12 0 0 12 64 -24)">
     <path fill="url(#grad1)" stroke="url(#grad1)" d="m16 13c-7 0-11 5-10 11-7-8-1-21 10-21m5 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5z"/>
     <path fill="url(#grad2)" stroke="url(#grad2)" d="m16 19c7 0 11-5 10-11 7 8 1 21-10 21m-5-5a5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5z"/>
   </g>
   <g>
-    <path fill="#1f1f1f" d="m256 272.44-1.0164 239.56 210-95 1.0164-239.56z"/>
-    <path fill="#1c1c1c" d="m256 272.44-1.0164 239.56-205-95 1.0164-239.56z"/>
-    <path fill="#292929" d="m256 272.44-205-95-45 125 210 95z"/>
-    <path fill="#2f2f2f" d="m256 272.44 40 125 210-95-40-125z"/>
+    <path stroke="#1c1c1c" stroke-width="2" d="m 256 272 v 240"/>
+    <path fill="#1f1f1f" d="m 256 272 v 240 l 208 -96 v -240 z"/>
+    <path fill="#2e2e2e" d="m 256 272 48 112 208 -96 -48 -112 z"/>
+    <path fill="#1c1c1c" d="m 256 272 v 240 l -208 -96 v -240 z"/>
+    <path fill="#292929" d="m 256 272 -48 112 -208 -96 48 -112 z"/>
   </g>
 </svg>
