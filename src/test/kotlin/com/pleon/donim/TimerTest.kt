@@ -56,7 +56,7 @@ class TimerTest {
         timer.start()
         timer.stop()
         val firstSample = timer.remainingTimeProperty().value
-        robot.sleep(50)
+        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
         val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
@@ -78,8 +78,7 @@ class TimerTest {
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isGreaterThanOrEqualTo(duration.subtract(Duration.millis(1.0)))
-        assertThat(remainingTime).isLessThanOrEqualTo(duration)
+        assertThat(remainingTime).isBetween(duration - Duration.millis(1.0), duration)
     }
 
     @Test
@@ -90,7 +89,7 @@ class TimerTest {
         robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isLessThan(duration)
+        assertThat(remainingTime).isBetween(duration - updateRate.multiply(2.0), duration)
     }
 
     @Test
@@ -103,6 +102,6 @@ class TimerTest {
         timer.start()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isLessThan(duration.subtract(sleepTime))
+        assertThat(remainingTime).isBetween(duration - updateRate.multiply(4.0), duration - sleepTime)
     }
 }
