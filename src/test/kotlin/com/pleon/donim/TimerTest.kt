@@ -1,17 +1,22 @@
 package com.pleon.donim
 
+import javafx.stage.Stage
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.testfx.api.FxRobot
+import org.testfx.framework.junit5.ApplicationExtension
+import org.testfx.framework.junit5.Start
 import java.time.Duration
 
+@ExtendWith(ApplicationExtension::class)
 class TimerTest {
 
     lateinit var timer: Timer
     lateinit var duration: Duration
 
-    @BeforeEach
-    fun setup() {
+    @Start
+    fun start(stage: Stage) {
         duration = Duration.ofSeconds(60)
         timer = Timer(duration)
     }
@@ -37,37 +42,37 @@ class TimerTest {
     }
 
     @Test
-    fun `after start, the remaining time should decrease`() {
+    fun `after start, the remaining time should decrease`(robot: FxRobot) {
         timer.start()
-        Thread.sleep(50)
+        robot.sleep(50)
 
         assertThat(timer.remainingTimeProperty().value).isNotEqualTo(duration)
     }
 
     @Test
-    fun `after stop, the remaining time should not change`() {
+    fun `after stop, the remaining time should not change`(robot: FxRobot) {
         timer.start()
         timer.stop()
         val firstSample = timer.remainingTimeProperty().value
-        Thread.sleep(50)
+        robot.sleep(50)
         val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
     }
 
     @Test
-    fun `reset the timer - "isStarted" should be true`() {
+    fun `reset the timer - "isStarted" should be true`(robot: FxRobot) {
         timer.start()
-        Thread.sleep(50)
+        robot.sleep(50)
         timer.reset()
 
         assertThat(timer.isStarted).isEqualTo(true)
     }
 
     @Test
-    fun `reset the timer - the remaining time should reset`() {
+    fun `reset the timer - the remaining time should reset`(robot: FxRobot) {
         timer.start()
-        Thread.sleep(50)
+        robot.sleep(50)
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
@@ -77,11 +82,11 @@ class TimerTest {
     }
 
     @Test
-    fun `reset the timer - the remaining time should decrease`() {
+    fun `reset the timer - the remaining time should decrease`(robot: FxRobot) {
         timer.start()
-        Thread.sleep(50)
+        robot.sleep(50)
         timer.reset()
-        Thread.sleep(50)
+        robot.sleep(50)
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isLessThan(duration)
