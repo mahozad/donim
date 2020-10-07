@@ -44,7 +44,7 @@ class TimerTest {
     @Test
     fun `after start, the remaining time should decrease`(robot: FxRobot) {
         timer.start()
-        robot.sleep(50)
+        robot.sleep(1050)
 
         assertThat(timer.remainingTimeProperty().value).isNotEqualTo(duration)
     }
