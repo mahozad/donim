@@ -35,4 +35,15 @@ class TimerTest {
 
         assertThat(timer.isStarted).isEqualTo(true)
     }
+
+    @Test
+    fun `after start, the remaining time should decrease`(robot: FxRobot) {
+        val duration = Duration.ofSeconds(60)
+        val timer = Timer(duration)
+
+        timer.start()
+        robot.sleep(1000)
+
+        assertThat(timer.remainingTimeProperty.value).isNotEqualTo(duration)
+    }
 }
