@@ -12,25 +12,22 @@ import java.time.Duration
 @ExtendWith(ApplicationExtension::class)
 class TimerTest {
 
+    lateinit var timer: Timer
+    lateinit var duration: Duration
+
     @Start
-    private fun start(stage: Stage) {
-        // val layout: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
-        // stage.scene = Scene(layout)
-        // stage.show()
+    fun start(stage: Stage) {
+        duration = Duration.ofSeconds(60)
+        timer = Timer(duration)
     }
 
     @Test
     fun `a new timer should have "started" field as false`() {
-        val timer = Timer(Duration.ZERO)
-
         assertThat(timer.isStarted).isEqualTo(false)
     }
 
     @Test
     fun `start the timer`() {
-        val duration = Duration.ofSeconds(60)
-        val timer = Timer(duration)
-
         timer.start()
 
         assertThat(timer.isStarted).isEqualTo(true)
@@ -38,9 +35,6 @@ class TimerTest {
 
     @Test
     fun `start and then stop the timer`() {
-        val duration = Duration.ofSeconds(60)
-        val timer = Timer(duration)
-
         timer.start()
         timer.stop()
 
@@ -49,9 +43,6 @@ class TimerTest {
 
     @Test
     fun `after start, the remaining time should decrease`(robot: FxRobot) {
-        val duration = Duration.ofSeconds(60)
-        val timer = Timer(duration)
-
         timer.start()
         robot.sleep(50)
 
@@ -60,14 +51,14 @@ class TimerTest {
 
     @Test
     fun `after stop, the remaining time should not change`(robot: FxRobot) {
-        val duration = Duration.ofSeconds(60)
-        val timer = Timer(duration)
-
         timer.start()
         timer.stop()
-        val firstDuration = timer.remainingTimeProperty.value
+        val firstSample = timer.remainingTimeProperty.value
         robot.sleep(50)
-        val secondDuration = timer.remainingTimeProperty.value
+        val secondSample = timer.remainingTimeProperty.value
+
+        assertThat(firstSample).isEqualTo(secondSample)
+    }
 
         assertThat(firstDuration).isEqualTo(secondDuration)
     }
