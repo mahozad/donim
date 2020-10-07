@@ -5,7 +5,7 @@ import javafx.animation.Timeline
 import javafx.beans.property.ReadOnlyObjectWrapper
 import javafx.util.Duration
 
-class Timer(private val duration: Duration) {
+class Timer(val duration: Duration, val updateRate: Duration) {
 
     var isStarted = false
         private set
@@ -15,8 +15,8 @@ class Timer(private val duration: Duration) {
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
-        timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
-            val newTime = remainingTimeProperty.value.subtract(Duration.seconds(1.0))
+        timeline.keyFrames.add(KeyFrame(updateRate, {
+            val newTime = remainingTimeProperty.value.subtract(updateRate)
             remainingTimeProperty.set(newTime)
         }))
         timeline.play()

@@ -18,7 +18,7 @@ class TimerTest {
     @Start
     fun start(stage: Stage) {
         duration = Duration.seconds(60.0)
-        timer = Timer(duration)
+        timer = Timer(duration, updateRate = Duration.seconds(1.0))
     }
 
     @Test
