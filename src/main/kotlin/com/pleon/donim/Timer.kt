@@ -16,8 +16,7 @@ class Timer(val duration: Duration, val updateRate: Duration) {
 
     fun start() {
         timeline.keyFrames.add(KeyFrame(updateRate, {
-            val newTime = remainingTimeProperty.value.subtract(updateRate)
-            remainingTimeProperty.set(newTime)
+            remainingTimeProperty.set(timeline.totalDuration - timeline.currentTime)
         }))
         timeline.play()
     }
