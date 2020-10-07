@@ -9,16 +9,15 @@ class Timer(private val duration: Duration) {
 
     var isStarted = false
         private set
-    private var remainingTimeProperty = ReadOnlyObjectWrapper<Duration>()
+    private var remainingTimeProperty = ReadOnlyObjectWrapper(duration)
     private val timeline = Timeline()
-    private var remainingTime = duration
 
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
-            remainingTime = remainingTime.subtract(Duration.seconds(1.0))
-            remainingTimeProperty.set(remainingTime)
+            val newTime = remainingTimeProperty.value.subtract(Duration.seconds(1.0))
+            remainingTimeProperty.set(newTime)
         }))
         timeline.play()
         isStarted = true
@@ -30,8 +29,7 @@ class Timer(private val duration: Duration) {
     }
 
     fun reset() {
-        remainingTime = duration
-        remainingTimeProperty.set(remainingTime)
+        remainingTimeProperty.set(duration)
         timeline.playFromStart()
     }
 }
