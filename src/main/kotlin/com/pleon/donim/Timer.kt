@@ -30,4 +30,5 @@ class Timer(val duration: Duration, val updateRate: Duration) {
     }
 
     operator fun Duration.minus(other: Duration): Duration = subtract(other)
+    operator fun Duration.plus(other: Duration): Duration = add(other)
 }
