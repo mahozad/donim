@@ -46,7 +46,7 @@ class TimerTest {
     @Test
     fun `after start, the remaining time should decrease`(robot: FxRobot) {
         timer.start()
-        robot.sleep(1050)
+        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
 
         assertThat(timer.remainingTimeProperty().value).isNotEqualTo(duration)
     }
@@ -87,7 +87,7 @@ class TimerTest {
         timer.start()
         robot.sleep(50)
         timer.reset()
-        robot.sleep(1050)
+        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isLessThan(duration)
