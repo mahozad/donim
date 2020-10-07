@@ -14,11 +14,13 @@ class TimerTest {
 
     lateinit var timer: Timer
     lateinit var duration: Duration
+    lateinit var updateRate: Duration
 
     @Start
     fun start(stage: Stage) {
         duration = Duration.seconds(60.0)
-        timer = Timer(duration, updateRate = Duration.seconds(1.0))
+        updateRate = Duration.seconds(1.0)
+        timer = Timer(duration, updateRate)
     }
 
     @Test
@@ -89,5 +91,18 @@ class TimerTest {
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isLessThan(duration)
+    }
+
+    @Test
+    fun `resume the timer - remaining time should not reset`(robot: FxRobot) {
+        val sleepTime = updateRate.multiply(2.0)
+
+        timer.start()
+        robot.sleep(sleepTime.toMillis().toLong())
+        timer.stop()
+        timer.start()
+        val remainingTime = timer.remainingTimeProperty().value
+
+        assertThat(remainingTime).isLessThan(duration.subtract(sleepTime))
     }
 }

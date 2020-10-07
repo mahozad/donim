@@ -12,12 +12,16 @@ class Timer(val duration: Duration, val updateRate: Duration) {
     private var remainingTimeProperty = ReadOnlyObjectWrapper(duration)
     private val timeline = Timeline()
 
+    init {
+        timeline.keyFrames.add(KeyFrame(updateRate, {
+            remainingTimeProperty.set(timeline.totalDuration - timeline.currentTime)
+            println(remainingTimeProperty.value)
+        }))
+    }
+
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
-        timeline.keyFrames.add(KeyFrame(updateRate, {
-            remainingTimeProperty.set(timeline.totalDuration - timeline.currentTime)
-        }))
         timeline.play()
     }
 
