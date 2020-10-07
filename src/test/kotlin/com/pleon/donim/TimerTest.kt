@@ -27,7 +27,7 @@ class TimerTest {
     }
 
     @Test
-    fun `start timer`(robot: FxRobot) {
+    fun `start the timer`() {
         val duration = Duration.ofSeconds(60)
         val timer = Timer(duration)
 
@@ -37,13 +37,38 @@ class TimerTest {
     }
 
     @Test
+    fun `start and then stop the timer`() {
+        val duration = Duration.ofSeconds(60)
+        val timer = Timer(duration)
+
+        timer.start()
+        timer.stop()
+
+        assertThat(timer.isStarted).isEqualTo(false)
+    }
+
+    @Test
     fun `after start, the remaining time should decrease`(robot: FxRobot) {
         val duration = Duration.ofSeconds(60)
         val timer = Timer(duration)
 
         timer.start()
-        robot.sleep(1000)
+        robot.sleep(50)
 
         assertThat(timer.remainingTimeProperty.value).isNotEqualTo(duration)
+    }
+
+    @Test
+    fun `after stop, the remaining time should not change`(robot: FxRobot) {
+        val duration = Duration.ofSeconds(60)
+        val timer = Timer(duration)
+
+        timer.start()
+        timer.stop()
+        val firstDuration = timer.remainingTimeProperty.value
+        robot.sleep(50)
+        val secondDuration = timer.remainingTimeProperty.value
+
+        assertThat(firstDuration).isEqualTo(secondDuration)
     }
 }

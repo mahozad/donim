@@ -15,4 +15,8 @@ class Timer(duration: Duration) {
         remainingTime = remainingTime.minusSeconds(1)
         remainingTimeProperty.set(remainingTime)
     }
+
+    fun stop() {
+        isStarted = false
+    }
 }
