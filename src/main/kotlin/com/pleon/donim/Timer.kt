@@ -30,6 +30,8 @@ class Timer(private val duration: Duration) {
     }
 
     fun reset() {
-        remainingTimeProperty.set(duration.minusMillis(1))
+        remainingTime = duration
+        remainingTimeProperty.set(remainingTime)
+        timeline.playFromStart()
     }
 }

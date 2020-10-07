@@ -86,7 +86,7 @@ class TimerTest {
         timer.start()
         robot.sleep(50)
         timer.reset()
-        robot.sleep(50)
+        robot.sleep(1050)
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isLessThan(duration)
