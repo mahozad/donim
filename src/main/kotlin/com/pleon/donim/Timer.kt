@@ -3,7 +3,7 @@ package com.pleon.donim
 import javafx.beans.property.SimpleObjectProperty
 import java.time.Duration
 
-class Timer(duration: Duration) {
+class Timer(private val duration: Duration) {
 
     var isStarted = false
     var remainingTimeProperty = SimpleObjectProperty<Duration>()
@@ -18,5 +18,9 @@ class Timer(duration: Duration) {
 
     fun stop() {
         isStarted = false
+    }
+
+    fun reset() {
+        remainingTimeProperty.set(duration.minusMillis(1))
     }
 }

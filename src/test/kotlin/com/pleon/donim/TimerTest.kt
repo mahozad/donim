@@ -60,6 +60,35 @@ class TimerTest {
         assertThat(firstSample).isEqualTo(secondSample)
     }
 
-        assertThat(firstDuration).isEqualTo(secondDuration)
+    @Test
+    fun `reset the timer - "isStarted" should be true`(robot: FxRobot) {
+        timer.start()
+        robot.sleep(50)
+        timer.reset()
+
+        assertThat(timer.isStarted).isEqualTo(true)
+    }
+
+    @Test
+    fun `reset the timer - the remaining time should reset`(robot: FxRobot) {
+        timer.start()
+        robot.sleep(50)
+        timer.reset()
+        val remainingTime = timer.remainingTimeProperty.value
+
+        assertThat(remainingTime)
+                .isGreaterThanOrEqualTo(duration.minusMillis(1))
+                .isLessThanOrEqualTo(duration)
+    }
+
+    @Test
+    fun `reset the timer - the remaining time should decrease`(robot: FxRobot) {
+        timer.start()
+        robot.sleep(50)
+        timer.reset()
+        robot.sleep(50)
+        val remainingTime = timer.remainingTimeProperty.value
+
+        assertThat(remainingTime).isLessThan(duration)
     }
 }
