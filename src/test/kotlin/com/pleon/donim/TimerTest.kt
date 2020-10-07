@@ -41,16 +41,16 @@ class TimerTest {
         timer.start()
         Thread.sleep(50)
 
-        assertThat(timer.remainingTimeProperty.value).isNotEqualTo(duration)
+        assertThat(timer.remainingTimeProperty().value).isNotEqualTo(duration)
     }
 
     @Test
     fun `after stop, the remaining time should not change`() {
         timer.start()
         timer.stop()
-        val firstSample = timer.remainingTimeProperty.value
+        val firstSample = timer.remainingTimeProperty().value
         Thread.sleep(50)
-        val secondSample = timer.remainingTimeProperty.value
+        val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
     }
@@ -69,7 +69,7 @@ class TimerTest {
         timer.start()
         Thread.sleep(50)
         timer.reset()
-        val remainingTime = timer.remainingTimeProperty.value
+        val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime)
                 .isGreaterThanOrEqualTo(duration.minusMillis(1))
@@ -82,7 +82,7 @@ class TimerTest {
         Thread.sleep(50)
         timer.reset()
         Thread.sleep(50)
-        val remainingTime = timer.remainingTimeProperty.value
+        val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isLessThan(duration)
     }

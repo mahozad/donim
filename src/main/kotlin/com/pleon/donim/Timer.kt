@@ -1,14 +1,16 @@
 package com.pleon.donim
 
-import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.ReadOnlyObjectWrapper
 import java.time.Duration
 
 class Timer(private val duration: Duration) {
 
     var isStarted = false
-    var remainingTimeProperty = SimpleObjectProperty<Duration>()
         private set
+    private var remainingTimeProperty = ReadOnlyObjectWrapper<Duration>()
     private var remainingTime = duration
+
+    fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
         isStarted = true
