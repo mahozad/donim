@@ -29,4 +29,6 @@ class Timer(val duration: Duration, val updateRate: Duration) {
     fun reset() {
         timeline.playFromStart()
     }
+
+    operator fun Duration.minus(other: Duration): Duration = subtract(other)
 }
