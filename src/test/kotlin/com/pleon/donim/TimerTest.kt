@@ -95,7 +95,7 @@ class TimerTest {
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isBetween(duration - ONE, duration)
+        assertThat(remainingTime).isEqualTo(duration)
     }
 
     @Test
