@@ -19,8 +19,8 @@ class TimerTest {
 
     @Start
     fun start(stage: Stage) {
-        duration = Duration.seconds(60.0)
-        updateRate = Duration.seconds(1.0)
+        duration = Duration.millis(500.0)
+        updateRate = Duration.millis(50.0)
         timer = Timer(duration, updateRate)
     }
 
@@ -45,9 +45,8 @@ class TimerTest {
     fun `start the timer - remaining time should decrease`(robot: FxRobot) {
         timer.start()
         robot.sleep((updateRate * 2.5).toMillis().toLong())
-
-        assertThat(timer.remainingTimeProperty().value)
-                .isBetween(duration - updateRate * 2, duration - updateRate - ONE)
+        val remainingTime = timer.remainingTimeProperty().value
+        assertThat(remainingTime).isBetween(duration - updateRate * 3, duration - updateRate - ONE)
     }
 
     @Test
@@ -63,7 +62,7 @@ class TimerTest {
         timer.start()
         timer.stop()
         val firstSample = timer.remainingTimeProperty().value
-        robot.sleep((updateRate * 2.5).toMillis().toLong())
+        robot.sleep((updateRate * 3).toMillis().toLong())
         val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
@@ -72,7 +71,7 @@ class TimerTest {
     @Test
     fun `reset the timer - started should be true`(robot: FxRobot) {
         timer.start()
-        robot.sleep((updateRate * 2.5).toMillis().toLong())
+        robot.sleep((updateRate * 3).toMillis().toLong())
         timer.reset()
 
         assertThat(timer.isStarted).isEqualTo(true)
@@ -81,7 +80,7 @@ class TimerTest {
     @Test
     fun `reset the timer - remaining time should reset`(robot: FxRobot) {
         timer.start()
-        robot.sleep((updateRate * 2.5).toMillis().toLong())
+        robot.sleep((updateRate * 3).toMillis().toLong())
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
@@ -93,22 +92,20 @@ class TimerTest {
         timer.start()
         robot.sleep((updateRate * 2).toMillis().toLong())
         timer.reset()
-        robot.sleep((updateRate * 3).toMillis().toLong())
+        robot.sleep((updateRate * 4).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isBetween(duration - updateRate * 3, duration - updateRate * 2)
+        assertThat(remainingTime).isBetween(duration - updateRate * 4, duration - updateRate * 2)
     }
 
     @Test
     fun `resume the timer - remaining time should not reset`(robot: FxRobot) {
-        val sleepTime = updateRate * 2
-
         timer.start()
-        Thread.sleep((sleepTime * 2).toMillis().toLong())
+        robot.sleep((updateRate * 4).toMillis().toLong())
         timer.stop()
         timer.start()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isBetween(duration - updateRate * 4, duration - sleepTime)
+        assertThat(remainingTime).isBetween(duration - updateRate * 5, duration - updateRate * 3)
     }
 }
