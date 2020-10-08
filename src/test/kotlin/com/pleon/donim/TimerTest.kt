@@ -97,7 +97,7 @@ class TimerTest {
         val sleepTime = updateRate.multiply(2.0)
 
         timer.start()
-        robot.sleep(sleepTime.toMillis().toLong())
+        Thread.sleep(sleepTime.multiply(2.0).toMillis().toLong())
         timer.stop()
         timer.start()
         val remainingTime = timer.remainingTimeProperty().value

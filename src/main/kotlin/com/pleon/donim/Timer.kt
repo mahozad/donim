@@ -1,5 +1,6 @@
 package com.pleon.donim
 
+import javafx.animation.Animation.INDEFINITE
 import javafx.animation.Animation.Status.RUNNING
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
@@ -14,14 +15,14 @@ class Timer(duration: Duration, updateRate: Duration) {
 
     init {
         timeline.keyFrames.add(KeyFrame(updateRate, {
-            remainingTimeProperty.set(timeline.totalDuration - timeline.currentTime)
-            println(remainingTimeProperty.value)
+            remainingTimeProperty.set(remainingTimeProperty.value - updateRate)
         }))
     }
 
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
+        timeline.cycleCount = INDEFINITE
         timeline.play()
     }
 
