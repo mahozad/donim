@@ -13,9 +13,7 @@ class Timer(private val duration: Duration, private val updateRate: Duration) {
     private val timeline = Timeline()
 
     init {
-        timeline.keyFrames.add(KeyFrame(updateRate, {
-            remainingTimeProperty.set(remainingTimeProperty.value - updateRate)
-        }))
+        timeline.keyFrames.add(KeyFrame(updateRate, { remainingTimeProperty.value -= updateRate }))
     }
 
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
