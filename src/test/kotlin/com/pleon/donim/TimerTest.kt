@@ -3,6 +3,7 @@ package com.pleon.donim
 import javafx.stage.Stage
 import javafx.util.Duration
 import javafx.util.Duration.ONE
+import javafx.util.Duration.ZERO
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +31,12 @@ class TimerTest {
     }
 
     @Test
-    fun `create new timer - remaining time should be equal to provided duration`() {
+    fun `create new timer - elapsed time should be equal to 0`() {
+        assertThat(timer.elapsedTimeProperty().value).isEqualTo(ZERO)
+    }
+
+    @Test
+    fun `create new timer - remaining time should be equal to total duration`() {
         assertThat(timer.remainingTimeProperty().value).isEqualTo(duration)
     }
 
@@ -39,6 +45,14 @@ class TimerTest {
         timer.start()
 
         assertThat(timer.isRunning).isEqualTo(true)
+    }
+
+    @Test
+    fun `start the timer - elapsed time should increase`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((updateRate * 2.5).toMillis().toLong())
+        val elapsedTime = timer.elapsedTimeProperty().value
+        assertThat(elapsedTime).isBetween(updateRate * 2, updateRate * 3)
     }
 
     @Test
@@ -58,6 +72,17 @@ class TimerTest {
     }
 
     @Test
+    fun `stop the timer - elapsed time should not change`(robot: FxRobot) {
+        timer.start()
+        timer.stop()
+        val firstSample = timer.elapsedTimeProperty().value
+        robot.sleep((updateRate * 3).toMillis().toLong())
+        val secondSample = timer.elapsedTimeProperty().value
+
+        assertThat(firstSample).isEqualTo(secondSample)
+    }
+
+    @Test
     fun `stop the timer - remaining time should not change`(robot: FxRobot) {
         timer.start()
         timer.stop()
@@ -66,6 +91,17 @@ class TimerTest {
         val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
+    }
+
+    @Test
+    fun `resume the timer - elapsed time should not reset`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((updateRate * 4).toMillis().toLong())
+        timer.stop()
+        timer.start()
+        val elapsedTime = timer.elapsedTimeProperty().value
+
+        assertThat(elapsedTime).isBetween(updateRate * 3, updateRate * 5)
     }
 
     @Test
@@ -89,6 +125,16 @@ class TimerTest {
     }
 
     @Test
+    fun `reset the timer - elapsed time should reset`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((updateRate * 3).toMillis().toLong())
+        timer.reset()
+        val elapsedTime = timer.elapsedTimeProperty().value
+
+        assertThat(elapsedTime).isEqualTo(ZERO)
+    }
+
+    @Test
     fun `reset the timer - remaining time should reset`(robot: FxRobot) {
         timer.start()
         robot.sleep((updateRate * 3).toMillis().toLong())
@@ -96,6 +142,17 @@ class TimerTest {
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isEqualTo(duration)
+    }
+
+    @Test
+    fun `reset the timer - elapsed time should increase`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((updateRate * 2).toMillis().toLong())
+        timer.reset()
+        robot.sleep((updateRate * 4).toMillis().toLong())
+        val elapsedTime = timer.elapsedTimeProperty().value
+
+        assertThat(elapsedTime).isBetween(updateRate * 3, updateRate * 5)
     }
 
     @Test
@@ -110,12 +167,21 @@ class TimerTest {
     }
 
     @Test
+    fun `finish the timer - elapsed time should be equal to total duration`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((duration + updateRate * 2).toMillis().toLong())
+        val elapsedTime = timer.elapsedTimeProperty().value
+
+        assertThat(elapsedTime).isEqualTo(duration)
+    }
+
+    @Test
     fun `finish the timer - remaining time should be 0`(robot: FxRobot) {
         timer.start()
         robot.sleep((duration + updateRate * 2).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isEqualTo(Duration.ZERO)
+        assertThat(remainingTime).isEqualTo(ZERO)
     }
 
     @Test
