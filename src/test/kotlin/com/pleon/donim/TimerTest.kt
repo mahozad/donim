@@ -30,6 +30,11 @@ class TimerTest {
     }
 
     @Test
+    fun `create new timer - remaining time should be equal to provided duration`() {
+        assertThat(timer.remainingTimeProperty().value).isEqualTo(duration)
+    }
+
+    @Test
     fun `start the timer - "isStarted" should be true`() {
         timer.start()
 
