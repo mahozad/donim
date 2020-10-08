@@ -7,7 +7,7 @@ import javafx.animation.Timeline
 import javafx.beans.property.ReadOnlyObjectWrapper
 import javafx.util.Duration
 
-class Timer(duration: Duration, updateRate: Duration) {
+class Timer(private val duration: Duration, updateRate: Duration) {
 
     val isStarted get() = timeline.status == RUNNING
     private var remainingTimeProperty = ReadOnlyObjectWrapper(duration)
@@ -31,6 +31,7 @@ class Timer(duration: Duration, updateRate: Duration) {
     }
 
     fun reset() {
+        remainingTimeProperty.set(duration)
         timeline.playFromStart()
     }
 }
