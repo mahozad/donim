@@ -19,7 +19,7 @@ class TimerTest {
 
     @Start
     fun start(stage: Stage) {
-        duration = Duration.millis(500.0)
+        duration = Duration.millis(300.0)
         updateRate = Duration.millis(50.0)
         timer = Timer(duration, updateRate)
     }
