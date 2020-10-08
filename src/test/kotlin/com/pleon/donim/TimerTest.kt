@@ -25,8 +25,8 @@ class TimerTest {
     }
 
     @Test
-    fun `create new timer - started should be false`() {
-        assertThat(timer.isStarted).isEqualTo(false)
+    fun `create new timer - running field should be false`() {
+        assertThat(timer.isRunning).isEqualTo(false)
     }
 
     @Test
@@ -38,7 +38,7 @@ class TimerTest {
     fun `start the timer - started should be true`() {
         timer.start()
 
-        assertThat(timer.isStarted).isEqualTo(true)
+        assertThat(timer.isRunning).isEqualTo(true)
     }
 
     @Test
@@ -50,11 +50,11 @@ class TimerTest {
     }
 
     @Test
-    fun `start then stop the timer - started should be false`() {
+    fun `start then stop the timer - running field should be false`() {
         timer.start()
         timer.stop()
 
-        assertThat(timer.isStarted).isEqualTo(false)
+        assertThat(timer.isRunning).isEqualTo(false)
     }
 
     @Test
@@ -69,12 +69,12 @@ class TimerTest {
     }
 
     @Test
-    fun `reset the timer - started should be true`(robot: FxRobot) {
+    fun `reset the timer - running field should be true`(robot: FxRobot) {
         timer.start()
         robot.sleep((updateRate * 3).toMillis().toLong())
         timer.reset()
 
-        assertThat(timer.isStarted).isEqualTo(true)
+        assertThat(timer.isRunning).isEqualTo(true)
     }
 
     @Test
@@ -119,10 +119,10 @@ class TimerTest {
     }
 
     @Test
-    fun `start the timer - after finish the started should be false`(robot: FxRobot) {
+    fun `start the timer - after finish the running field should be false`(robot: FxRobot) {
         timer.start()
         robot.sleep((duration + updateRate * 4).toMillis().toLong())
 
-        assertThat(timer.isStarted).isEqualTo(false)
+        assertThat(timer.isRunning).isEqualTo(false)
     }
 }
