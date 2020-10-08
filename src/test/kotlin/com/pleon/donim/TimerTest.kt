@@ -110,18 +110,18 @@ class TimerTest {
     }
 
     @Test
-    fun `start the timer - after finish the remaining time should be 0`(robot: FxRobot) {
+    fun `finish the timer - remaining time should be 0`(robot: FxRobot) {
         timer.start()
-        robot.sleep((duration + updateRate * 4).toMillis().toLong())
+        robot.sleep((duration + updateRate * 2).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
         assertThat(remainingTime).isEqualTo(Duration.ZERO)
     }
 
     @Test
-    fun `start the timer - after finish the running field should be false`(robot: FxRobot) {
+    fun `finish the timer - running field should be false`(robot: FxRobot) {
         timer.start()
-        robot.sleep((duration + updateRate * 4).toMillis().toLong())
+        robot.sleep((duration + updateRate * 2).toMillis().toLong())
 
         assertThat(timer.isRunning).isEqualTo(false)
     }
