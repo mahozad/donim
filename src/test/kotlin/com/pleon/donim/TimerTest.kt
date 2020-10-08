@@ -2,6 +2,7 @@ package com.pleon.donim
 
 import javafx.stage.Stage
 import javafx.util.Duration
+import javafx.util.Duration.ONE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,6 +37,15 @@ class TimerTest {
     }
 
     @Test
+    fun `start the timer - remaining time should decrease`(robot: FxRobot) {
+        timer.start()
+        robot.sleep(updateRate.multiply(2.5).toMillis().toLong())
+
+        assertThat(timer.remainingTimeProperty().value)
+                .isBetween(duration - updateRate.multiply(2.0), duration - updateRate - ONE)
+    }
+
+    @Test
     fun `start then stop the timer - "isStarted" should be false`() {
         timer.start()
         timer.stop()
@@ -44,19 +54,11 @@ class TimerTest {
     }
 
     @Test
-    fun `start the timer - remaining time should decrease`(robot: FxRobot) {
-        timer.start()
-        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
-
-        assertThat(timer.remainingTimeProperty().value).isNotEqualTo(duration)
-    }
-
-    @Test
     fun `stop the timer - remaining time should not change`(robot: FxRobot) {
         timer.start()
         timer.stop()
         val firstSample = timer.remainingTimeProperty().value
-        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
+        robot.sleep(updateRate.multiply(2.5).toMillis().toLong())
         val secondSample = timer.remainingTimeProperty().value
 
         assertThat(firstSample).isEqualTo(secondSample)
@@ -78,7 +80,7 @@ class TimerTest {
         timer.reset()
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isBetween(duration - Duration.millis(1.0), duration)
+        assertThat(remainingTime).isBetween(duration - ONE, duration)
     }
 
     @Test
@@ -86,10 +88,10 @@ class TimerTest {
         timer.start()
         robot.sleep(50)
         timer.reset()
-        robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
+        robot.sleep(updateRate.multiply(3.0).toMillis().toLong())
         val remainingTime = timer.remainingTimeProperty().value
 
-        assertThat(remainingTime).isBetween(duration - updateRate.multiply(2.0), duration)
+        assertThat(remainingTime).isBetween(duration - updateRate.multiply(3.0), duration - updateRate.multiply(2.0))
     }
 
     @Test
