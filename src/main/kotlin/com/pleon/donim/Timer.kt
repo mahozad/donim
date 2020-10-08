@@ -7,6 +7,9 @@ import javafx.beans.property.ReadOnlyObjectProperty
 import javafx.beans.property.ReadOnlyObjectWrapper
 import javafx.util.Duration
 
+/**
+ * To change the duration or the updateRate create a new instance of this class.
+ */
 class Timer(private val duration: Duration,
             private val updateRate: Duration) {
 
