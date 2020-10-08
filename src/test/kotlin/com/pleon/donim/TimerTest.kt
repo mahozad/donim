@@ -24,19 +24,19 @@ class TimerTest {
     }
 
     @Test
-    fun `a new timer should have "started" field as false`() {
+    fun `create new timer - "isStarted" should be false`() {
         assertThat(timer.isStarted).isEqualTo(false)
     }
 
     @Test
-    fun `start the timer`() {
+    fun `start the timer - "isStarted" should be true`() {
         timer.start()
 
         assertThat(timer.isStarted).isEqualTo(true)
     }
 
     @Test
-    fun `start and then stop the timer`() {
+    fun `start then stop the timer - "isStarted" should be false`() {
         timer.start()
         timer.stop()
 
@@ -44,7 +44,7 @@ class TimerTest {
     }
 
     @Test
-    fun `after start, the remaining time should decrease`(robot: FxRobot) {
+    fun `start the timer - remaining time should decrease`(robot: FxRobot) {
         timer.start()
         robot.sleep(updateRate.multiply(2.0).toMillis().toLong())
 
@@ -52,7 +52,7 @@ class TimerTest {
     }
 
     @Test
-    fun `after stop, the remaining time should not change`(robot: FxRobot) {
+    fun `stop the timer - remaining time should not change`(robot: FxRobot) {
         timer.start()
         timer.stop()
         val firstSample = timer.remainingTimeProperty().value
@@ -72,7 +72,7 @@ class TimerTest {
     }
 
     @Test
-    fun `reset the timer - the remaining time should reset`(robot: FxRobot) {
+    fun `reset the timer - remaining time should reset`(robot: FxRobot) {
         timer.start()
         robot.sleep(50)
         timer.reset()
@@ -82,7 +82,7 @@ class TimerTest {
     }
 
     @Test
-    fun `reset the timer - the remaining time should decrease`(robot: FxRobot) {
+    fun `reset the timer - remaining time should decrease`(robot: FxRobot) {
         timer.start()
         robot.sleep(50)
         timer.reset()
