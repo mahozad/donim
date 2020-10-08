@@ -9,7 +9,7 @@ import javafx.util.Duration
 class Timer(private val duration: Duration, private val updateRate: Duration) {
 
     val isRunning get() = timeline.status == RUNNING
-    private var remainingTimeProperty = ReadOnlyObjectWrapper(duration)
+    private val remainingTimeProperty = ReadOnlyObjectWrapper(duration)
     private val timeline = Timeline()
 
     init {
