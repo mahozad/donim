@@ -25,7 +25,7 @@ class TimerTest {
     }
 
     @Test
-    fun `create new timer - "isStarted" should be false`() {
+    fun `create new timer - started should be false`() {
         assertThat(timer.isStarted).isEqualTo(false)
     }
 
@@ -35,7 +35,7 @@ class TimerTest {
     }
 
     @Test
-    fun `start the timer - "isStarted" should be true`() {
+    fun `start the timer - started should be true`() {
         timer.start()
 
         assertThat(timer.isStarted).isEqualTo(true)
@@ -51,7 +51,7 @@ class TimerTest {
     }
 
     @Test
-    fun `start then stop the timer - "isStarted" should be false`() {
+    fun `start then stop the timer - started should be false`() {
         timer.start()
         timer.stop()
 
@@ -70,7 +70,7 @@ class TimerTest {
     }
 
     @Test
-    fun `reset the timer - "isStarted" should be true`(robot: FxRobot) {
+    fun `reset the timer - started should be true`(robot: FxRobot) {
         timer.start()
         robot.sleep(50)
         timer.reset()
