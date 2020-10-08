@@ -108,4 +108,21 @@ class TimerTest {
 
         assertThat(remainingTime).isBetween(duration - updateRate * 5, duration - updateRate * 3)
     }
+
+    @Test
+    fun `start the timer - after finish the remaining time should be 0`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((duration + updateRate * 4).toMillis().toLong())
+        val remainingTime = timer.remainingTimeProperty().value
+
+        assertThat(remainingTime).isEqualTo(Duration.ZERO)
+    }
+
+    @Test
+    fun `start the timer - after finish the started should be false`(robot: FxRobot) {
+        timer.start()
+        robot.sleep((duration + updateRate * 4).toMillis().toLong())
+
+        assertThat(timer.isStarted).isEqualTo(false)
+    }
 }

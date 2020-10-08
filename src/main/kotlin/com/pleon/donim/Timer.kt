@@ -1,13 +1,12 @@
 package com.pleon.donim
 
-import javafx.animation.Animation.INDEFINITE
 import javafx.animation.Animation.Status.RUNNING
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.beans.property.ReadOnlyObjectWrapper
 import javafx.util.Duration
 
-class Timer(private val duration: Duration, updateRate: Duration) {
+class Timer(private val duration: Duration, private val updateRate: Duration) {
 
     val isStarted get() = timeline.status == RUNNING
     private var remainingTimeProperty = ReadOnlyObjectWrapper(duration)
@@ -22,7 +21,7 @@ class Timer(private val duration: Duration, updateRate: Duration) {
     fun remainingTimeProperty() = remainingTimeProperty.readOnlyProperty
 
     fun start() {
-        timeline.cycleCount = INDEFINITE
+        timeline.cycleCount = duration.toMillis().toInt() / updateRate.toMillis().toInt()
         timeline.play()
     }
 
