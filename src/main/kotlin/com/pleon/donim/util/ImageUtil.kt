@@ -1,7 +1,8 @@
 package com.pleon.donim.util
 
 import com.jhlabs.image.HSBAdjustFilter
-import javafx.scene.paint.Color
+import java.awt.Color.HSBtoRGB
+import java.awt.Color.RGBtoHSB
 import java.awt.RenderingHints.KEY_INTERPOLATION
 import java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
 import java.awt.image.BufferedImage
@@ -25,33 +26,30 @@ object ImageUtil {
         return hsbFilter.filter(image, destination)
     }
 
-    /**
-     * This does not use external libraries like jhlabs (which is not maintained and id about 300 KiB)
-     */
-    fun tintImage2(image: BufferedImage, hueFactor: Double): BufferedImage {
-        for (i in 0 until image.width) {
-            for (j in 0 until image.height) {
-                val originalColor = java.awt.Color(image.getRGB(i, j), true)
-                val originalColorFX = Color(originalColor.red.toDouble() / 255.0, originalColor.green.toDouble() / 255.0, originalColor.blue.toDouble() / 255.0, originalColor.alpha / 255.0)
-                val newColorFX =/* originalColorFX.interpolate(AQUA, 0.5) */originalColorFX.deriveColor(hueFactor * 360, 1.0, 1.0, 1.0)
-                val newColor = java.awt.Color(newColorFX.red.toFloat(), newColorFX.green.toFloat(), newColorFX.blue.toFloat(), newColorFX.opacity.toFloat())
-                // val rgb = ((newColorFX.opacity * 255).toInt() shl 24) + ((newColorFX.red * 255).toInt() shl 16) + ((newColorFX.green * 255).toInt() shl 8) + (newColorFX.blue * 255).toInt()
-                image.setRGB(i, j, newColor.rgb)
-            }
-        }
-        return image
-    }
+    // /**
+    //  * This does not use external libraries like jhlabs (which is not maintained and id about 300 KiB)
+    //  */
+    // fun tintImage2(image: BufferedImage, hueFactor: Double): BufferedImage {
+    //     for (i in 0 until image.width) {
+    //         for (j in 0 until image.height) {
+    //             val originalColor = java.awt.Color(image.getRGB(i, j), true)
+    //             val originalColorFX = Color(originalColor.red.toDouble() / 255.0, originalColor.green.toDouble() / 255.0, originalColor.blue.toDouble() / 255.0, originalColor.alpha / 255.0)
+    //             val newColorFX =/* originalColorFX.interpolate(AQUA, 0.5) */originalColorFX.deriveColor(hueFactor * 360, 1.0, 1.0, 1.0)
+    //             val newColor = java.awt.Color(newColorFX.red.toFloat(), newColorFX.green.toFloat(), newColorFX.blue.toFloat(), newColorFX.opacity.toFloat())
+    //             // val rgb = ((newColorFX.opacity * 255).toInt() shl 24) + ((newColorFX.red * 255).toInt() shl 16) + ((newColorFX.green * 255).toInt() shl 8) + (newColorFX.blue * 255).toInt()
+    //             image.setRGB(i, j, newColor.rgb)
+    //         }
+    //     }
+    //     return image
+    // }
 
-    fun tintImage3(image: BufferedImage, hueFactor: Double): BufferedImage {
+    fun tintImage3(image: BufferedImage, hueFactor: Float): BufferedImage {
         for (i in 0 until image.width) {
             for (j in 0 until image.height) {
                 val rgb = image.getRGB(i, j)
-                val a = 0xff and rgb shr 24
-                val r = 0xff and rgb shr 16
-                val g = 0xff and rgb shr 8
-                val b = 0xff and rgb
-                val (hue, sat, bri) = java.awt.Color.RGBtoHSB(r, g, b, null)
-                val new = (a shl 24) + java.awt.Color.HSBtoRGB(hue + hueFactor.toFloat(), sat, bri)
+                val (b, g, r, a) = Array(4) { n -> (rgb shr n * 8) and 0xff }
+                val (hue, sat, bri) = RGBtoHSB(r, g, b, null)
+                val new = (a shl 24) + HSBtoRGB(hue + hueFactor, sat, bri)
                 image.setRGB(i, j, new)
             }
         }
