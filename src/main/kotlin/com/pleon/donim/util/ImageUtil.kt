@@ -27,7 +27,7 @@ object ImageUtil {
     /**
      * This does not use external libraries like jhlabs (which is not maintained and id about 300 KiB)
      */
-    fun tintImageManually(image: BufferedImage, hueFactor: Double): BufferedImage {
+    fun tintImage2(image: BufferedImage, hueFactor: Double): BufferedImage {
         for (i in 0 until image.width) {
             for (j in 0 until image.height) {
                 val originalColor = java.awt.Color(image.getRGB(i, j), true)
