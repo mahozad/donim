@@ -33,7 +33,7 @@ object ImageUtil {
             for (j in 0 until image.height) {
                 val originalColor = java.awt.Color(image.getRGB(i, j), true)
                 val originalColorFX = Color(originalColor.red.toDouble() / 255.0, originalColor.green.toDouble() / 255.0, originalColor.blue.toDouble() / 255.0, originalColor.alpha / 255.0)
-                val newColorFX =/* originalColorFX.interpolate(AQUA, 0.5) */originalColorFX.deriveColor(hueFactor * 365, 1.0, 1.0, 1.0)
+                val newColorFX =/* originalColorFX.interpolate(AQUA, 0.5) */originalColorFX.deriveColor(hueFactor * 360, 1.0, 1.0, 1.0)
                 val newColor = java.awt.Color(newColorFX.red.toFloat(), newColorFX.green.toFloat(), newColorFX.blue.toFloat(), newColorFX.opacity.toFloat())
                 // val rgb = ((newColorFX.opacity * 255).toInt() shl 24) + ((newColorFX.red * 255).toInt() shl 16) + ((newColorFX.green * 255).toInt() shl 8) + (newColorFX.blue * 255).toInt()
                 image.setRGB(i, j, newColor.rgb)
