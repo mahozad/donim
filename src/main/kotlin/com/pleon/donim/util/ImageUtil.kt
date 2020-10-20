@@ -46,10 +46,10 @@ object ImageUtil {
         for (i in 0 until image.width) {
             for (j in 0 until image.height) {
                 val rgb = image.getRGB(i, j)
-                val a = rgb shr 24 and 255
-                val r = rgb shr 16 and 255
-                val g = rgb shr  8 and 255
-                val b = rgb and 255
+                val a = 0xff and rgb shr 24
+                val r = 0xff and rgb shr 16
+                val g = 0xff and rgb shr 8
+                val b = 0xff and rgb
                 val (hue, sat, bri) = java.awt.Color.RGBtoHSB(r, g, b, null)
                 val new = (a shl 24) + java.awt.Color.HSBtoRGB(hue + hueFactor.toFloat(), sat, bri)
                 image.setRGB(i, j, new)
