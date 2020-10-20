@@ -22,4 +22,10 @@ object ImageUtil {
         val destination = hsbFilter.createCompatibleDestImage(image, null)
         return hsbFilter.filter(image, destination)
     }
+
+    // NOTE:
+    //  hueRange = startColor.hue - endColor.hue / 360
+    //  hueFactor = animationFraction * hueRange
+    //  newColor = filter.setHueFactor(hueFactor)
+
 }
