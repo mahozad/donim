@@ -11,18 +11,18 @@ import javafx.util.Duration.ZERO
 /**
  * To change the duration or the updateRate create a new instance of this class.
  */
-class Timer(private val duration: Duration,
-            private val updateRate: Duration) {
+class Timer(private val totalDuration: Duration,
+            private val stepDuration: Duration) {
 
     val isRunning get() = timeline.status == RUNNING
-    private val remainingTimeProperty = ReadOnlyObjectWrapper(duration)
+    private val remainingTimeProperty = ReadOnlyObjectWrapper(totalDuration)
     private val elapsedTimeProperty = ReadOnlyObjectWrapper(ZERO)
     private val timeline = Timeline()
 
     init {
-        timeline.keyFrames.add(KeyFrame(updateRate, {
-            remainingTimeProperty.value -= updateRate
-            elapsedTimeProperty.value += updateRate
+        timeline.keyFrames.add(KeyFrame(stepDuration, {
+            remainingTimeProperty.value -= stepDuration
+            elapsedTimeProperty.value += stepDuration
         }))
     }
 
@@ -35,7 +35,7 @@ class Timer(private val duration: Duration,
     }
 
     fun start() {
-        timeline.cycleCount = duration.length / updateRate.length
+        timeline.cycleCount = totalDuration.length / stepDuration.length
         timeline.play()
     }
 
@@ -44,7 +44,7 @@ class Timer(private val duration: Duration,
     }
 
     fun reset() {
-        remainingTimeProperty.value = duration
+        remainingTimeProperty.value = totalDuration
         elapsedTimeProperty.value = ZERO
         timeline.playFromStart()
     }
