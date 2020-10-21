@@ -15,13 +15,13 @@ enum class Period(var length: Duration,
                   val defaultLength: Duration) {
 
     WORK(DEFAULT_FOCUS_DURATION,
-            hsb(0.0, 0.85, 1.0),
+            hsb(110.0, 0.9, 1.0),
             "You can now use the system",
             MessageType.INFO,
             DEFAULT_FOCUS_DURATION),
 
     BREAK(DEFAULT_BREAK_DURATION,
-            hsb(100.0, 0.85, 1.0),
+            hsb(0.0, 0.9, 1.0),
             "Please take a break and return later",
             MessageType.WARNING,
             DEFAULT_BREAK_DURATION);

@@ -158,8 +158,11 @@ class MainController : BaseController() {
     private fun fraction() = remainingTime.get().toMillis() / (timeline.cycleCount*1000/*ms*/)
 
     private fun setupMainTimeline() {
+        val colorRange = WORK.baseColor.hue - BREAK.baseColor.hue
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
-            progressBar.tick(fraction(), period.baseColor)
+            val hueShift = if (period == WORK) -colorRange * (1 - fraction()) else colorRange * (1 - fraction())
+            val color = period.baseColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
+            progressBar.tick(fraction(), color)
             remainingTime.set(remainingTime.get().subtract(Duration.seconds(1.0)))
         }))
         timeline.setOnFinished {

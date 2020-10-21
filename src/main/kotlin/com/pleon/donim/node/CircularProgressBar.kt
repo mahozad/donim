@@ -1,9 +1,9 @@
 package com.pleon.donim.node
 
+import com.pleon.donim.APP_BASE_COLOR
 import javafx.beans.InvalidationListener
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
-import javafx.scene.paint.Color.hsb
 import javafx.scene.paint.CycleMethod
 import javafx.scene.paint.LinearGradient
 import javafx.scene.paint.Stop
@@ -20,8 +20,7 @@ class CircularProgressBar : Canvas() {
     private val sliceGap = sliceLength / 2  // in degrees
     private val arcStart = 90               // in degrees
     private var arcEnd = arcStart - 360     // in degrees
-    private var baseColor = hsb(0.0, 0.85, 1.0)
-    private val colorFactor = sliceLength / 2.0
+    private var color = Color.rgb((APP_BASE_COLOR shr 16) and 0xFF, (APP_BASE_COLOR shr 8) and 0xFF, APP_BASE_COLOR and 0xFF)
     private var outerRadius = 0.0
     private var innerRadius = 0.0
     var title: String = ""
@@ -43,8 +42,6 @@ class CircularProgressBar : Canvas() {
         drawBackgroundBar()
         var sliceStart = arcStart
         while (sliceStart - sliceGap >= arcEnd) {
-            val hueShift = (arcStart - arcEnd) / (sliceLength + sliceGap) * colorFactor
-            val color = baseColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
             drawSlice(sliceStart, color)
             sliceStart -= (sliceLength + sliceGap)
         }
@@ -88,7 +85,7 @@ class CircularProgressBar : Canvas() {
     }
 
     fun tick(percent: Double, color: Color) {
-        baseColor = color
+        this.color = color
         arcEnd = arcStart + (-360 * percent).toInt()
         draw()
     }
