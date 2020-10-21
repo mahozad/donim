@@ -21,20 +21,20 @@ object ImageUtil {
     // NOTE (to calculate hueFactor to be between 0-1):
     //  hueRange = startColor.hue - endColor.hue / 360
     //  hueFactor = animationFraction * hueRange
-    fun BufferedImage.tint(hueFactor: Double): BufferedImage {
+    fun BufferedImage.tint(hueShift: Double): BufferedImage {
         for (i in 0 until width) {
             for (j in 0 until height) {
                 val rgb = getRGB(i, j)
-                val (r, g, b, a) = extractColorComponents(rgb)
-                val (hue, sat, bri) = RGBtoHSB(r, g, b, null)
-                val new = (a shl 24) + HSBtoRGB(hue + hueFactor.toFloat(), sat, bri)
+                val (r, g, b, a) = getColorComponents(rgb)
+                val (h, s, v) = RGBtoHSB(r, g, b, null)
+                val new = (a shl 24) + HSBtoRGB(h + hueShift.toFloat(), s, v)
                 setRGB(i, j, new)
             }
         }
         return this
     }
 
-    private fun extractColorComponents(rgb: Int) = arrayOf(
+    private fun getColorComponents(rgb: Int) = arrayOf(
             /* r */ rgb shr 16 and 0xff,
             /* g */ rgb shr 8 and 0xff,
             /* b */ rgb shr 0 and 0xff,
