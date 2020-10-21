@@ -38,6 +38,6 @@ object ImageUtil {
             /* r */ rgb shr 16 and 0xff,
             /* g */ rgb shr 8 and 0xff,
             /* b */ rgb shr 0 and 0xff,
-            /* a */ rgb shr 24 and 0xff
+            /* a */ (rgb shr 24 and 0xff) - 0xff
     )
 }
