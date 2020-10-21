@@ -20,7 +20,7 @@ class CircularProgressBar : Canvas() {
     private val sliceGap = sliceLength / 2  // in degrees
     private val arcStart = 90               // in degrees
     private var arcEnd = arcStart - 360     // in degrees
-    private var color = Color.rgb((APP_BASE_COLOR shr 16) and 0xFF, (APP_BASE_COLOR shr 8) and 0xFF, APP_BASE_COLOR and 0xFF)
+    private var color = APP_BASE_COLOR
     private var outerRadius = 0.0
     private var innerRadius = 0.0
     var title: String = ""

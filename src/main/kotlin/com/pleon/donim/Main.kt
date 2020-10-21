@@ -8,11 +8,12 @@ import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.image.Image
+import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
 const val APP_NAME = "Donim"
-const val APP_BASE_COLOR = 0x1984FF // HSB = (212, 90, 100)
+val APP_BASE_COLOR = Color.hsb(212.0, 0.9, 1.0)!!
 lateinit var hostServicesInstance: HostServices
 
 // TODO: Rename WORK period to FOCUS
