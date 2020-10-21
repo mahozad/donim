@@ -47,7 +47,7 @@ object ImageUtil {
         for (i in 0 until image.width) {
             for (j in 0 until image.height) {
                 val rgb = image.getRGB(i, j)
-                val (b, g, r, a) = Array(4) { n -> (rgb shr n * 8) and 0xff }
+                val (r, g, b, a) = extractColorComponents(rgb)
                 val (hue, sat, bri) = RGBtoHSB(r, g, b, null)
                 val new = (a shl 24) + HSBtoRGB(hue + hueFactor, sat, bri)
                 image.setRGB(i, j, new)
@@ -55,6 +55,16 @@ object ImageUtil {
         }
         return image
     }
+
+    /**
+     *  Extracts red, green, blue, alpha in that order.
+     */
+    private fun extractColorComponents(rgb: Int) = arrayOf(
+            rgb shr 16 and 0xff,
+            rgb shr 8 and 0xff,
+            rgb shr 0 and 0xff,
+            rgb shr 24 and 0xff
+    )
 
     // NOTE:
     //  hueRange = startColor.hue - endColor.hue / 360
