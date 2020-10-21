@@ -34,13 +34,10 @@ object ImageUtil {
         return this
     }
 
-    /**
-     *  Extracts red, green, blue, alpha in that order.
-     */
     private fun extractColorComponents(rgb: Int) = arrayOf(
-            rgb shr 16 and 0xff,
-            rgb shr 8 and 0xff,
-            rgb shr 0 and 0xff,
-            rgb shr 24 and 0xff
+            /* r */ rgb shr 16 and 0xff,
+            /* g */ rgb shr 8 and 0xff,
+            /* b */ rgb shr 0 and 0xff,
+            /* a */ rgb shr 24 and 0xff
     )
 }
