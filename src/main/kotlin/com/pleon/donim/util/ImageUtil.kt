@@ -8,31 +8,28 @@ import java.awt.image.BufferedImage
 
 object ImageUtil {
 
-    fun rotateImage(image: BufferedImage, angle: Double): BufferedImage {
-        val rotated = BufferedImage(image.width, image.height, image.type)
+    fun BufferedImage.rotate(angle: Double): BufferedImage {
+        val rotated = BufferedImage(width, height, type)
         val graphic = rotated.createGraphics()
-        graphic.rotate(Math.toRadians(angle), image.width / 2.0, image.height / 2.0)
+        graphic.rotate(Math.toRadians(angle), width / 2.0, height / 2.0)
         graphic.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR)
-        graphic.drawImage(image, null, 0, 0)
+        graphic.drawImage(this, null, 0, 0)
         graphic.dispose()
         return rotated
     }
 
-    fun tintImage(image: BufferedImage, hueFactor: Double): BufferedImage {
-        return tintImage(image, hueFactor.toFloat())
-    }
 
-    fun tintImage(image: BufferedImage, hueFactor: Float): BufferedImage {
-        for (i in 0 until image.width) {
-            for (j in 0 until image.height) {
-                val rgb = image.getRGB(i, j)
+    fun BufferedImage.tint(hueFactor: Double): BufferedImage {
+        for (i in 0 until width) {
+            for (j in 0 until height) {
+                val rgb = getRGB(i, j)
                 val (r, g, b, a) = extractColorComponents(rgb)
                 val (hue, sat, bri) = RGBtoHSB(r, g, b, null)
-                val new = (a shl 24) + HSBtoRGB(hue + hueFactor, sat, bri)
-                image.setRGB(i, j, new)
+                val new = (a shl 24) + HSBtoRGB(hue + hueFactor.toFloat(), sat, bri)
+                setRGB(i, j, new)
             }
         }
-        return image
+        return this
     }
 
     /**

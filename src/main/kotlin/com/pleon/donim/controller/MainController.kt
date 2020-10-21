@@ -13,8 +13,8 @@ import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.interpolate
 import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil.centerOnScreen
-import com.pleon.donim.util.ImageUtil.rotateImage
-import com.pleon.donim.util.ImageUtil.tintImage
+import com.pleon.donim.util.ImageUtil.rotate
+import com.pleon.donim.util.ImageUtil.tint
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
 import com.pleon.donim.util.snapTo
@@ -150,7 +150,7 @@ class MainController : BaseController() {
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
             val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
             val angle = interpolate(0, 180, trayFrameNumber / totalFrameNumbers.toDouble())
-            trayIcon.image = tintImage(rotateImage(trayImage, angle), hueFactor)
+            trayIcon.image = trayImage.rotate(angle).tint(hueFactor)
             trayFrameNumber = (trayFrameNumber + 1) % totalFrameNumbers
         }))
     }
@@ -213,7 +213,7 @@ class MainController : BaseController() {
         paused = !paused
         if (paused) {
             // tray animation is paused in its keyframe event handler
-            if (trayFrameNumber == 0) trayIcon.image = tintImage(trayImage, 0.0)
+            if (trayFrameNumber == 0) trayIcon.image = trayImage.tint(0.0)
             timeline.pause()
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
         } else {
