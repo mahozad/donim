@@ -15,6 +15,7 @@ const val APP_NAME = "Donim"
 const val APP_BASE_COLOR = 0x1984FF // HSB = (212, 90, 100)
 lateinit var hostServicesInstance: HostServices
 
+// TODO: Rename WORK period to FOCUS
 // TODO: Add an option to the app to make its theme follow windows theme.
 //  see https://stackoverflow.com/q/62289/ and https://stackoverflow.com/q/60837862
 
