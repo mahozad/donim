@@ -13,7 +13,10 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 
 const val APP_NAME = "Donim"
+
+/** This is the same as the brighter color-stop in the gradient of the logo */
 val APP_BASE_COLOR = Color.hsb(212.0, 0.9, 1.0)!!
+
 lateinit var hostServicesInstance: HostServices
 
 // TODO: Rename WORK period to FOCUS
