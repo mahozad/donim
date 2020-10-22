@@ -148,10 +148,16 @@ class MainController : BaseController() {
         Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 8000)
         val totalFrameNumbers = 3000/*ms*/ / 50/*ms*/
         trayAnimation.cycleCount = totalFrameNumbers
+        val periodsColorRange = WORK.baseColor.hue - BREAK.baseColor.hue // FIXME: Duplicated
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
-            val hueFactor = if (paused) 0.0 else if (period == WORK) fraction() * 0.3 + 0.4 else -fraction() * 0.3 + 0.7
+            val distanceBetweenPeriodAndBaseColor = period.baseColor.hue - APP_BASE_COLOR.hue
+            val hueShift = when {
+                paused -> 0.0
+                period == WORK -> (distanceBetweenPeriodAndBaseColor - periodsColorRange * (1 - fraction())) / 360
+                else           -> (distanceBetweenPeriodAndBaseColor + periodsColorRange * (1 - fraction())) / 360
+            }
             val angle = interpolate(0, 180, trayFrameNumber / totalFrameNumbers.toDouble())
-            trayIcon.image = trayImage.rotate(angle).tint(hueFactor)
+            trayIcon.image = trayImage.rotate(angle).tint(hueShift)
             trayFrameNumber = (trayFrameNumber + 1) % totalFrameNumbers
         }))
     }
