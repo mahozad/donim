@@ -18,7 +18,7 @@ object ImageUtil {
         return rotated
     }
 
-    // NOTE (to calculate hueFactor to be between 0-1):
+    // NOTE: (to calculate hueFactor to be between 0-1)
     //  hueRange = startColor.hue - endColor.hue / 360
     //  hueFactor = animationFraction * hueRange
     fun BufferedImage.tint(hueShift: Double): BufferedImage {
