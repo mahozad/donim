@@ -2,6 +2,8 @@ package com.pleon.donim.controller
 
 import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.APP_NAME
+import com.pleon.donim.Animatable
+import com.pleon.donim.div
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
@@ -84,6 +86,7 @@ class MainController : BaseController() {
         setupMainTimeline()
         applyUserPreferences()
         listenForSettingsChanges()
+        progressBar.resetAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     private fun applyUserPreferences() {
@@ -172,16 +175,13 @@ class MainController : BaseController() {
     private fun fraction() = remainingTime.get().toMillis() / currentPeriodLength.toMillis()
 
     private fun setupMainTimeline() {
-        val periodsColorRange = WORK.baseColor.hue - BREAK.baseColor.hue
         timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
-            val hueShift = if (period == WORK) -periodsColorRange * (1 - fraction()) else periodsColorRange * (1 - fraction())
-            val color = period.baseColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
-            progressBar.tick(fraction(), color)
             remainingTime.set(remainingTime.get().subtract(Duration.seconds(1.0)))
         }))
         timeline.setOnFinished {
             period = if (period == WORK) BREAK else WORK
             startTimer(shouldNotify = true, shouldResetTimer = true)
+            progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
         }
     }
 
@@ -191,7 +191,7 @@ class MainController : BaseController() {
             remainingTime.set(period.length)
             currentPeriodLength = remainingTime.value
         }
-        timeline.cycleCount = remainingTime.get().toSeconds().toInt()
+        timeline.cycleCount = (currentPeriodLength / timeline.cycleDuration).toInt()
         timeline.play()
         trayAnimation.play()
         paused = false
@@ -227,6 +227,7 @@ class MainController : BaseController() {
     fun restart() {
         timeline.stop() // required so the period won't finish early
         startTimer(shouldNotify = false, shouldResetTimer = true)
+        progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     fun pauseResume() {
@@ -234,13 +235,14 @@ class MainController : BaseController() {
         if (paused) {
             // tray animation is paused in its keyframe event handler
             if (trayFrameNumber == 0) trayIcon.image = trayImage.tint(0.0)
-            timeline.pause()
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
-            progressBar.tick(fraction(), APP_BASE_COLOR)
+            timeline.pause()
+            progressBar.pauseAnimation()
         } else {
             skip.isDisable = false
             restart.isDisable = false
             startTimer(shouldNotify = false, shouldResetTimer = false)
+            progressBar.startAnimation()
         }
     }
 
@@ -248,6 +250,7 @@ class MainController : BaseController() {
         timeline.stop() // required so the counter won't go negative
         period = if (period == WORK) BREAK else WORK
         startTimer(shouldNotify = false, shouldResetTimer = true)
+        progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     private fun format(duration: Duration) = String.format("%02d:%02d",

@@ -1,21 +1,28 @@
 package com.pleon.donim.node
 
 import com.pleon.donim.APP_BASE_COLOR
+import com.pleon.donim.Animatable
+import com.pleon.donim.Animatable.AnimationProperties
+import com.pleon.donim.Timer
+import com.pleon.donim.div
 import javafx.beans.InvalidationListener
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
 import javafx.scene.paint.CycleMethod
 import javafx.scene.paint.LinearGradient
 import javafx.scene.paint.Stop
+import javafx.util.Duration
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
 
-class CircularProgressBar : Canvas() {
+class CircularProgressBar : Animatable, Canvas() {
 
     // https://www.youtube.com/watch?v=V2yXGdC98jM
     // https://stackoverflow.com/q/24533556/8583692
 
+    private lateinit var timer: Timer
+    private lateinit var animationProperties: AnimationProperties
     private val sliceLength = 4             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
     private val arcStart = 90               // in degrees
@@ -84,9 +91,52 @@ class CircularProgressBar : Canvas() {
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
 
-    fun tick(percent: Double, color: Color) {
-        this.color = color
-        arcEnd = arcStart + (-360 * percent).toInt()
+    private fun tick(remainingTime: Duration) {
+        val fraction = remainingTime / animationProperties.duration
+        val hueShift =
+                if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
+                    (fraction) * (animationProperties.endColor.hue - animationProperties.startColor.hue)
+                } else {
+                    (1 - fraction) * (animationProperties.endColor.hue - animationProperties.startColor.hue)
+                }
+        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
+        arcEnd = arcStart + (-360 * fraction).toInt()
         draw()
+    }
+
+    private fun createTimer() {
+        timer = Timer(animationProperties.duration, Duration.millis(30.0))
+        if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
+            timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
+        } else {
+            timer.remainingTimeProperty().addListener { _, _, remainingTime -> tick(remainingTime) }
+        }
+    }
+
+    override fun startAnimation(properties: AnimationProperties) {
+        resetAnimation(properties)
+        timer.start()
+    }
+
+    override fun startAnimation() {
+        if (!this::timer.isInitialized) createTimer()
+        timer.start()
+    }
+
+    override fun pauseAnimation() {
+        timer.stop()
+        color = animationProperties.pauseColor
+        draw()
+    }
+
+    override fun resetAnimation(properties: AnimationProperties) {
+        animationProperties = properties
+        // TODO: Also remove listeners from timer properties to avoid memory leak
+        if (this::timer.isInitialized) timer.stop()
+        createTimer()
+    }
+
+    override fun endAnimation(endEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
+        TODO("Not yet implemented")
     }
 }
