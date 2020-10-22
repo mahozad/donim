@@ -38,6 +38,7 @@ import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
+import javafx.util.Duration.INDEFINITE
 import java.awt.MenuItem
 import java.awt.PopupMenu
 import java.awt.SystemTray
@@ -59,6 +60,9 @@ class MainController : BaseController() {
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
+    // NOTE: Could not use period.length because if the period length is changed in
+    //  settings while the app is running, it will cause bugs in the progress bar
+    private var currentPeriodLength = INDEFINITE
     private var isMuted = false
     private var trayFrameNumber = 0
     private var trayAnimation = Timeline()
@@ -94,6 +98,7 @@ class MainController : BaseController() {
             BREAK.setLength(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
         }
         remainingTime.set(period.length)
+        currentPeriodLength = remainingTime.value
     }
 
     private fun listenForSettingsChanges() {
@@ -105,6 +110,7 @@ class MainController : BaseController() {
                     } catch (e: Exception) {
                         remainingTime.set(period.defaultLength)
                     }
+                    currentPeriodLength = remainingTime.value
                 }
             }
 
@@ -163,7 +169,7 @@ class MainController : BaseController() {
         }))
     }
 
-    private fun fraction() = remainingTime.get().toMillis() / (timeline.cycleCount*1000/*ms*/)
+    private fun fraction() = remainingTime.get().toMillis() / currentPeriodLength.toMillis()
 
     private fun setupMainTimeline() {
         val periodsColorRange = WORK.baseColor.hue - BREAK.baseColor.hue
@@ -181,7 +187,10 @@ class MainController : BaseController() {
 
     private fun startTimer(shouldNotify: Boolean, shouldResetTimer: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
-        if (shouldResetTimer) remainingTime.set(period.length)
+        if (shouldResetTimer) {
+            remainingTime.set(period.length)
+            currentPeriodLength = remainingTime.value
+        }
         timeline.cycleCount = remainingTime.get().toSeconds().toInt()
         timeline.play()
         trayAnimation.play()
