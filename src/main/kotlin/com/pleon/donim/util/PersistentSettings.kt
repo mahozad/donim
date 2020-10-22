@@ -32,8 +32,8 @@ object PersistentSettings : Settings {
      * See https://stackoverflow.com/q/1198911/
      */
     private fun getOsSpecificDirectory(): String {
-        val osName = System.getProperty("os.name").toLowerCase()
-        return if (osName.contains("windows")) {
+        val osName = System.getProperty("os.name")
+        return if (osName.contains("windows", ignoreCase = true)) {
             System.getenv("AppData") + "/Donim/"
         } else {
             System.getProperty("user.home") + "/Donim/"
