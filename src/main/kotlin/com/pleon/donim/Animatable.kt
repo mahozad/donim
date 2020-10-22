@@ -4,7 +4,27 @@ import javafx.scene.paint.Color
 import javafx.util.Duration
 
 interface Animatable {
-    fun startAnimation(duration: Duration, startColor: Color, endColor: Color)
-    fun stopAnimation(graceful: Boolean = true)
-    fun resetAnimation(graceful: Boolean = true)
+
+    enum class AnimationDirection { FORWARD, BACKWARD }
+
+    class AnimationProperties(
+            val duration: Duration,
+            val direction: AnimationDirection,
+            val startColor: Color = APP_BASE_COLOR,
+            val endColor: Color = APP_BASE_COLOR,
+            val pauseColor: Color = APP_BASE_COLOR,
+            val initialProgress: Double = 0.0
+    )
+
+    val animationProperties: AnimationProperties
+
+    fun startAnimation()
+
+    fun pauseAnimation()
+
+    fun resetAnimation(properties: AnimationProperties)
+
+    fun endAnimation(endEnd: () -> Unit = {},
+                     graceful: Boolean = true,
+                     graceDuration: Duration = Duration.seconds(2.0))
 }
