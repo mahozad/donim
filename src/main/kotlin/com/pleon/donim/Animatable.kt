@@ -7,7 +7,7 @@ interface Animatable {
 
     enum class AnimationDirection { FORWARD, BACKWARD }
 
-    class AnimationProperties(
+    data class AnimationProperties(
             val duration: Duration,
             val direction: AnimationDirection,
             val startColor: Color = APP_BASE_COLOR,
