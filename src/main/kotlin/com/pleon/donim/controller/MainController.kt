@@ -150,6 +150,7 @@ class MainController : BaseController() {
         trayAnimation.cycleCount = totalFrameNumbers
         val periodsColorRange = WORK.baseColor.hue - BREAK.baseColor.hue // FIXME: Duplicated
         trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
+            // Because the icon has the default base color
             val distanceBetweenPeriodAndBaseColor = period.baseColor.hue - APP_BASE_COLOR.hue
             val hueShift = when {
                 paused -> 0.0
