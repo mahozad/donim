@@ -4,6 +4,10 @@ Try to remove the URLs and then restart the IDEA to fix the problem.
 
 ---
 
+[Cross-platform tray icon support](https://github.com/dorkbox/SystemTray)
+
+---
+
 To localize strings in the app, the main class should load the resource bundle like this:
 
     val resources: ResourceBundle = ResourceBundle.getBundle("messages")
