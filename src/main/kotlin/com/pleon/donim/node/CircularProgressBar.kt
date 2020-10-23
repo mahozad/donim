@@ -137,6 +137,20 @@ class CircularProgressBar : Animatable, Canvas() {
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        TODO("Not yet implemented")
+        val wasRunning = timer.isRunning
+        timer.stop()
+        val fraction = timer.elapsedTimeProperty().get() / animationProperties.duration
+        animationProperties = AnimationProperties(
+                graceDuration,
+                animationProperties.direction,
+                if (wasRunning) animationProperties.startColor else APP_BASE_COLOR,
+                if (wasRunning) animationProperties.endColor else APP_BASE_COLOR,
+                initialProgress = fraction)
+        createTimer()
+        timer.start()
+        timer.remainingTimeProperty().addListener { _, _, newValue ->
+            // 30 is the timer step; See createTimer()
+            if (newValue.toMillis() < 30.0) onEnd()
+        }
     }
 }

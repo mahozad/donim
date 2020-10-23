@@ -250,10 +250,20 @@ class MainController : BaseController() {
     }
 
     fun skip() {
+        time.text = "\u23E9" // Fast-forward character
+        play.isDisable = true
+        restart.isDisable = true
+        skip.isDisable = true
+
         timeline.stop() // required so the counter won't go negative
         period = if (period == WORK) BREAK else WORK
-        startTimer(shouldNotify = false, shouldResetTimer = true)
-        progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.endAnimation({
+            startTimer(shouldNotify = false, shouldResetTimer = true)
+            progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            play.isDisable = false
+            restart.isDisable = false
+            skip.isDisable = false
+        })
     }
 
     private fun format(duration: Duration) = String.format("%02d:%02d",
