@@ -92,7 +92,7 @@ class CircularProgressBar : Animatable, Canvas() {
     }
 
     private fun tick(remainingTime: Duration) {
-        val fraction = remainingTime / animationProperties.duration
+        val fraction = (remainingTime / animationProperties.duration) - animationProperties.initialProgress
         val hueShift =
                 if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
                     (fraction) * (animationProperties.endColor.hue - animationProperties.startColor.hue)
