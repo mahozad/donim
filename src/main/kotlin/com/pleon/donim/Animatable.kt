@@ -24,7 +24,7 @@ interface Animatable {
 
     fun resetAnimation(properties: AnimationProperties)
 
-    fun endAnimation(endEnd: () -> Unit = {},
+    fun endAnimation(onEnd: () -> Unit = {},
                      graceful: Boolean = true,
                      graceDuration: Duration = Duration.seconds(2.0))
 }

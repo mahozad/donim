@@ -136,7 +136,7 @@ class CircularProgressBar : Animatable, Canvas() {
         createTimer()
     }
 
-    override fun endAnimation(endEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
+    override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
         TODO("Not yet implemented")
     }
 }
