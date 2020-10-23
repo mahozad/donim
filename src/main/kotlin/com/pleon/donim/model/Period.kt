@@ -8,7 +8,7 @@ import java.awt.TrayIcon.MessageType
 val DEFAULT_FOCUS_DURATION = Duration.minutes(25.0)
 val DEFAULT_BREAK_DURATION = Duration.minutes(2.0)
 
-enum class Period(var length: Duration,
+enum class Period(var duration: Duration,
                   val baseColor: Color,
                   val notification: String,
                   val notificationType: MessageType,
@@ -28,9 +28,9 @@ enum class Period(var length: Duration,
 
     fun setLength(length: String) {
         if (length.isNotBlank()) {
-            this.length = Duration.minutes(length.toDouble())
+            this.duration = Duration.minutes(length.toDouble())
         } else {
-            this.length = defaultLength
+            this.duration = defaultLength
         }
     }
 }

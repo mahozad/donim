@@ -62,7 +62,7 @@ class MainController : BaseController() {
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
-    // NOTE: Could not use period.length because if the period length is changed in
+    // NOTE: Could not use period.duration because if the period duration is changed in
     //  settings while the app is running, it will cause bugs in the progress bar
     private var currentPeriodLength = INDEFINITE
     private var isMuted = false
@@ -86,7 +86,7 @@ class MainController : BaseController() {
         setupMainTimeline()
         applyUserPreferences()
         listenForSettingsChanges()
-        progressBar.resetAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
+        progressBar.resetAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     private fun applyUserPreferences() {
@@ -100,13 +100,13 @@ class MainController : BaseController() {
         } catch (e: SettingNotFoundException) {
             BREAK.setLength(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
         }
-        remainingTime.set(period.length)
+        remainingTime.set(period.duration)
         currentPeriodLength = remainingTime.value
     }
 
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
-            if (paused && remainingTime.get() == period.length) {
+            if (paused && remainingTime.get() == period.duration) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
                     try {
                         remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
@@ -181,14 +181,14 @@ class MainController : BaseController() {
         timeline.setOnFinished {
             period = if (period == WORK) BREAK else WORK
             startTimer(shouldNotify = true, shouldResetTimer = true)
-            progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
+            progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
         }
     }
 
     private fun startTimer(shouldNotify: Boolean, shouldResetTimer: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
         if (shouldResetTimer) {
-            remainingTime.set(period.length)
+            remainingTime.set(period.duration)
             currentPeriodLength = remainingTime.value
         }
         timeline.cycleCount = (currentPeriodLength / timeline.cycleDuration).toInt()
@@ -227,7 +227,7 @@ class MainController : BaseController() {
     fun restart() {
         timeline.stop() // required so the period won't finish early
         startTimer(shouldNotify = false, shouldResetTimer = true)
-        progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
+        progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     fun pauseResume() {
@@ -250,7 +250,7 @@ class MainController : BaseController() {
         timeline.stop() // required so the counter won't go negative
         period = if (period == WORK) BREAK else WORK
         startTimer(shouldNotify = false, shouldResetTimer = true)
-        progressBar.startAnimation(Animatable.AnimationProperties(period.length, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
+        progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
     private fun format(duration: Duration) = String.format("%02d:%02d",
