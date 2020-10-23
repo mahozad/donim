@@ -26,6 +26,8 @@ enum class Period(var duration: Duration,
             MessageType.WARNING,
             DEFAULT_BREAK_DURATION);
 
+    lateinit var nextPeriod: Period
+
     fun setDuration(duration: String) {
         if (duration.isNotBlank()) {
             this.duration = Duration.minutes(duration.toDouble())

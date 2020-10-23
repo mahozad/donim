@@ -86,6 +86,8 @@ class MainController : BaseController() {
         setupMainTimeline()
         applyUserPreferences()
         listenForSettingsChanges()
+        WORK.nextPeriod = BREAK
+        BREAK.nextPeriod = WORK
         progressBar.resetAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, WORK.baseColor, BREAK.baseColor))
     }
 
