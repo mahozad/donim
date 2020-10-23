@@ -16,7 +16,7 @@ interface Animatable {
             val initialProgress: Double = 0.0
     )
 
-    val animationProperties: AnimationProperties
+    fun startAnimation(properties: AnimationProperties)
 
     fun startAnimation()
 
