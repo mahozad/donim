@@ -26,9 +26,9 @@ enum class Period(var duration: Duration,
             MessageType.WARNING,
             DEFAULT_BREAK_DURATION);
 
-    fun setLength(length: String) {
-        if (length.isNotBlank()) {
-            this.duration = Duration.minutes(length.toDouble())
+    fun setDuration(duration: String) {
+        if (duration.isNotBlank()) {
+            this.duration = Duration.minutes(duration.toDouble())
         } else {
             this.duration = defaultDuration
         }
