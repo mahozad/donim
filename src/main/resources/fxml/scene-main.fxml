@@ -85,7 +85,7 @@
                 <Insets right="8" top="20" bottom="20"/>
             </HBox.margin>
         </Button>
-        <Button styleClass="btn" onAction="#pauseResume">
+        <Button fx:id="play" styleClass="btn" onAction="#pauseResume">
             <graphic>
                 <SVGPath
                         fx:id="playIcon"

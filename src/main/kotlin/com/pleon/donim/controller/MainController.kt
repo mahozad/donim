@@ -57,6 +57,7 @@ class MainController : BaseController() {
 
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var restart: Button
+    @FXML private lateinit var play: Button
     @FXML private lateinit var skip: Button
     @FXML private lateinit var time: Text
     @FXML lateinit var playIcon: SVGPath
