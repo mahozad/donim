@@ -2,6 +2,7 @@ package com.pleon.donim.node
 
 import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.Animatable
+import com.pleon.donim.Animatable.AnimationDirection.FORWARD
 import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.Timer
 import com.pleon.donim.div
@@ -91,26 +92,17 @@ class CircularProgressBar : Animatable, Canvas() {
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
 
-    private fun tick(remainingTime: Duration) {
-        val fraction = (remainingTime / animationProperties.duration) - animationProperties.initialProgress
-        val hueShift =
-                if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
-                    (fraction) * (animationProperties.endColor.hue - animationProperties.startColor.hue)
-                } else {
-                    (1 - fraction) * (animationProperties.endColor.hue - animationProperties.startColor.hue)
-                }
+    private fun tick(elapsedTime: Duration) {
+        val progress = animationProperties.initialProgress + (elapsedTime / animationProperties.duration)
+        val hueShift = progress * (animationProperties.endColor.hue - animationProperties.startColor.hue)
         color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
-        arcEnd = arcStart + (-360 * fraction).toInt()
+        arcEnd = if (animationProperties.direction == FORWARD) (arcStart - progress * 360).toInt() else (arcStart - (1 - progress) * 360).toInt()
         draw()
     }
 
     private fun createTimer(onEnd: () -> Unit = {}) {
         timer = Timer(animationProperties.duration, Duration.millis(30.0), onEnd)
-        if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
-            timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
-        } else {
-            timer.remainingTimeProperty().addListener { _, _, remainingTime -> tick(remainingTime) }
-        }
+        timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
     }
 
     override fun startAnimation(properties: AnimationProperties) {
