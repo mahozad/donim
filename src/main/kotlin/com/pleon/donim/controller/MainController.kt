@@ -111,7 +111,7 @@ class MainController : BaseController() {
                     try {
                         remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
                     } catch (e: Exception) {
-                        remainingTime.set(period.defaultLength)
+                        remainingTime.set(period.defaultDuration)
                     }
                     currentPeriodLength = remainingTime.value
                 }
