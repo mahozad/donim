@@ -12,7 +12,8 @@ import javafx.util.Duration.ZERO
  * To change the duration or the updateRate create a new instance of this class.
  */
 class Timer(private val totalDuration: Duration,
-            private val stepDuration: Duration) {
+            private val stepDuration: Duration,
+            private val onEnd: () -> Unit = {}) {
 
     val isRunning get() = timeline.status == RUNNING
     private val remainingTimeProperty = ReadOnlyObjectWrapper(totalDuration)
@@ -24,6 +25,7 @@ class Timer(private val totalDuration: Duration,
             remainingTimeProperty.value -= stepDuration
             elapsedTimeProperty.value += stepDuration
         }))
+        timeline.setOnFinished { onEnd() }
     }
 
     fun remainingTimeProperty(): ReadOnlyObjectProperty<Duration> {

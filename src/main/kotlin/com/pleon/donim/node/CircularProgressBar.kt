@@ -104,8 +104,8 @@ class CircularProgressBar : Animatable, Canvas() {
         draw()
     }
 
-    private fun createTimer() {
-        timer = Timer(animationProperties.duration, Duration.millis(30.0))
+    private fun createTimer(onEnd: () -> Unit = {}) {
+        timer = Timer(animationProperties.duration, Duration.millis(30.0), onEnd)
         if (animationProperties.direction == Animatable.AnimationDirection.FORWARD) {
             timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
         } else {
@@ -139,18 +139,14 @@ class CircularProgressBar : Animatable, Canvas() {
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
         val wasRunning = timer.isRunning
         timer.stop()
-        val fraction = timer.elapsedTimeProperty().get() / animationProperties.duration
+        val progress = timer.elapsedTimeProperty().get() / animationProperties.duration
         animationProperties = AnimationProperties(
                 graceDuration,
                 animationProperties.direction,
                 if (wasRunning) animationProperties.startColor else APP_BASE_COLOR,
                 if (wasRunning) animationProperties.endColor else APP_BASE_COLOR,
-                initialProgress = fraction)
-        createTimer()
+                initialProgress = progress)
+        createTimer(onEnd)
         timer.start()
-        timer.remainingTimeProperty().addListener { _, _, newValue ->
-            // 30 is the timer step; See createTimer()
-            if (newValue.toMillis() < 30.0) onEnd()
-        }
     }
 }
