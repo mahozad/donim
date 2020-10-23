@@ -93,10 +93,14 @@ class CircularProgressBar : Animatable, Canvas() {
     }
 
     private fun tick(elapsedTime: Duration) {
-        val progress = animationProperties.initialProgress + (elapsedTime / animationProperties.duration)
-        val hueShift = progress * (animationProperties.endColor.hue - animationProperties.startColor.hue)
+        val fraction = elapsedTime / animationProperties.duration
+        val fractionOfRemaining = fraction * (1 - animationProperties.initialProgress)
+        val hueRange = animationProperties.endColor.hue - animationProperties.startColor.hue
+        val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
         color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
-        arcEnd = if (animationProperties.direction == FORWARD) (arcStart - progress * 360).toInt() else (arcStart - (1 - progress) * 360).toInt()
+        val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
+        val forwardEnd  = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
+        arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
     }
 
