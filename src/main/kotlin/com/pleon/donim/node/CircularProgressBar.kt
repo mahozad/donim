@@ -123,9 +123,9 @@ class CircularProgressBar : Animatable, Canvas() {
         val fractionOfRemaining = fraction * (1 - animationProperties.initialProgress)
         val hueRange = animationProperties.endColor.hue - animationProperties.startColor.hue
         val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
-        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
         val forwardEnd = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
+        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
     }
