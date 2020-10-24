@@ -130,6 +130,7 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
         val wasRunning = timer.isRunning
+        // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
         val progress = timer.elapsedTimeProperty().get() / animationProperties.duration
         animationProperties = AnimationProperties(
