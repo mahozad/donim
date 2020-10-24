@@ -125,6 +125,7 @@ class CircularProgressBar : Animatable, Canvas() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
         if (this::timer.isInitialized) timer.stop()
         createTimer()
+        tick(Duration.ZERO)
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
