@@ -4,7 +4,6 @@ import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.APP_NAME
 import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.Animatable.AnimationProperties
-import com.pleon.donim.div
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
@@ -26,7 +25,6 @@ import com.pleon.donim.util.snapTo
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Platform
-import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.MapChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -41,7 +39,6 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
-import javafx.util.Duration.INDEFINITE
 import java.awt.MenuItem
 import java.awt.PopupMenu
 import java.awt.SystemTray
@@ -64,17 +61,12 @@ class MainController : BaseController() {
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
-    // NOTE: Could not use period.duration because if the period duration is changed in
-    //  settings while the app is running, it will cause bugs in the progress bar
-    private var currentPeriodLength = INDEFINITE
     private var isMuted = false
     private var trayFrameNumber = 0
     private var trayAnimation = Timeline()
     private lateinit var trayIcon: TrayIcon
     private lateinit var trayImage: BufferedImage
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
-    private var remainingTime = SimpleObjectProperty<Duration>()
-    private val timeline = Timeline()
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
     private var settingsStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
@@ -82,15 +74,14 @@ class MainController : BaseController() {
     override fun initialize() {
         super.initialize()
         super.makeWindowMovable()
-        remainingTime.addListener { _, _, newValue -> time.text = format(newValue) }
         createTrayIcon()
         setupTrayIconAnimation()
-        setupMainTimeline()
         applyUserPreferences()
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
         BREAK.nextPeriod = WORK
         progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
     }
 
     private fun applyUserPreferences() {
@@ -104,27 +95,26 @@ class MainController : BaseController() {
         } catch (e: SettingNotFoundException) {
             BREAK.setDuration(DEFAULT_BREAK_DURATION.toMinutes().toInt().toString())
         }
-        remainingTime.set(period.duration)
-        currentPeriodLength = remainingTime.value
     }
 
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
-            if (paused && remainingTime.get() == period.duration) {
-                if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
-                    try {
-                        remainingTime.set(Duration.minutes(it.valueAdded.toDouble()))
-                    } catch (e: Exception) {
-                        remainingTime.set(period.defaultDuration)
-                    }
-                    currentPeriodLength = remainingTime.value
-                }
-            }
-
             if (it.key == "focus-duration") {
                 WORK.setDuration(it.valueAdded)
             } else if (it.key == "break-duration") {
                 BREAK.setDuration(it.valueAdded)
+            }
+
+            if (paused && time.isFresh()) {
+                if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
+                    try {
+                        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                    } catch (e: Exception) {
+                        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                    }
+                }
             }
         })
     }
@@ -168,7 +158,7 @@ class MainController : BaseController() {
             val hueShift = when {
                 paused -> 0.0
                 period == WORK -> (distanceBetweenPeriodAndBaseColor - periodsColorRange * (1 - fraction())) / 360
-                else           -> (distanceBetweenPeriodAndBaseColor + periodsColorRange * (1 - fraction())) / 360
+                else -> (distanceBetweenPeriodAndBaseColor + periodsColorRange * (1 - fraction())) / 360
             }
             val angle = interpolate(0, 180, trayFrameNumber / totalFrameNumbers.toDouble())
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
@@ -176,28 +166,10 @@ class MainController : BaseController() {
         }))
     }
 
-    private fun fraction() = remainingTime.get().toMillis() / currentPeriodLength.toMillis()
+    private fun fraction() = period.duration.toMillis() / period.duration.toMillis()
 
-    private fun setupMainTimeline() {
-        timeline.keyFrames.add(KeyFrame(Duration.seconds(1.0), {
-            remainingTime.set(remainingTime.get().subtract(Duration.seconds(1.0)))
-        }))
-        timeline.setOnFinished {
-            period = if (period == WORK) BREAK else WORK
-            startTimer(shouldNotify = true, shouldResetTimer = true)
-            progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-            progressBar.startAnimation()
-        }
-    }
-
-    private fun startTimer(shouldNotify: Boolean, shouldResetTimer: Boolean) {
+    private fun startAllThings(shouldNotify: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
-        if (shouldResetTimer) {
-            remainingTime.set(period.duration)
-            currentPeriodLength = remainingTime.value
-        }
-        timeline.cycleCount = (currentPeriodLength / timeline.cycleDuration).toInt()
-        timeline.play()
         trayAnimation.play()
         paused = false
         trayIcon.toolTip = "$APP_NAME: $period"
@@ -230,10 +202,11 @@ class MainController : BaseController() {
     }
 
     fun restart() {
-        timeline.stop() // required so the period won't finish early
-        startTimer(shouldNotify = false, shouldResetTimer = true)
         progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         progressBar.startAnimation()
+        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+        time.startAnimation()
+        startAllThings(false)
     }
 
     fun pauseResume() {
@@ -242,26 +215,30 @@ class MainController : BaseController() {
             // tray animation is paused in its keyframe event handler
             if (trayFrameNumber == 0) trayIcon.image = trayImage.tint(0.0)
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
-            timeline.pause()
+            time.pauseAnimation()
             progressBar.pauseAnimation()
         } else {
             skip.isDisable = false
             restart.isDisable = false
-            startTimer(shouldNotify = false, shouldResetTimer = false)
+            startAllThings(shouldNotify = false)
+            time.startAnimation()
             progressBar.startAnimation()
         }
     }
 
     fun skip() {
-        time.text = "\u23E9" // Fast-forward character
         play.isDisable = true
         restart.isDisable = true
         skip.isDisable = true
 
-        timeline.stop() // required so the counter won't go negative
         period = if (period == WORK) BREAK else WORK
+
+        time.endAnimation({
+            time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+            time.startAnimation()
+        })
         progressBar.endAnimation({
-            startTimer(shouldNotify = false, shouldResetTimer = true)
+            startAllThings(shouldNotify = false)
             progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
             progressBar.startAnimation()
             play.isDisable = false
@@ -269,9 +246,6 @@ class MainController : BaseController() {
             skip.isDisable = false
         })
     }
-
-    private fun format(duration: Duration) = String.format("%02d:%02d",
-            duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
 
     fun showSettings() {
         if (settingsStage.isShowing) return
