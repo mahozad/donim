@@ -115,7 +115,12 @@ class CircularProgressBar : Animatable, Canvas() {
         val wasRunning = timer.isRunning
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
-        runGraceAnimation(graceDuration, wasRunning, onEnd)
+        if (graceful) {
+            runGraceAnimation(graceDuration, wasRunning, onEnd)
+        } else {
+            tick(animationProperties.duration)
+            onEnd()
+        }
     }
 
     private fun tick(elapsedTime: Duration) {
