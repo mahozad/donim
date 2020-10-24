@@ -111,7 +111,7 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun startAnimation(properties: AnimationProperties) {
         resetAnimation(properties)
-        timer.start()
+        startAnimation()
     }
 
     override fun startAnimation() {
