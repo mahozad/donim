@@ -115,7 +115,7 @@ class CircularProgressBar : Animatable, Canvas() {
     }
 
     override fun pauseAnimation() {
-        timer.stop()
+        if (this::timer.isInitialized) timer.stop()
         color = animationProperties.pauseColor
         draw()
     }
