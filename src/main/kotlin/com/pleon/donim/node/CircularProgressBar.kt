@@ -99,7 +99,7 @@ class CircularProgressBar : Animatable, Canvas() {
         val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
         color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
-        val forwardEnd  = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
+        val forwardEnd = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
         arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
     }
@@ -132,7 +132,7 @@ class CircularProgressBar : Animatable, Canvas() {
         val wasRunning = timer.isRunning
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
-        val progress = timer.elapsedTimeProperty().get() / animationProperties.duration
+        val progress = timer.elapsedTimeProperty().value / animationProperties.duration
         animationProperties = AnimationProperties(
                 graceDuration,
                 animationProperties.direction,
