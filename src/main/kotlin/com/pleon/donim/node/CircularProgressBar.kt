@@ -92,23 +92,6 @@ class CircularProgressBar : Animatable, Canvas() {
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
 
-    private fun tick(elapsedTime: Duration) {
-        val fraction = elapsedTime / animationProperties.duration
-        val fractionOfRemaining = fraction * (1 - animationProperties.initialProgress)
-        val hueRange = animationProperties.endColor.hue - animationProperties.startColor.hue
-        val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
-        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
-        val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
-        val forwardEnd = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
-        arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
-        draw()
-    }
-
-    private fun createTimer(onEnd: () -> Unit = {}) {
-        timer = Timer(animationProperties.duration, Duration.millis(30.0), onEnd)
-        timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
-    }
-
     override fun startAnimation() {
         if (!this::timer.isInitialized) createTimer()
         timer.start()
@@ -132,12 +115,34 @@ class CircularProgressBar : Animatable, Canvas() {
         val wasRunning = timer.isRunning
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
+        runGraceAnimation(graceDuration, wasRunning, onEnd)
+    }
+
+    private fun tick(elapsedTime: Duration) {
+        val fraction = elapsedTime / animationProperties.duration
+        val fractionOfRemaining = fraction * (1 - animationProperties.initialProgress)
+        val hueRange = animationProperties.endColor.hue - animationProperties.startColor.hue
+        val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
+        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
+        val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
+        val forwardEnd = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
+        arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
+        draw()
+    }
+
+    private fun createTimer(onEnd: () -> Unit = {}) {
+        timer = Timer(animationProperties.duration, Duration.millis(30.0), onEnd)
+        timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
+    }
+
+    private fun runGraceAnimation(graceDuration: Duration, wasRunning: Boolean, onEnd: () -> Unit) {
+        val startColor = if (wasRunning) animationProperties.startColor else APP_BASE_COLOR
+        val endColor = if (wasRunning) animationProperties.endColor else APP_BASE_COLOR
         val progress = timer.elapsedTimeProperty().value / animationProperties.duration
         animationProperties = AnimationProperties(
                 graceDuration,
                 animationProperties.direction,
-                if (wasRunning) animationProperties.startColor else APP_BASE_COLOR,
-                if (wasRunning) animationProperties.endColor else APP_BASE_COLOR,
+                startColor, endColor,
                 initialProgress = progress)
         createTimer(onEnd)
         timer.start()
