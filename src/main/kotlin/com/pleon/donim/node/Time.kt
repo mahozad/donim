@@ -16,10 +16,6 @@ class Time : Text(), Animatable {
         // timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
     }
 
-    override fun startAnimation(properties: Animatable.AnimationProperties) {
-
-    }
-
     override fun startAnimation() {
         TODO("Not yet implemented")
     }

@@ -2,7 +2,8 @@ package com.pleon.donim.controller
 
 import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.APP_NAME
-import com.pleon.donim.Animatable
+import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
+import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
@@ -89,7 +90,7 @@ class MainController : BaseController() {
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
         BREAK.nextPeriod = WORK
-        progressBar.resetAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
     }
 
     private fun applyUserPreferences() {
@@ -184,7 +185,8 @@ class MainController : BaseController() {
         timeline.setOnFinished {
             period = if (period == WORK) BREAK else WORK
             startTimer(shouldNotify = true, shouldResetTimer = true)
-            progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            progressBar.startAnimation()
         }
     }
 
@@ -230,7 +232,8 @@ class MainController : BaseController() {
     fun restart() {
         timeline.stop() // required so the period won't finish early
         startTimer(shouldNotify = false, shouldResetTimer = true)
-        progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.startAnimation()
     }
 
     fun pauseResume() {
@@ -259,7 +262,8 @@ class MainController : BaseController() {
         period = if (period == WORK) BREAK else WORK
         progressBar.endAnimation({
             startTimer(shouldNotify = false, shouldResetTimer = true)
-            progressBar.startAnimation(Animatable.AnimationProperties(period.duration, Animatable.AnimationDirection.BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            progressBar.startAnimation()
             play.isDisable = false
             restart.isDisable = false
             skip.isDisable = false

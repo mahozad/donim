@@ -109,11 +109,6 @@ class CircularProgressBar : Animatable, Canvas() {
         timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
     }
 
-    override fun startAnimation(properties: AnimationProperties) {
-        resetAnimation(properties)
-        startAnimation()
-    }
-
     override fun startAnimation() {
         if (!this::timer.isInitialized) createTimer()
         timer.start()
