@@ -10,6 +10,7 @@ import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
 import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
+import com.pleon.donim.node.Time
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
@@ -36,7 +37,6 @@ import javafx.scene.image.Image
 import javafx.scene.media.AudioClip
 import javafx.scene.paint.Color
 import javafx.scene.shape.SVGPath
-import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
@@ -59,7 +59,7 @@ class MainController : BaseController() {
     @FXML private lateinit var restart: Button
     @FXML private lateinit var play: Button
     @FXML private lateinit var skip: Button
-    @FXML private lateinit var time: Text
+    @FXML private lateinit var time: Time
     @FXML lateinit var playIcon: SVGPath
 
     private var period = WORK
