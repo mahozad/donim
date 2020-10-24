@@ -1,7 +1,5 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.APP_BASE_COLOR
-import com.pleon.donim.APP_NAME
 import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.exception.SettingNotFoundException
@@ -11,20 +9,14 @@ import com.pleon.donim.model.Period.BREAK
 import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.node.Time
+import com.pleon.donim.node.Tray
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
-import com.pleon.donim.util.AnimationUtil.interpolate
 import com.pleon.donim.util.AnimationUtil.move
-import com.pleon.donim.util.DecorationUtil.centerOnScreen
-import com.pleon.donim.util.ImageUtil.rotate
-import com.pleon.donim.util.ImageUtil.tint
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
 import com.pleon.donim.util.snapTo
-import javafx.animation.KeyFrame
-import javafx.animation.Timeline
-import javafx.application.Platform
 import javafx.collections.MapChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -39,15 +31,7 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
-import java.awt.MenuItem
-import java.awt.PopupMenu
 import java.awt.SystemTray
-import java.awt.TrayIcon
-import java.awt.image.BufferedImage
-import java.util.*
-import javax.imageio.ImageIO
-import kotlin.concurrent.timerTask
-import kotlin.system.exitProcess
 
 class MainController : BaseController() {
 
@@ -60,12 +44,9 @@ class MainController : BaseController() {
     @FXML private lateinit var time: Time
     @FXML lateinit var playIcon: SVGPath
 
+    private lateinit var tray: Tray
     private var period = WORK
     private var isMuted = false
-    private var trayFrameNumber = 0
-    private var trayAnimation = Timeline()
-    private lateinit var trayIcon: TrayIcon
-    private lateinit var trayImage: BufferedImage
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
     private var paused = true
     private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
@@ -75,7 +56,6 @@ class MainController : BaseController() {
         super.initialize()
         super.makeWindowMovable()
         createTrayIcon()
-        setupTrayIconAnimation()
         applyUserPreferences()
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
@@ -122,59 +102,23 @@ class MainController : BaseController() {
     private fun createTrayIcon() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
-            val stage = newScene.window as Stage
-            trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
-            trayIcon = TrayIcon(trayImage, APP_NAME, makePopupMenu(stage))
-            trayIcon.addActionListener { Platform.runLater { stage.show().also { centerOnScreen(stage) } } }
-            SystemTray.getSystemTray().add(trayIcon)
+            tray = Tray(newScene.window as Stage)
+            tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         }
     }
-
-    private fun makePopupMenu(stage: Stage): PopupMenu {
-        val popup = PopupMenu()
-        popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show().also { centerOnScreen(stage) } } })
-        val muteMenuItem = newMenuItem("Mute") { }
-        muteMenuItem.addActionListener {
-            isMuted = !isMuted
-            muteMenuItem.label = if (isMuted) "Unmute" else "Mute"
-        }
-        popup.add(muteMenuItem)
-        popup.add(newMenuItem("Exit") { exitProcess(0) })
-        return popup
-    }
-
-    private fun newMenuItem(title: String, listener: (java.awt.event.ActionEvent) -> Unit): MenuItem {
-        return MenuItem(title).apply { addActionListener(listener) }
-    }
-
-    private fun setupTrayIconAnimation() {
-        Timer().scheduleAtFixedRate(timerTask { if (!paused) trayAnimation.play() }, 0, 8000)
-        val totalFrameNumbers = 3000/*ms*/ / 50/*ms*/
-        trayAnimation.cycleCount = totalFrameNumbers
-        val periodsColorRange = WORK.baseColor.hue - BREAK.baseColor.hue // FIXME: Duplicated
-        trayAnimation.keyFrames.add(KeyFrame(Duration.millis(50.0), {
-            // Because the icon has the default base color
-            val distanceBetweenPeriodAndBaseColor = period.baseColor.hue - APP_BASE_COLOR.hue
-            val hueShift = when {
-                paused -> 0.0
-                period == WORK -> (distanceBetweenPeriodAndBaseColor - periodsColorRange * (1 - fraction())) / 360
-                else -> (distanceBetweenPeriodAndBaseColor + periodsColorRange * (1 - fraction())) / 360
-            }
-            val angle = interpolate(0, 180, trayFrameNumber / totalFrameNumbers.toDouble())
-            trayIcon.image = trayImage.rotate(angle).tint(hueShift)
-            trayFrameNumber = (trayFrameNumber + 1) % totalFrameNumbers
-        }))
-    }
-
-    private fun fraction() = period.duration.toMillis() / period.duration.toMillis()
 
     private fun startAllThings(shouldNotify: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
-        trayAnimation.play()
         paused = false
-        trayIcon.toolTip = "$APP_NAME: $period"
+
+        // TODO:
+        // trayIcon.toolTip = "$APP_NAME: $period"
+
         if (!isMuted && shouldNotify) {
-            trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
+
+            // TODO:
+            // trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
+
             beep.play()
         }
     }
@@ -204,6 +148,8 @@ class MainController : BaseController() {
     fun restart() {
         progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         progressBar.startAnimation()
+        tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        tray.startAnimation()
         time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
         time.startAnimation()
         startAllThings(false)
@@ -212,16 +158,24 @@ class MainController : BaseController() {
     fun pauseResume() {
         paused = !paused
         if (paused) {
+
+
+
+            // TODO:
             // tray animation is paused in its keyframe event handler
-            if (trayFrameNumber == 0) trayIcon.image = trayImage.tint(0.0)
+            // if (trayFrameNumber == 0) trayIcon.image = trayImage.tint(0.0)
+
+
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
             time.pauseAnimation()
+            tray.pauseAnimation()
             progressBar.pauseAnimation()
         } else {
             skip.isDisable = false
             restart.isDisable = false
             startAllThings(shouldNotify = false)
             time.startAnimation()
+            tray.startAnimation()
             progressBar.startAnimation()
         }
     }
@@ -233,6 +187,10 @@ class MainController : BaseController() {
 
         period = if (period == WORK) BREAK else WORK
 
+        tray.endAnimation(onEnd = {
+            tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            tray.startAnimation()
+        })
         time.endAnimation({
             time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
             time.startAnimation()
