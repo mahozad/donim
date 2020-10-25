@@ -25,6 +25,7 @@ class Tray(stage: Stage) : Animatable {
     private var reseted = false
     private var paused = true
     private var ended = false
+    private var gracing = false
     private var hueShift = 0.0
     private var trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
     private var trayIcon = TrayIcon(trayImage, APP_NAME, makePopupMenu(stage))
@@ -81,7 +82,7 @@ class Tray(stage: Stage) : Animatable {
             if (angle == 0.0 || angle == 180.0) {
                 if (reseted) runReset()
                 if (paused) runPause()
-                if (ended) runEnd()
+                if (ended && !gracing) runEnd()
             }
         }
     }
@@ -126,8 +127,27 @@ class Tray(stage: Stage) : Animatable {
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        this.ended = true
-        this.onEnd = onEnd
-        // To ensure the icon movement is complete, it is stopped in the keyframe
+        if (graceful) {
+            this.onEnd = onEnd
+            ended = true
+            gracing = true
+            hueTimer.stop()
+            val startHue = hueShift
+            hueTimer = Timer(graceDuration, FRAME_DURATION, onEnd = { gracing = false })
+            hueTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
+                val graceColorRange = (animationProperties.endColor.hue - APP_BASE_COLOR.hue) - startHue
+                val graceFraction = elapsedTime / graceDuration
+                hueShift = startHue + graceFraction * graceColorRange
+            }
+            hueTimer.start()
+            // To ensure the icon movement is complete, it is stopped in the keyframe
+        } else {
+            ended = true
+            hueTimer.reset()
+            hueTimer.stop()
+            movementTimer.reset()
+            movementTimer.stop()
+            onEnd()
+        }
     }
 }
