@@ -74,7 +74,12 @@ class Tray(stage: Stage) : Animatable {
     }
 
     private fun createMovementTimer() {
-        movementTimer = Timer(animationProperties.duration, FRAME_DURATION)
+        // The movement animation is static and does not depend on the properties of the animation
+        // such as its duration, direction or colors. So this animation runs infinitely unless
+        // otherwise specified via flags that it should stop, reset, etc.
+        // This makes it run seamlessly when paused/reset and started again immediately.
+        // This also prevents early termination when paused multiple times in between.
+        movementTimer = Timer(Duration.INDEFINITE, FRAME_DURATION)
         movementTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
             val animationElapsedMove = (elapsedTime % TOTAL_ANIMATION_DURATION).coerceAtMost(TOTAL_MOVEMENT_DURATION.toMillis())
             val animationFraction = animationElapsedMove / TOTAL_MOVEMENT_DURATION.toMillis()
