@@ -87,13 +87,8 @@ class MainController : BaseController() {
 
             if (paused && time.isFresh()) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
-                    try {
-                        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-                        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-                    } catch (e: Exception) {
-                        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-                        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-                    }
+                    progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                    time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
                 }
             }
         })
