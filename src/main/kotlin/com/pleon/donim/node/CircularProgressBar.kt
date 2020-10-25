@@ -105,10 +105,11 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
+        val isInitialization = !this::timer.isInitialized
         // TODO: Also remove listeners from timer properties to avoid memory leak
-        if (this::timer.isInitialized) timer.stop()
+        if (!isInitialization) timer.stop()
         createTimer()
-        tick(Duration.ZERO)
+        if (!isInitialization) tick(Duration.ZERO)
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
