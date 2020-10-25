@@ -27,7 +27,7 @@ object ImageUtil {
                 val rgb = getRGB(i, j)
                 val (r, g, b, a) = getColorComponents(rgb)
                 val (h, s, v) = RGBtoHSB(r, g, b, null)
-                val new = (a shl 24) + HSBtoRGB(h + hueShift.toFloat(), s, v)
+                val new = (a shl 24) + HSBtoRGB(h + hueShift.toFloat() / 360, s, v)
                 setRGB(i, j, new)
             }
         }
