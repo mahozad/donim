@@ -91,7 +91,6 @@ class Tray(stage: Stage) : Animatable {
     private fun reset() {
         movementTimer.stop()
         createMovementTimer()
-        movementTimer.start()
         shouldReset = false
     }
 
