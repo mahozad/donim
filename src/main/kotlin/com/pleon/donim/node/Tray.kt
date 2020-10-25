@@ -23,8 +23,8 @@ private val FRAME_DURATION = Duration.millis(30.0)
 class Tray(stage: Stage) : Animatable {
 
     private var paused = true
-    private var shouldEnd = false
-    private var shouldReset = false
+    private var shouldEnd = false // For graceful ending
+    private var shouldReset = false // For graceful resetting
     private var gracing = false
     private var hueShift = 0.0
     private var trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
