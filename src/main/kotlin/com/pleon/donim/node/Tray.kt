@@ -25,9 +25,11 @@ class Tray(stage: Stage) : Animatable {
     private var reseted = false
     private var paused = true
     private var ended = false
+    private var hueShift = 0.0
     private var trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
     private var trayIcon = TrayIcon(trayImage, APP_NAME, makePopupMenu(stage))
-    private lateinit var timer: Timer
+    private lateinit var movementTimer: Timer
+    private lateinit var hueTimer: Timer
     private lateinit var onEnd: () -> Unit
     private lateinit var animationProperties: AnimationProperties
 
@@ -53,19 +55,29 @@ class Tray(stage: Stage) : Animatable {
         return MenuItem(title).apply { addActionListener(listener) }
     }
 
-    private fun createTimer() {
-        timer = Timer(animationProperties.duration, FRAME_DURATION)
-        timer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
+    private fun createTimers() {
+        createHueTimer()
+        createMovementTimer()
+    }
+
+    private fun createHueTimer() {
+        hueTimer = Timer(animationProperties.duration, FRAME_DURATION)
+        hueTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
             // Because the icon has the base color by default
             val distanceBetweenStartAndBaseColor = animationProperties.startColor.hue - APP_BASE_COLOR.hue
             val colorRange = animationProperties.endColor.hue - animationProperties.startColor.hue
             val periodFraction = elapsedTime / animationProperties.duration
-            val hueShift = if (paused) 0.0 else distanceBetweenStartAndBaseColor + colorRange * periodFraction
+            hueShift = if (paused) 0.0 else distanceBetweenStartAndBaseColor + colorRange * periodFraction
+        }
+    }
+
+    private fun createMovementTimer() {
+        movementTimer = Timer(animationProperties.duration, FRAME_DURATION)
+        movementTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
             val animationElapsedMove = (elapsedTime % TOTAL_ANIMATION_DURATION).coerceAtMost(TOTAL_MOVEMENT_DURATION.toMillis())
             val animationFraction = animationElapsedMove / TOTAL_MOVEMENT_DURATION.toMillis()
             val angle = interpolate(0, 180, animationFraction)
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
-
             if (angle == 0.0 || angle == 180.0) {
                 if (reseted) runReset()
                 if (paused) runPause()
@@ -75,40 +87,47 @@ class Tray(stage: Stage) : Animatable {
     }
 
     private fun runReset() {
-        timer.stop()
-        createTimer()
-        timer.start()
+        movementTimer.stop()
+        createMovementTimer()
+        movementTimer.start()
         reseted = false
     }
 
-    private fun runPause() = timer.stop()
+    private fun runPause() = movementTimer.stop()
 
     private fun runEnd() {
-        timer.stop()
+        movementTimer.stop()
         onEnd()
         ended = false
     }
 
     override fun startAnimation() {
-        if (!this::timer.isInitialized) createTimer()
+        if (!this::movementTimer.isInitialized || !this::hueTimer.isInitialized) createTimers()
         paused = false
-        timer.start()
+        hueTimer.start()
+        movementTimer.start()
     }
 
     override fun pauseAnimation() {
+        hueShift = 0.0
         paused = true
-        // To ensure the icon movement is complete, the animation is stopped in the keyframe
+        hueTimer.stop()
+        // To ensure the icon movement is complete, it is stopped in the keyframe
     }
 
     override fun resetAnimation(properties: AnimationProperties) {
         if (this::animationProperties.isInitialized) reseted = true
         animationProperties = properties
-        // To ensure the icon movement is complete, the animation is stopped in the keyframe
+        if (this::hueTimer.isInitialized) {
+            hueTimer.stop()
+            createHueTimer()
+        }
+        // To ensure the icon movement is complete, it is stopped in the keyframe
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
         this.ended = true
         this.onEnd = onEnd
-        // To ensure the icon movement is complete, the animation is stopped in the keyframe
+        // To ensure the icon movement is complete, it is stopped in the keyframe
     }
 }
