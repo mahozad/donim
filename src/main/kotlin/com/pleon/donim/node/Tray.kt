@@ -75,8 +75,8 @@ class Tray(stage: Stage) : Animatable {
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
             if (angle == 0.0 || angle == 180.0) {
                 if (paused) pause()
+                if (shouldEnd) end()
                 if (shouldReset) reset()
-                if (shouldEnd && !isGracing) end()
             }
         }
     }
@@ -120,10 +120,12 @@ class Tray(stage: Stage) : Animatable {
     }
 
     private fun end() {
-        mainTimer.stop()
         moveTimer.stop()
-        onEnd()
-        shouldEnd = false
+        if (!isGracing) {
+            mainTimer.stop()
+            onEnd()
+            shouldEnd = false
+        }
     }
 
     override fun startAnimation() {
