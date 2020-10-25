@@ -157,9 +157,7 @@ class Tray(stage: Stage) : Animatable {
             paused = false
             shouldEnd = true
             isGracing = true
-            hueTimer.stop()
-            createGraceHueTimer(graceDuration)
-            hueTimer.start()
+            graceHue(graceDuration)
             mainTimer.start()
         } else {
             shouldEnd = true
@@ -171,7 +169,8 @@ class Tray(stage: Stage) : Animatable {
         }
     }
 
-    private fun createGraceHueTimer(graceDuration: Duration) {
+    private fun graceHue(graceDuration: Duration) {
+        hueTimer.stop()
         val startHue = hueShift
         hueTimer = Timer(graceDuration, FRAME_DURATION, onEnd = { isGracing = false })
         hueTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
@@ -179,5 +178,6 @@ class Tray(stage: Stage) : Animatable {
             val graceFraction = elapsedTime / graceDuration
             hueShift = startHue + graceFraction * graceColorRange
         }
+        hueTimer.start()
     }
 }
