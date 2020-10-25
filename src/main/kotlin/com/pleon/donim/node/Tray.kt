@@ -16,6 +16,8 @@ import java.awt.TrayIcon
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
+private const val START_ANGLE = 0
+private const val END_ANGLE = 180
 private val TOTAL_ANIMATION_DURATION = Duration.seconds(8.0)
 private val TOTAL_MOVEMENT_DURATION = Duration.seconds(3.0)
 private val FRAME_DURATION = Duration.millis(30.0)
@@ -73,7 +75,7 @@ class Tray(stage: Stage) : Animatable {
         mainTimer = Timer(animationProperties.duration, FRAME_DURATION)
         mainTimer.elapsedTimeProperty().addListener { _, _, _ ->
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
-            if (angle == 0.0 || angle == 180.0) {
+            if (angle.toInt() == START_ANGLE || angle.toInt() == END_ANGLE) {
                 if (paused) pause()
                 if (shouldEnd) end()
                 if (shouldReset) reset()
@@ -91,7 +93,7 @@ class Tray(stage: Stage) : Animatable {
         moveTimer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
             val animationElapsedMove = (elapsedTime % TOTAL_ANIMATION_DURATION).coerceAtMost(TOTAL_MOVEMENT_DURATION.toMillis())
             val animationFraction = animationElapsedMove / TOTAL_MOVEMENT_DURATION.toMillis()
-            angle = interpolate(0, 180, animationFraction)
+            angle = interpolate(START_ANGLE, END_ANGLE, animationFraction)
         }
     }
 
