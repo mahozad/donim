@@ -61,7 +61,7 @@ class Tray(stage: Stage) : Animatable {
             val colorRange = animationProperties.endColor.hue - animationProperties.startColor.hue
             val periodFraction = elapsedTime / animationProperties.duration
             val hueShift = if (paused) 0.0 else distanceBetweenStartAndBaseColor + colorRange * periodFraction
-            val animationElapsedMove = (elapsedTime.toMillis() % TOTAL_ANIMATION_DURATION.toMillis()).coerceAtMost(TOTAL_MOVEMENT_DURATION.toMillis())
+            val animationElapsedMove = (elapsedTime % TOTAL_ANIMATION_DURATION).coerceAtMost(TOTAL_MOVEMENT_DURATION.toMillis())
             val animationFraction = animationElapsedMove / TOTAL_MOVEMENT_DURATION.toMillis()
             val angle = interpolate(0, 180, animationFraction)
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
