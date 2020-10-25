@@ -22,9 +22,9 @@ private val FRAME_DURATION = Duration.millis(30.0)
 
 class Tray(stage: Stage) : Animatable {
 
-    private var reseted = false
     private var paused = true
-    private var ended = false
+    private var shouldEnd = false
+    private var shouldReset = false
     private var gracing = false
     private var hueShift = 0.0
     private var trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
@@ -81,33 +81,33 @@ class Tray(stage: Stage) : Animatable {
             val angle = interpolate(0, 180, animationFraction)
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
             if (angle == 0.0 || angle == 180.0) {
-                if (reseted) runReset()
-                if (paused) runPause()
-                if (ended && !gracing) runEnd()
+                if (paused) pause()
+                if (shouldReset) reset()
+                if (shouldEnd && !gracing) end()
             }
         }
     }
 
-    private fun runReset() {
+    private fun reset() {
         movementTimer.stop()
         createMovementTimer()
         movementTimer.start()
-        reseted = false
+        shouldReset = false
     }
 
-    private fun runPause() = movementTimer.stop()
+    private fun pause() = movementTimer.stop()
 
-    private fun runEnd() {
+    private fun end() {
         movementTimer.stop()
         onEnd()
-        ended = false
+        shouldEnd = false
     }
 
     override fun startAnimation() {
         if (!this::movementTimer.isInitialized || !this::hueTimer.isInitialized) createTimers()
         paused = false
         // to not restart the movement again immediately (for when startAnimation is called immediately after a reset)
-        reseted = false
+        shouldReset = false
         hueTimer.start()
         movementTimer.start()
     }
@@ -120,7 +120,7 @@ class Tray(stage: Stage) : Animatable {
     }
 
     override fun resetAnimation(properties: AnimationProperties) {
-        if (this::animationProperties.isInitialized) reseted = true
+        if (this::animationProperties.isInitialized) shouldReset = true
         animationProperties = properties
         if (this::hueTimer.isInitialized) {
             hueTimer.stop()
@@ -132,7 +132,7 @@ class Tray(stage: Stage) : Animatable {
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
         if (graceful) {
             this.onEnd = onEnd
-            ended = true
+            shouldEnd = true
             gracing = true
             hueTimer.stop()
             val startHue = hueShift
@@ -145,7 +145,7 @@ class Tray(stage: Stage) : Animatable {
             hueTimer.start()
             // To ensure the icon movement is complete, it is stopped in the keyframe
         } else {
-            ended = true
+            shouldEnd = true
             hueTimer.reset()
             hueTimer.stop()
             movementTimer.reset()
