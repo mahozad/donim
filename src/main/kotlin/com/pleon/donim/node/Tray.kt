@@ -105,6 +105,8 @@ class Tray(stage: Stage) : Animatable {
     override fun startAnimation() {
         if (!this::movementTimer.isInitialized || !this::hueTimer.isInitialized) createTimers()
         paused = false
+        // to not restart the movement again immediately (for when startAnimation is called immediately after a reset)
+        reseted = false
         hueTimer.start()
         movementTimer.start()
     }
