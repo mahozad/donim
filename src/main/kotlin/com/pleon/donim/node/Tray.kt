@@ -56,7 +56,7 @@ class Tray(stage: Stage) : Animatable {
     private fun createTimer() {
         timer = Timer(animationProperties.duration, FRAME_DURATION)
         timer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
-            // Because the icon has the default base color
+            // Because the icon has the base color by default
             val distanceBetweenStartAndBaseColor = animationProperties.startColor.hue - APP_BASE_COLOR.hue
             val colorRange = animationProperties.endColor.hue - animationProperties.startColor.hue
             val periodFraction = elapsedTime / animationProperties.duration
@@ -66,23 +66,27 @@ class Tray(stage: Stage) : Animatable {
             val angle = interpolate(0, 180, animationFraction)
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
 
-            if (paused && (angle == 0.0 || angle == 180.0)) {
-                timer.stop()
-            }
-
-            if (reseted && (angle == 0.0 || angle == 180.0)) {
-                timer.stop()
-                createTimer()
-                timer.start()
-                reseted = false
-            }
-
-            if (ended && (angle == 0.0 || angle == 180.0)) {
-                timer.stop()
-                onEnd()
-                ended = false
+            if (angle == 0.0 || angle == 180.0) {
+                if (reseted) runReset()
+                if (paused) runPause()
+                if (ended) runEnd()
             }
         }
+    }
+
+    private fun runReset() {
+        timer.stop()
+        createTimer()
+        timer.start()
+        reseted = false
+    }
+
+    private fun runPause() = timer.stop()
+
+    private fun runEnd() {
+        timer.stop()
+        onEnd()
+        ended = false
     }
 
     override fun startAnimation() {
@@ -99,10 +103,12 @@ class Tray(stage: Stage) : Animatable {
     override fun resetAnimation(properties: AnimationProperties) {
         if (this::animationProperties.isInitialized) reseted = true
         animationProperties = properties
+        // To ensure the icon movement is complete, the animation is stopped in the keyframe
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        ended = true
+        this.ended = true
         this.onEnd = onEnd
+        // To ensure the icon movement is complete, the animation is stopped in the keyframe
     }
 }
