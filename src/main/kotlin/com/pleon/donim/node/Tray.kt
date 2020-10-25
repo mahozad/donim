@@ -44,6 +44,7 @@ class Tray(stage: Stage) : Animatable {
         popup.add(newMenuItem("Show Window") { Platform.runLater { stage.show().also { DecorationUtil.centerOnScreen(stage) } } })
         val muteMenuItem = newMenuItem("Mute") { }
         muteMenuItem.addActionListener {
+            // TODO:
             // isMuted = !isMuted
             muteMenuItem.label = if (false/*isMuted*/) "Unmute" else "Mute"
         }
