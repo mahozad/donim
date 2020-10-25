@@ -22,6 +22,10 @@ private val FRAME_DURATION = Duration.millis(30.0)
 
 class Tray(stage: Stage) : Animatable {
 
+
+    // FIXME: End (skip) the animation multiple times successively to see a bug in color not changing
+
+
     private var paused = true
     private var shouldEnd = false // For graceful ending
     private var shouldReset = false // For graceful resetting
