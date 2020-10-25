@@ -24,10 +24,6 @@ private val FRAME_DURATION = Duration.millis(30.0)
 
 class Tray(stage: Stage) : Animatable {
 
-
-    // FIXME: End (skip) the animation multiple times successively to see a bug in color not changing
-
-
     private var paused = true
     private var shouldEnd = false // For graceful ending
     private var shouldReset = false // For graceful resetting
@@ -72,10 +68,10 @@ class Tray(stage: Stage) : Animatable {
     }
 
     private fun createMainTimer() {
-        mainTimer = Timer(animationProperties.duration, FRAME_DURATION)
+        mainTimer = Timer(Duration.INDEFINITE, FRAME_DURATION)
         mainTimer.elapsedTimeProperty().addListener { _, _, _ ->
             trayIcon.image = trayImage.rotate(angle).tint(hueShift)
-            if (angle.toInt() == START_ANGLE || angle.toInt() == END_ANGLE) {
+            if (angle - START_ANGLE < 0.1 || END_ANGLE - angle < 0.1) {
                 if (paused) pause()
                 if (shouldEnd) end()
                 if (shouldReset) reset()
