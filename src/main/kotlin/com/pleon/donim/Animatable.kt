@@ -16,13 +16,13 @@ interface Animatable {
             val initialProgress: Double = 0.0
     )
 
+    fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit = {})
+
     fun startAnimation()
 
     fun pauseAnimation()
 
-    fun resetAnimation(properties: AnimationProperties)
+    fun resetAnimation()
 
-    fun endAnimation(onEnd: () -> Unit = {},
-                     graceful: Boolean = true,
-                     graceDuration: Duration = Duration.seconds(2.0))
+    fun endAnimation(isGraceful: Boolean = true, graceDuration: Duration = Duration.seconds(2.0))
 }

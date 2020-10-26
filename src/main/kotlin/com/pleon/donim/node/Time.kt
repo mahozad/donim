@@ -10,6 +10,7 @@ class Time : Text(), Animatable {
 
     private lateinit var timer: Timer
     private lateinit var animationProperties: AnimationProperties
+    private var onEnd: () -> Unit = {}
 
     private fun createTimer(onEnd: () -> Unit = {}) {
         timer = Timer(animationProperties.duration, Duration.seconds(1.0), onEnd)
@@ -25,6 +26,15 @@ class Time : Text(), Animatable {
 
     fun isFresh() = timer.elapsedTimeProperty().value == Duration.ZERO
 
+    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+        this.animationProperties = properties
+        this.onEnd = onEnd
+        if (this::timer.isInitialized) timer.stop()
+        createTimer()
+        text = format(animationProperties.duration)
+
+    }
+
     override fun startAnimation() {
         if (!this::timer.isInitialized) createTimer()
         timer.start()
@@ -34,26 +44,25 @@ class Time : Text(), Animatable {
         if (this::timer.isInitialized) timer.stop()
     }
 
-    override fun resetAnimation(properties: AnimationProperties) {
-        animationProperties = properties
+    override fun resetAnimation() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
-        if (this::timer.isInitialized) timer.stop()
+        timer.stop()
         createTimer()
         text = format(animationProperties.duration)
     }
 
-    override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
+    override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
-        if (graceful) {
-            runGraceAnimation(graceDuration, onEnd)
+        if (isGraceful) {
+            runGraceAnimation(graceDuration)
         } else {
             text = format(if (animationProperties.direction == FORWARD) animationProperties.duration else Duration.ZERO)
             onEnd()
         }
     }
 
-    private fun runGraceAnimation(graceDuration: Duration, onEnd: () -> Unit) {
+    private fun runGraceAnimation(graceDuration: Duration) {
         val remaining = timer.remainingTimeProperty().value
         timer = Timer(graceDuration, Duration.millis(30.0), onEnd)
         timer.elapsedTimeProperty().addListener { _, _, elapsedTime ->

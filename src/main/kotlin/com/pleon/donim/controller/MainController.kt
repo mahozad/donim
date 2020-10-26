@@ -2,6 +2,7 @@ package com.pleon.donim.controller
 
 import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.Animatable.AnimationProperties
+import com.pleon.donim.div
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
@@ -10,6 +11,7 @@ import com.pleon.donim.model.Period.WORK
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.node.Time
 import com.pleon.donim.node.Tray
+import com.pleon.donim.times
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
@@ -17,6 +19,11 @@ import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
 import com.pleon.donim.util.snapTo
+import javafx.animation.Animation
+import javafx.animation.KeyFrame
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
+import javafx.beans.property.SimpleDoubleProperty
 import javafx.collections.MapChangeListener
 import javafx.event.EventHandler
 import javafx.fxml.FXML
@@ -44,7 +51,9 @@ class MainController : BaseController() {
     @FXML private lateinit var time: Time
     @FXML lateinit var playIcon: SVGPath
 
+    private lateinit var timer: Timeline
     private lateinit var tray: Tray
+    private var progress = SimpleDoubleProperty(0.0)
     private var period = WORK
     private var isMuted = false
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
@@ -60,8 +69,35 @@ class MainController : BaseController() {
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
         BREAK.nextPeriod = WORK
-        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+        progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
+        createTimer()
+    }
+
+    private fun createTimer() {
+        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(progress, 0))
+        val endKeyFrame = KeyFrame(period.duration, { endFunction() }, KeyValue(progress, 1))
+        timer = Timeline(startKeyFrame, endKeyFrame)
+        timer.cycleCount = Animation.INDEFINITE
+    }
+
+    private fun endFunction() {
+        period = period.nextPeriod
+        timer.stop()
+        createTimer()
+
+        startAllThings(shouldNotify = false)
+        play.isDisable = false
+        restart.isDisable = false
+        skip.isDisable = false
+
+        progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.startAnimation()
+        time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
+        time.startAnimation()
+        tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        tray.startAnimation()
+        timer.play()
     }
 
     private fun applyUserPreferences() {
@@ -87,8 +123,8 @@ class MainController : BaseController() {
 
             if (paused && time.isFresh()) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
-                    progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-                    time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+                    progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+                    time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
                 }
             }
         })
@@ -98,7 +134,7 @@ class MainController : BaseController() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             tray = Tray(newScene.window as Stage)
-            tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         }
     }
 
@@ -141,12 +177,13 @@ class MainController : BaseController() {
     }
 
     fun restart() {
-        progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        progressBar.resetAnimation()
         progressBar.startAnimation()
-        tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+        tray.resetAnimation()
         tray.startAnimation()
-        time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
+        time.resetAnimation()
         time.startAnimation()
+        timer.playFromStart()
         startAllThings(false)
     }
 
@@ -157,6 +194,7 @@ class MainController : BaseController() {
             time.pauseAnimation()
             tray.pauseAnimation()
             progressBar.pauseAnimation()
+            timer.pause()
         } else {
             skip.isDisable = false
             restart.isDisable = false
@@ -164,6 +202,7 @@ class MainController : BaseController() {
             time.startAnimation()
             tray.startAnimation()
             progressBar.startAnimation()
+            timer.play()
         }
     }
 
@@ -172,24 +211,11 @@ class MainController : BaseController() {
         restart.isDisable = true
         skip.isDisable = true
 
-        period = if (period == WORK) BREAK else WORK
-
-        tray.endAnimation(onEnd = {
-            tray.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-            tray.startAnimation()
-        })
-        time.endAnimation({
-            time.resetAnimation(AnimationProperties(period.duration, BACKWARD))
-            time.startAnimation()
-        })
-        progressBar.endAnimation({
-            startAllThings(shouldNotify = false)
-            progressBar.resetAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-            progressBar.startAnimation()
-            play.isDisable = false
-            restart.isDisable = false
-            skip.isDisable = false
-        })
+        tray.endAnimation()
+        time.endAnimation()
+        progressBar.endAnimation()
+        timer.rate = period.duration * (1 - progress.value) / Duration.seconds(2.0) /*grace duration*/
+        timer.play()
     }
 
     fun showSettings() {

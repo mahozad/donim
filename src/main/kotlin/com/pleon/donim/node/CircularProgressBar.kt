@@ -100,6 +100,15 @@ class CircularProgressBar : Animatable, Canvas() {
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
 
+    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+        animationProperties = properties
+        endFunction = onEnd
+        if (this::timer.isInitialized) timer.stop()
+        createTimer()
+        fraction.value = 0.0
+        tick()
+    }
+
     override fun startAnimation() {
         if (!this::timer.isInitialized) createTimer()
         timer.play()
@@ -111,23 +120,21 @@ class CircularProgressBar : Animatable, Canvas() {
         draw()
     }
 
-    override fun resetAnimation(properties: AnimationProperties) {
-        animationProperties = properties
-        val isInitialization = !this::timer.isInitialized
+    override fun resetAnimation() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
-        if (!isInitialization) timer.stop()
+        timer.stop()
         createTimer()
-        if (!isInitialization) tick()
+        fraction.value = 0.0
+        tick()
     }
 
-    override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        if (graceful) {
-            endFunction = onEnd
+    override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
+        if (isGraceful) {
             timer.rate = animationProperties.duration * (1 - fraction.value) / graceDuration
             timer.play() // for when the ending is called while paused
         } else {
             timer.jumpTo(animationProperties.duration)
-            onEnd()
+            endFunction()
         }
     }
 

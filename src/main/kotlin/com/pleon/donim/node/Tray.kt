@@ -126,6 +126,15 @@ class Tray(stage: Stage) : Animatable {
         }
     }
 
+    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+        this.animationProperties = properties
+        this.onEnd = onEnd
+        if (this::hueTimer.isInitialized) {
+            hueTimer.stop()
+            createHueTimer()
+        }
+    }
+
     override fun startAnimation() {
         if (!this::mainTimer.isInitialized) createTimers()
         paused = false
@@ -142,18 +151,16 @@ class Tray(stage: Stage) : Animatable {
         paused = true
     }
 
-    override fun resetAnimation(properties: AnimationProperties) {
-        animationProperties = properties
-        if (this::mainTimer.isInitialized) shouldReset = true
+    override fun resetAnimation() {
+        shouldReset = true
         if (this::hueTimer.isInitialized) {
             hueTimer.stop()
             createHueTimer()
         }
     }
 
-    override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        if (graceful) {
-            this.onEnd = onEnd
+    override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
+        if (isGraceful) {
             graceHue(graceDuration)
             paused = false
             shouldEnd = true
