@@ -12,6 +12,7 @@ import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
 import javafx.beans.property.SimpleDoubleProperty
+import javafx.event.ActionEvent
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
 import javafx.scene.paint.CycleMethod
@@ -28,9 +29,9 @@ class CircularProgressBar : Animatable, Canvas() {
     // https://stackoverflow.com/q/24533556/8583692
     // https://stackoverflow.com/a/38773373/8583692
 
-    private var fraction = SimpleDoubleProperty(0.0)
-    private lateinit var timer: Timeline
     private lateinit var animationProperties: AnimationProperties
+    private val fraction = SimpleDoubleProperty(0.0)
+    private var timer = Timeline()
     private val sliceLength = 4             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
     private val arcStart = 90               // in degrees
@@ -103,19 +104,18 @@ class CircularProgressBar : Animatable, Canvas() {
     override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
         animationProperties = properties
         endFunction = onEnd
-        if (this::timer.isInitialized) timer.stop()
+        timer.stop()
         createTimer()
-        fraction.value = 0.0
-        tick()
+        color = animationProperties.pauseColor
+        draw()
     }
 
     override fun startAnimation() {
-        if (!this::timer.isInitialized) createTimer()
         timer.play()
     }
 
     override fun pauseAnimation() {
-        if (this::timer.isInitialized) timer.pause()
+        timer.pause()
         color = animationProperties.pauseColor
         draw()
     }
@@ -124,8 +124,8 @@ class CircularProgressBar : Animatable, Canvas() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
         createTimer()
-        fraction.value = 0.0
-        tick()
+        color = animationProperties.pauseColor
+        draw()
     }
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
@@ -134,7 +134,7 @@ class CircularProgressBar : Animatable, Canvas() {
             timer.play() // for when the ending is called while paused
         } else {
             timer.jumpTo(animationProperties.duration)
-            endFunction()
+            endFunction() // maybe not needed?
         }
     }
 
@@ -150,9 +150,14 @@ class CircularProgressBar : Animatable, Canvas() {
 
     private fun createTimer() {
         val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
-        val endKeyFrame = KeyFrame(animationProperties.duration, { endFunction() }, KeyValue(fraction, 1))
+        val endKeyFrame = KeyFrame(animationProperties.duration, onAnimationEnd(), KeyValue(fraction, 1))
         timer = Timeline(startKeyFrame, endKeyFrame)
         fraction.addListener { _, _, _ -> tick() }
         timer.cycleCount = Animation.INDEFINITE
+    }
+
+    private fun onAnimationEnd(): (event: ActionEvent) -> Unit = {
+        timer.stop()
+        endFunction()
     }
 }
