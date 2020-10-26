@@ -1,75 +1,80 @@
 package com.pleon.donim.node
 
-import com.pleon.donim.*
+import com.pleon.donim.Animatable
 import com.pleon.donim.Animatable.AnimationDirection.FORWARD
 import com.pleon.donim.Animatable.AnimationProperties
+import com.pleon.donim.div
+import com.pleon.donim.plus
+import com.pleon.donim.times
+import javafx.animation.Animation
+import javafx.animation.KeyFrame
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
+import javafx.beans.property.SimpleDoubleProperty
+import javafx.event.ActionEvent
 import javafx.scene.text.Text
 import javafx.util.Duration
 
 class Time : Text(), Animatable {
 
-    private lateinit var timer: Timer
     private lateinit var animationProperties: AnimationProperties
-    private var onEnd: () -> Unit = {}
+    private var timer = Timeline()
+    private var endFunction: () -> Unit = {}
+    private var fraction = SimpleDoubleProperty(0.0)
 
-    private fun createTimer(onEnd: () -> Unit = {}) {
-        timer = Timer(animationProperties.duration, Duration.seconds(1.0), onEnd)
-        if (animationProperties.direction == FORWARD) {
-            timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> text = format(elapsedTime) }
-        } else {
-            timer.remainingTimeProperty().addListener { _, _, remainingTime -> text = format(remainingTime) }
-        }
+    private fun createTimer() {
+        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
+        val endKeyFrame = KeyFrame(animationProperties.duration, onAnimationEnd(), KeyValue(fraction, 1))
+        timer = Timeline(startKeyFrame, endKeyFrame)
+        fraction.addListener { _, _, _ -> text = format() }
+        timer.cycleCount = Animation.INDEFINITE
     }
 
-    private fun format(duration: Duration) =
-            String.format("%02d:%02d", duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
+    private fun format(): String {
+        var duration = if (animationProperties.direction == FORWARD) animationProperties.duration * fraction.value else animationProperties.duration * (1 - fraction.value)
+        duration += Duration.millis(600.0) // To sync with progress bar
+        return String.format("%02d:%02d", duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
+    }
 
-    fun isFresh() = timer.elapsedTimeProperty().value == Duration.ZERO
+    fun isFresh() = timer.status == Animation.Status.STOPPED
 
     override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
-        this.animationProperties = properties
-        this.onEnd = onEnd
-        if (this::timer.isInitialized) timer.stop()
+        animationProperties = properties
+        endFunction = onEnd
+        timer.stop()
         createTimer()
-        text = format(animationProperties.duration)
-
+        fraction.value = 0.0
+        text = format()
     }
 
     override fun startAnimation() {
-        if (!this::timer.isInitialized) createTimer()
-        timer.start()
+        timer.play()
     }
 
     override fun pauseAnimation() {
-        if (this::timer.isInitialized) timer.stop()
+        timer.pause()
     }
 
     override fun resetAnimation() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
         createTimer()
-        text = format(animationProperties.duration)
+        fraction.value = 0.0
+        text = format()
     }
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
-        // TODO: Also remove listeners from timer properties to avoid memory leak
-        timer.stop()
         if (isGraceful) {
-            runGraceAnimation(graceDuration)
+            timer.rate = animationProperties.duration * (1 - fraction.value) / graceDuration
+            timer.play() // for when the ending is called while paused
         } else {
-            text = format(if (animationProperties.direction == FORWARD) animationProperties.duration else Duration.ZERO)
-            onEnd()
+            timer.jumpTo(animationProperties.duration)
+            endFunction() // maybe not needed?
         }
     }
 
-    private fun runGraceAnimation(graceDuration: Duration) {
-        val remaining = timer.remainingTimeProperty().value
-        timer = Timer(graceDuration, Duration.millis(30.0), onEnd)
-        timer.elapsedTimeProperty().addListener { _, _, elapsedTime ->
-            val fractionOfTimer = elapsedTime / graceDuration
-            val fractionOfRemaining = remaining * fractionOfTimer
-            text = format(remaining - fractionOfRemaining)
-        }
-        timer.start()
+    private fun onAnimationEnd(): (event: ActionEvent) -> Unit = {
+        timer.stop()
+        endFunction()
     }
 }
