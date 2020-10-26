@@ -21,6 +21,7 @@ class CircularProgressBar : Animatable, Canvas() {
 
     // https://www.youtube.com/watch?v=V2yXGdC98jM
     // https://stackoverflow.com/q/24533556/8583692
+    // https://stackoverflow.com/a/38773373/8583692
 
     private lateinit var timer: Timer
     private lateinit var animationProperties: AnimationProperties
