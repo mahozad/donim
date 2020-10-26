@@ -4,9 +4,14 @@ import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.Animatable
 import com.pleon.donim.Animatable.AnimationDirection.FORWARD
 import com.pleon.donim.Animatable.AnimationProperties
-import com.pleon.donim.Timer
 import com.pleon.donim.div
+import com.pleon.donim.times
+import javafx.animation.Animation
+import javafx.animation.KeyFrame
+import javafx.animation.KeyValue
+import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
+import javafx.beans.property.SimpleDoubleProperty
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
 import javafx.scene.paint.CycleMethod
@@ -23,7 +28,8 @@ class CircularProgressBar : Animatable, Canvas() {
     // https://stackoverflow.com/q/24533556/8583692
     // https://stackoverflow.com/a/38773373/8583692
 
-    private lateinit var timer: Timer
+    private var fraction = SimpleDoubleProperty(0.0)
+    private lateinit var timer: Timeline
     private lateinit var animationProperties: AnimationProperties
     private val sliceLength = 4             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
@@ -32,6 +38,7 @@ class CircularProgressBar : Animatable, Canvas() {
     private var color = APP_BASE_COLOR
     private var outerRadius = 0.0
     private var innerRadius = 0.0
+    private var endFunction: () -> Unit = {}
     var title: String = ""
 
     init {
@@ -95,11 +102,11 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun startAnimation() {
         if (!this::timer.isInitialized) createTimer()
-        timer.start()
+        timer.play()
     }
 
     override fun pauseAnimation() {
-        if (this::timer.isInitialized) timer.stop()
+        if (this::timer.isInitialized) timer.pause()
         color = animationProperties.pauseColor
         draw()
     }
@@ -110,48 +117,35 @@ class CircularProgressBar : Animatable, Canvas() {
         // TODO: Also remove listeners from timer properties to avoid memory leak
         if (!isInitialization) timer.stop()
         createTimer()
-        if (!isInitialization) tick(Duration.ZERO)
+        if (!isInitialization) tick()
     }
 
     override fun endAnimation(onEnd: () -> Unit, graceful: Boolean, graceDuration: Duration) {
-        val wasRunning = timer.isRunning
-        // TODO: Also remove listeners from timer properties to avoid memory leak
-        timer.stop()
         if (graceful) {
-            runGraceAnimation(graceDuration, wasRunning, onEnd)
+            endFunction = onEnd
+            timer.rate = animationProperties.duration * (1 - fraction.value) / graceDuration
+            timer.play() // for when the ending is called while paused
         } else {
-            tick(animationProperties.duration)
+            timer.jumpTo(animationProperties.duration)
             onEnd()
         }
     }
 
-    private fun tick(elapsedTime: Duration) {
-        val fraction = elapsedTime / animationProperties.duration
-        val fractionOfRemaining = fraction * (1 - animationProperties.initialProgress)
+    private fun tick() {
         val hueRange = animationProperties.endColor.hue - animationProperties.startColor.hue
-        val hueShift = (animationProperties.initialProgress + fractionOfRemaining) * hueRange
-        val backwardEnd = arcStart - ((1 - animationProperties.initialProgress) * 360) + fractionOfRemaining * 360
-        val forwardEnd = arcStart - (animationProperties.initialProgress * 360) - fractionOfRemaining * 360
+        val hueShift = fraction.value * hueRange
+        val backwardEnd = arcStart - 360 + fraction.value * 360
+        val forwardEnd = arcStart - fraction.value * 360
         color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
     }
 
-    private fun createTimer(onEnd: () -> Unit = {}) {
-        timer = Timer(animationProperties.duration, Duration.millis(30.0), onEnd)
-        timer.elapsedTimeProperty().addListener { _, _, elapsedTime -> tick(elapsedTime) }
-    }
-
-    private fun runGraceAnimation(graceDuration: Duration, wasRunning: Boolean, onEnd: () -> Unit) {
-        val startColor = if (wasRunning) animationProperties.startColor else APP_BASE_COLOR
-        val endColor = if (wasRunning) animationProperties.endColor else APP_BASE_COLOR
-        val progress = timer.elapsedTimeProperty().value / animationProperties.duration
-        animationProperties = AnimationProperties(
-                graceDuration,
-                animationProperties.direction,
-                startColor, endColor,
-                initialProgress = progress)
-        createTimer(onEnd)
-        timer.start()
+    private fun createTimer() {
+        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
+        val endKeyFrame = KeyFrame(animationProperties.duration, { endFunction() }, KeyValue(fraction, 1))
+        timer = Timeline(startKeyFrame, endKeyFrame)
+        fraction.addListener { _, _, _ -> tick() }
+        timer.cycleCount = Animation.INDEFINITE
     }
 }
