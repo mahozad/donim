@@ -1,5 +1,6 @@
 package com.pleon.donim.controller
 
+import com.pleon.donim.APP_NAME
 import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
@@ -16,6 +17,7 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
+import com.pleon.donim.util.DecorationUtil.centerOnScreen
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
 import com.pleon.donim.util.snapTo
@@ -23,6 +25,7 @@ import javafx.animation.Animation
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
+import javafx.application.Platform
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.collections.MapChangeListener
 import javafx.event.EventHandler
@@ -38,7 +41,9 @@ import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
+import java.awt.MenuItem
 import java.awt.SystemTray
+import kotlin.system.exitProcess
 
 class MainController : BaseController() {
 
@@ -51,8 +56,8 @@ class MainController : BaseController() {
     @FXML private lateinit var time: Time
     @FXML lateinit var playIcon: SVGPath
 
-    private lateinit var timer: Timeline
-    private lateinit var tray: Tray
+    private val tray = Tray()
+    private var timer = Timeline()
     private var progress = SimpleDoubleProperty(0.0)
     private var period = WORK
     private var isMuted = false
@@ -71,6 +76,7 @@ class MainController : BaseController() {
         BREAK.nextPeriod = WORK
         progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
+        tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
         createTimer()
     }
 
@@ -133,23 +139,28 @@ class MainController : BaseController() {
     private fun createTrayIcon() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
-            tray = Tray(newScene.window as Stage)
-            tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
+            val stage = newScene.window as Stage
+            tray.addActionListener { runOnJavaFxThread { stage.show().also { centerOnScreen(stage) } } }
+            tray.addMenuItem("Show Window") { runOnJavaFxThread { stage.show().also { centerOnScreen(stage) } } }
+            tray.addMenuItem("Mute") { toggleMute(it.source as MenuItem) }
+            tray.addMenuItem("Exit") { exitProcess(0) }
+            tray.show()
         }
     }
+
+    private fun toggleMute(menuItem: MenuItem) {
+        isMuted = !isMuted
+        menuItem.label = if (isMuted) "Unmute" else "Mute"
+    }
+
+    private fun runOnJavaFxThread(runnable: Runnable) = Platform.runLater(runnable)
 
     private fun startAllThings(shouldNotify: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
         paused = false
-
-        // TODO:
-        // trayIcon.toolTip = "$APP_NAME: $period"
-
+        tray.setTooltip("$APP_NAME: $period")
         if (!isMuted && shouldNotify) {
-
-            // TODO:
-            // trayIcon.displayMessage(period.toString(), period.notification, period.notificationType)
-
+            tray.showNotification(period.toString(), period.notification, period.notificationType)
             beep.play()
         }
     }
