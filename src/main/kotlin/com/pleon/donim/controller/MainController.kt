@@ -83,7 +83,7 @@ class MainController : BaseController() {
         BREAK.nextPeriod = WORK
         animatables = arrayOf(progressBar, time, tray)
         for (animatable in animatables) animatable.setupAnimation(createProperties())
-        createMainTimer()
+        setupMainTimer()
     }
 
     private fun createProperties(): AnimationProperties {
@@ -93,9 +93,10 @@ class MainController : BaseController() {
         return AnimationProperties(duration, ANIMATION_DIRECTION, startColor, endColor)
     }
 
-    private fun createMainTimer() {
+    private fun setupMainTimer() {
+        mainTimer.stop()
         val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(progress, 0))
-        val endKeyFrame = KeyFrame(period.duration, { endFunction() }, KeyValue(progress, 1))
+        val endKeyFrame = KeyFrame(period.duration, "end", { endFunction() }, KeyValue(progress, 1))
         mainTimer = Timeline(startKeyFrame, endKeyFrame)
         mainTimer.cycleCount = Animation.INDEFINITE
     }
@@ -103,7 +104,7 @@ class MainController : BaseController() {
     private fun endFunction() {
         mainTimer.stop()
         period = period.nextPeriod
-        createMainTimer()
+        setupMainTimer()
         if (shouldNotify && !isMuted) {
             tray.showNotification(period.toString(), period.notification, period.notificationType)
             beep.play()
@@ -143,8 +144,8 @@ class MainController : BaseController() {
 
             if (mainTimer.status == Animation.Status.STOPPED) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
-                    progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-                    time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
+                    for (animatable in animatables) animatable.setupAnimation(createProperties())
+                    setupMainTimer()
                 }
             }
         })
@@ -199,11 +200,10 @@ class MainController : BaseController() {
     }
 
     fun restart() {
-        for (animatable in animatables) {
-            animatable.resetAnimation()
-            animatable.startAnimation()
-        }
-        mainTimer.stop()
+        // call setup instead of reset in case the user changed settings
+        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        for (animatable in animatables) animatable.startAnimation()
+        setupMainTimer()
         start()
     }
 
@@ -223,7 +223,7 @@ class MainController : BaseController() {
         setButtonsStatus(disable = true)
         for (animatable in animatables) animatable.endAnimation(SHOULD_GRACE_ENDING, GRACE_DURATION)
         shouldNotify = false
-        mainTimer.rate = period.duration * (1 - progress.value) / GRACE_DURATION
+        mainTimer.rate = mainTimer.cuePoints["end"]!! * (1 - progress.value) / GRACE_DURATION
         mainTimer.play()
     }
 
