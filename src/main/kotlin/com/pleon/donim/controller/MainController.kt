@@ -1,6 +1,7 @@
 package com.pleon.donim.controller
 
 import com.pleon.donim.APP_NAME
+import com.pleon.donim.Animatable
 import com.pleon.donim.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
@@ -45,25 +46,32 @@ import java.awt.MenuItem
 import java.awt.SystemTray
 import kotlin.system.exitProcess
 
+private val GRACE_DURATION = Duration.seconds(2.0)
+private val ANIMATION_DIRECTION = BACKWARD
+private const val SHOULD_GRACE_ENDING = true
+private const val ICON_PLAY = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
+private const val ICON_PAUSE = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
+
 class MainController : BaseController() {
 
     // For how javafx timeline works see [https://stackoverflow.com/a/36366805/8583692]
-
     @FXML private lateinit var progressBar: CircularProgressBar
+    @FXML private lateinit var playIcon: SVGPath
     @FXML private lateinit var restart: Button
     @FXML private lateinit var play: Button
     @FXML private lateinit var skip: Button
     @FXML private lateinit var time: Time
-    @FXML lateinit var playIcon: SVGPath
 
+    private lateinit var animatables: Array<Animatable>
+    private val beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
+    private val settingsStage = createTransparentStage()
+    private val aboutStage = createTransparentStage()
     private val tray = Tray()
-    private var timer = Timeline()
     private val progress = SimpleDoubleProperty(0.0)
+    private var mainTimer = Timeline()
     private var period = WORK
     private var isMuted = false
-    private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
-    private var settingsStage = createTransparentStage()
-    private var aboutStage = createTransparentStage()
+    private var shouldNotify = true
 
     override fun initialize() {
         super.initialize()
@@ -73,36 +81,43 @@ class MainController : BaseController() {
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
         BREAK.nextPeriod = WORK
-        progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-        time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
-        tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-        createTimer()
+        animatables = arrayOf(progressBar, time, tray)
+        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        createMainTimer()
     }
 
-    private fun createTimer() {
+    private fun createProperties(): AnimationProperties {
+        val duration = period.duration
+        val startColor = period.baseColor
+        val endColor = period.nextPeriod.baseColor
+        return AnimationProperties(duration, ANIMATION_DIRECTION, startColor, endColor)
+    }
+
+    private fun createMainTimer() {
         val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(progress, 0))
         val endKeyFrame = KeyFrame(period.duration, { endFunction() }, KeyValue(progress, 1))
-        timer = Timeline(startKeyFrame, endKeyFrame)
-        timer.cycleCount = Animation.INDEFINITE
+        mainTimer = Timeline(startKeyFrame, endKeyFrame)
+        mainTimer.cycleCount = Animation.INDEFINITE
     }
 
     private fun endFunction() {
+        mainTimer.stop()
         period = period.nextPeriod
-        timer.stop()
-        createTimer()
+        createMainTimer()
+        if (shouldNotify && !isMuted) {
+            tray.showNotification(period.toString(), period.notification, period.notificationType)
+            beep.play()
+        }
+        setButtonsStatus(disable = false)
+        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        for (animatable in animatables) animatable.startAnimation()
+        start()
+    }
 
-        startAllThings(shouldNotify = false)
-        play.isDisable = false
-        restart.isDisable = false
-        skip.isDisable = false
-
-        progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-        progressBar.startAnimation()
-        time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
-        time.startAnimation()
-        tray.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
-        tray.startAnimation()
-        timer.play()
+    private fun setButtonsStatus(disable: Boolean) {
+        play.isDisable = disable
+        restart.isDisable = disable
+        skip.isDisable = disable
     }
 
     private fun applyUserPreferences() {
@@ -126,7 +141,7 @@ class MainController : BaseController() {
                 BREAK.setDuration(it.valueAdded)
             }
 
-            if (timer.status == Animation.Status.STOPPED) {
+            if (mainTimer.status == Animation.Status.STOPPED) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
                     progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
                     time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
@@ -154,13 +169,11 @@ class MainController : BaseController() {
 
     private fun runOnJavaFxThread(runnable: Runnable) = Platform.runLater(runnable)
 
-    private fun startAllThings(shouldNotify: Boolean) {
-        playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
+    private fun start() {
+        playIcon.content = ICON_PLAY
         tray.setTooltip("$APP_NAME: $period")
-        if (!isMuted && shouldNotify) {
-            tray.showNotification(period.toString(), period.notification, period.notificationType)
-            beep.play()
-        }
+        shouldNotify = true
+        mainTimer.play()
     }
 
     fun close() {
@@ -186,44 +199,32 @@ class MainController : BaseController() {
     }
 
     fun restart() {
-        progressBar.resetAnimation()
-        progressBar.startAnimation()
-        tray.resetAnimation()
-        tray.startAnimation()
-        time.resetAnimation()
-        time.startAnimation()
-        timer.playFromStart()
-        startAllThings(false)
+        for (animatable in animatables) {
+            animatable.resetAnimation()
+            animatable.startAnimation()
+        }
+        mainTimer.stop()
+        start()
     }
 
     fun pauseResume() {
-        if (timer.status == Animation.Status.RUNNING) {
-            playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
-            time.pauseAnimation()
-            tray.pauseAnimation()
-            progressBar.pauseAnimation()
-            timer.pause()
+        if (mainTimer.status == Animation.Status.RUNNING) {
+            playIcon.content = ICON_PAUSE
+            for (animatable in animatables) animatable.pauseAnimation()
+            mainTimer.pause()
         } else {
-            skip.isDisable = false
-            restart.isDisable = false
-            startAllThings(shouldNotify = false)
-            time.startAnimation()
-            tray.startAnimation()
-            progressBar.startAnimation()
-            timer.play()
+            setButtonsStatus(disable = false)
+            for (animatable in animatables) animatable.startAnimation()
+            start()
         }
     }
 
     fun skip() {
-        play.isDisable = true
-        restart.isDisable = true
-        skip.isDisable = true
-
-        tray.endAnimation()
-        time.endAnimation()
-        progressBar.endAnimation()
-        timer.rate = period.duration * (1 - progress.value) / Duration.seconds(2.0) /*grace duration*/
-        timer.play()
+        setButtonsStatus(disable = true)
+        for (animatable in animatables) animatable.endAnimation(SHOULD_GRACE_ENDING, GRACE_DURATION)
+        shouldNotify = false
+        mainTimer.rate = period.duration * (1 - progress.value) / GRACE_DURATION
+        mainTimer.play()
     }
 
     fun showSettings() {
