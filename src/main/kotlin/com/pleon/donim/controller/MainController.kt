@@ -112,7 +112,7 @@ class MainController : BaseController() {
         setButtonsStatus(disable = false)
         for (animatable in animatables) animatable.setupAnimation(createProperties())
         for (animatable in animatables) animatable.startAnimation()
-        start()
+        startMainTimer()
     }
 
     private fun setButtonsStatus(disable: Boolean) {
@@ -170,7 +170,7 @@ class MainController : BaseController() {
 
     private fun runOnJavaFxThread(runnable: Runnable) = Platform.runLater(runnable)
 
-    private fun start() {
+    private fun startMainTimer() {
         playIcon.content = ICON_PLAY
         tray.setTooltip("$APP_NAME: $period")
         shouldNotify = true
@@ -204,7 +204,7 @@ class MainController : BaseController() {
         for (animatable in animatables) animatable.setupAnimation(createProperties())
         for (animatable in animatables) animatable.startAnimation()
         setupMainTimer()
-        start()
+        startMainTimer()
     }
 
     fun pauseResume() {
@@ -215,7 +215,7 @@ class MainController : BaseController() {
         } else {
             setButtonsStatus(disable = false)
             for (animatable in animatables) animatable.startAnimation()
-            start()
+            startMainTimer()
         }
     }
 
