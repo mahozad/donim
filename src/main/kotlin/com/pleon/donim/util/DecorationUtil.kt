@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
 import javafx.stage.Screen
 import javafx.stage.Stage
+import javafx.stage.StageStyle
 import javafx.stage.Window
 
 private val DEFAULT_THEME = DARK
@@ -70,4 +71,6 @@ object DecorationUtil {
         x = (screenBounds.width - width) / 2
         y = (screenBounds.height - height) / 2
     }
+
+    fun createTransparentStage() = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
 }

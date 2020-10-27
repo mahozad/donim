@@ -17,6 +17,7 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
+import com.pleon.donim.util.DecorationUtil.createTransparentStage
 import com.pleon.donim.util.DecorationUtil.showCentered
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
@@ -39,7 +40,6 @@ import javafx.scene.media.AudioClip
 import javafx.scene.paint.Color
 import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
-import javafx.stage.StageStyle
 import javafx.util.Duration
 import java.awt.MenuItem
 import java.awt.SystemTray
@@ -61,10 +61,10 @@ class MainController : BaseController() {
     private var progress = SimpleDoubleProperty(0.0)
     private var period = WORK
     private var isMuted = false
-    private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
     private var paused = true
-    private var aboutStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
-    private var settingsStage = Stage().apply { initStyle(StageStyle.TRANSPARENT) }
+    private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
+    private var settingsStage = createTransparentStage()
+    private var aboutStage = createTransparentStage()
 
     override fun initialize() {
         super.initialize()
