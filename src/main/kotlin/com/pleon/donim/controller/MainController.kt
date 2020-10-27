@@ -69,7 +69,7 @@ class MainController : BaseController() {
     override fun initialize() {
         super.initialize()
         super.makeWindowMovable()
-        createTrayIcon()
+        setupTrayIcon()
         applyUserPreferences()
         listenForSettingsChanges()
         WORK.nextPeriod = BREAK
@@ -136,7 +136,7 @@ class MainController : BaseController() {
         })
     }
 
-    private fun createTrayIcon() {
+    private fun setupTrayIcon() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
