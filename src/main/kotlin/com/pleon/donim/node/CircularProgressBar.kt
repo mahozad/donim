@@ -7,6 +7,7 @@ import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
 import com.pleon.donim.times
 import javafx.animation.Animation
+import javafx.animation.Animation.Status.RUNNING
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
@@ -106,8 +107,7 @@ class CircularProgressBar : Animatable, Canvas() {
         endFunction = onEnd
         timer.stop()
         createTimer()
-        color = animationProperties.pauseColor
-        draw()
+        tick()
     }
 
     override fun startAnimation() {
@@ -141,7 +141,7 @@ class CircularProgressBar : Animatable, Canvas() {
         val hueShift = fraction.value * hueRange
         val backwardEnd = arcStart - 360 + fraction.value * 360
         val forwardEnd = arcStart - fraction.value * 360
-        color = animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
+        color = if (timer.status != RUNNING) animationProperties.pauseColor else animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
     }
