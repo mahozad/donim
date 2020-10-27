@@ -121,9 +121,7 @@ class CircularProgressBar : Animatable, Canvas() {
     }
 
     override fun resetAnimation() {
-        // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
-        createTimer()
         color = animationProperties.pauseColor
         draw()
     }

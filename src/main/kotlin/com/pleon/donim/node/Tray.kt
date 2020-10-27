@@ -67,11 +67,7 @@ class Tray : Animatable {
         trayIcon.image = trayImage.rotate(angle).tint(hueShift)
     }
 
-    override fun resetAnimation() {
-        // TODO: Also remove listeners from timer properties to avoid memory leak
-        timer.stop()
-        createTimer()
-    }
+    override fun resetAnimation() = timer.stop()
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
         if (isGraceful) {

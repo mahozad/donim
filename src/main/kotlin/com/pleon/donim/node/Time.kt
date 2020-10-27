@@ -56,9 +56,7 @@ class Time : Text(), Animatable {
     }
 
     override fun resetAnimation() {
-        // TODO: Also remove listeners from timer properties to avoid memory leak
         timer.stop()
-        createTimer()
         fraction.value = 0.0
         text = format()
     }
