@@ -32,7 +32,7 @@ class Time : Text(), Animatable {
 
     private fun format(): String {
         var duration = if (animationProperties.direction == FORWARD) animationProperties.duration * fraction.value else animationProperties.duration * (1 - fraction.value)
-        duration += Duration.millis(600.0) // To sync with progress bar
+        duration += Duration.millis(500.0) // To display the initial state long enough
         return String.format("%02d:%02d", duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
     }
 
