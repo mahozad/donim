@@ -64,9 +64,10 @@ object DecorationUtil {
         }
     }
 
-    fun centerOnScreen(stage: Stage) {
+    fun Stage.showCentered() {
+        show() // Should be called before centering (otherwise sometimes does not work)
         val screenBounds = Screen.getPrimary().visualBounds
-        stage.x = (screenBounds.width - stage.width) / 2
-        stage.y = (screenBounds.height - stage.height) / 2
+        x = (screenBounds.width - width) / 2
+        y = (screenBounds.height - height) / 2
     }
 }

@@ -17,7 +17,7 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
-import com.pleon.donim.util.DecorationUtil.centerOnScreen
+import com.pleon.donim.util.DecorationUtil.showCentered
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
 import com.pleon.donim.util.snapTo
@@ -140,8 +140,8 @@ class MainController : BaseController() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
-            tray.addActionListener { runOnJavaFxThread { stage.show().also { centerOnScreen(stage) } } }
-            tray.addMenuItem("Show Window") { runOnJavaFxThread { stage.show().also { centerOnScreen(stage) } } }
+            tray.addActionListener { runOnJavaFxThread { stage.showCentered() } }
+            tray.addMenuItem("Show Window") { runOnJavaFxThread { stage.showCentered() } }
             tray.addMenuItem("Mute") { toggleMute(it.source as MenuItem) }
             tray.addMenuItem("Exit") { exitProcess(0) }
             tray.show()

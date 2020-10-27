@@ -1,6 +1,6 @@
 package com.pleon.donim
 
-import com.pleon.donim.util.DecorationUtil.centerOnScreen
+import com.pleon.donim.util.DecorationUtil.showCentered
 import com.pleon.donim.util.buildTransparentScene
 import javafx.application.Application
 import javafx.application.HostServices
@@ -52,8 +52,7 @@ class Main : Application() {
         primaryStage.title = APP_NAME
         primaryStage.icons.add(Image("/img/logo.png"))
         primaryStage.initStyle(StageStyle.TRANSPARENT)
-        primaryStage.show()
+        primaryStage.showCentered()
         primaryStage.toFront()
-        centerOnScreen(primaryStage)
     }
 }
