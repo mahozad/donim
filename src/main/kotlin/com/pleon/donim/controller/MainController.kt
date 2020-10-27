@@ -58,10 +58,9 @@ class MainController : BaseController() {
 
     private val tray = Tray()
     private var timer = Timeline()
-    private var progress = SimpleDoubleProperty(0.0)
+    private val progress = SimpleDoubleProperty(0.0)
     private var period = WORK
     private var isMuted = false
-    private var paused = true
     private var beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
     private var settingsStage = createTransparentStage()
     private var aboutStage = createTransparentStage()
@@ -127,7 +126,7 @@ class MainController : BaseController() {
                 BREAK.setDuration(it.valueAdded)
             }
 
-            if (paused && time.isFresh()) {
+            if (timer.status == Animation.Status.STOPPED) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
                     progressBar.setupAnimation(AnimationProperties(period.duration, BACKWARD, period.baseColor, period.nextPeriod.baseColor))
                     time.setupAnimation(AnimationProperties(period.duration, BACKWARD))
@@ -157,7 +156,6 @@ class MainController : BaseController() {
 
     private fun startAllThings(shouldNotify: Boolean) {
         playIcon.content = "m 8,18.1815 c 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 10,6.6132643 9.1,5.8185 8,5.8185 6.9,5.8185 6,6.6132643 6,7.5846429 V 16.415357 C 6,17.386736 6.9,18.1815 8,18.1815 Z M 14,7.5846429 v 8.8307141 c 0,0.971379 0.9,1.766143 2,1.766143 1.1,0 2,-0.794764 2,-1.766143 V 7.5846429 C 18,6.6132643 17.1,5.8185 16,5.8185 c -1.1,0 -2,0.7947643 -2,1.7661429 z"
-        paused = false
         tray.setTooltip("$APP_NAME: $period")
         if (!isMuted && shouldNotify) {
             tray.showNotification(period.toString(), period.notification, period.notificationType)
@@ -199,8 +197,7 @@ class MainController : BaseController() {
     }
 
     fun pauseResume() {
-        paused = !paused
-        if (paused) {
+        if (timer.status == Animation.Status.RUNNING) {
             playIcon.content = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"
             time.pauseAnimation()
             tray.pauseAnimation()
