@@ -237,7 +237,6 @@ TextField {
 .label_container {
     -fx-background-color: #e5e5e5;
     -fx-pref-width: 30;
-    -fx-alignment: center;
 }
 
 .dark .label_container {
@@ -246,12 +245,8 @@ TextField {
 
 #period_label {
     -fx-font-weight: bold;
-    -fx-font-size: 17;
-    -fx-fill: #777;
-}
-
-.dark #period_label {
-    -fx-fill: #999;
+    -fx-font-size: 15;
+    -fx-fill: #888;
 }
 
 .btn {
