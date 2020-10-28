@@ -6,14 +6,11 @@ import com.pleon.donim.Animatable.AnimationDirection.FORWARD
 import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
 import com.pleon.donim.times
-import javafx.animation.Animation
+import com.pleon.donim.util.createTimer
 import javafx.animation.Animation.Status.RUNNING
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.beans.InvalidationListener
 import javafx.beans.property.SimpleDoubleProperty
-import javafx.event.ActionEvent
 import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
 import javafx.scene.paint.CycleMethod
@@ -44,6 +41,7 @@ class CircularProgressBar : Animatable, Canvas() {
     var title: String = ""
 
     init {
+        fraction.addListener { _, _, _ -> tick() }
         val listener = InvalidationListener {
             outerRadius = min(width, height) / 2
             innerRadius = outerRadius * 0.66
@@ -106,7 +104,10 @@ class CircularProgressBar : Animatable, Canvas() {
         animationProperties = properties
         endFunction = onEnd
         timer.stop()
-        createTimer()
+        timer = createTimer(animationProperties.duration, fraction) {
+            timer.stop()
+            endFunction()
+        }
         tick()
     }
 
@@ -144,18 +145,5 @@ class CircularProgressBar : Animatable, Canvas() {
         color = if (timer.status != RUNNING) animationProperties.pauseColor else animationProperties.startColor.deriveColor(hueShift, 1.0, 1.0, 1.0)
         arcEnd = if (animationProperties.direction == FORWARD) forwardEnd.toInt() else backwardEnd.toInt()
         draw()
-    }
-
-    private fun createTimer() {
-        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
-        val endKeyFrame = KeyFrame(animationProperties.duration, onAnimationEnd(), KeyValue(fraction, 1))
-        timer = Timeline(startKeyFrame, endKeyFrame)
-        fraction.addListener { _, _, _ -> tick() }
-        timer.cycleCount = Animation.INDEFINITE
-    }
-
-    private fun onAnimationEnd(): (event: ActionEvent) -> Unit = {
-        timer.stop()
-        endFunction()
     }
 }

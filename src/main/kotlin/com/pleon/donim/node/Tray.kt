@@ -5,12 +5,9 @@ import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.util.AnimationUtil.interpolate
 import com.pleon.donim.util.ImageUtil.rotate
 import com.pleon.donim.util.ImageUtil.tint
-import javafx.animation.Animation
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
+import com.pleon.donim.util.createTimer
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
-import javafx.event.ActionEvent
 import javafx.util.Duration
 import java.awt.MenuItem
 import java.awt.PopupMenu
@@ -34,6 +31,8 @@ class Tray : Animatable {
     private val fraction = SimpleDoubleProperty(0.0)
     private lateinit var animationProperties: AnimationProperties
 
+    init { fraction.addListener { _, _, _ -> tick() } }
+
     fun addActionListener(listener: ActionListener) = trayIcon.addActionListener(listener)
 
     fun show() = SystemTray.getSystemTray().add(trayIcon)
@@ -54,7 +53,10 @@ class Tray : Animatable {
         animationProperties = properties
         endFunction = onEnd
         timer.stop()
-        createTimer()
+        timer = createTimer(animationProperties.duration, fraction) {
+            timer.stop() // Prevents blinking as well
+            endFunction()
+        }
     }
 
     override fun startAnimation() {
@@ -77,19 +79,6 @@ class Tray : Animatable {
             timer.jumpTo(animationProperties.duration)
             endFunction() // maybe not needed?
         }
-    }
-
-    private fun createTimer() {
-        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
-        val endKeyFrame = KeyFrame(animationProperties.duration, onAnimationEnd(), KeyValue(fraction, 1))
-        timer = Timeline(startKeyFrame, endKeyFrame)
-        fraction.addListener { _, _, _ -> tick() }
-        timer.cycleCount = Animation.INDEFINITE
-    }
-
-    private fun onAnimationEnd(): (event: ActionEvent) -> Unit = {
-        timer.stop() // to prevent blinking
-        endFunction()
     }
 
     private fun tick() {

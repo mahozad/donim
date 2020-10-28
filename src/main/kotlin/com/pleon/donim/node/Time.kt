@@ -6,12 +6,10 @@ import com.pleon.donim.Animatable.AnimationProperties
 import com.pleon.donim.div
 import com.pleon.donim.plus
 import com.pleon.donim.times
+import com.pleon.donim.util.createTimer
 import javafx.animation.Animation
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
-import javafx.event.ActionEvent
 import javafx.scene.text.Text
 import javafx.util.Duration
 
@@ -22,13 +20,7 @@ class Time : Text(), Animatable {
     private var endFunction: () -> Unit = {}
     private var fraction = SimpleDoubleProperty(0.0)
 
-    private fun createTimer() {
-        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(fraction, 0))
-        val endKeyFrame = KeyFrame(animationProperties.duration, onAnimationEnd(), KeyValue(fraction, 1))
-        timer = Timeline(startKeyFrame, endKeyFrame)
-        fraction.addListener { _, _, _ -> text = format() }
-        timer.cycleCount = Animation.INDEFINITE
-    }
+    init { fraction.addListener { _, _, _ -> text = format() } }
 
     private fun format(): String {
         var duration = if (animationProperties.direction == FORWARD) animationProperties.duration * fraction.value else animationProperties.duration * (1 - fraction.value)
@@ -42,7 +34,10 @@ class Time : Text(), Animatable {
         animationProperties = properties
         endFunction = onEnd
         timer.stop()
-        createTimer()
+        timer = createTimer(animationProperties.duration, fraction){
+            timer.stop()
+            endFunction()
+        }
         fraction.value = 0.0
         text = format()
     }
@@ -69,10 +64,5 @@ class Time : Text(), Animatable {
             timer.jumpTo(animationProperties.duration)
             endFunction() // maybe not needed?
         }
-    }
-
-    private fun onAnimationEnd(): (event: ActionEvent) -> Unit = {
-        timer.stop()
-        endFunction()
     }
 }

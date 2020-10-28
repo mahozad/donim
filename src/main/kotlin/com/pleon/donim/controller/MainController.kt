@@ -22,10 +22,9 @@ import com.pleon.donim.util.DecorationUtil.createTransparentStage
 import com.pleon.donim.util.DecorationUtil.showCentered
 import com.pleon.donim.util.PersistentSettings
 import com.pleon.donim.util.SnapSide
+import com.pleon.donim.util.createTimer
 import com.pleon.donim.util.snapTo
 import javafx.animation.Animation
-import javafx.animation.KeyFrame
-import javafx.animation.KeyValue
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.collections.MapChangeListener
@@ -95,10 +94,7 @@ class MainController : BaseController() {
 
     private fun setupMainTimer() {
         mainTimer.stop()
-        val startKeyFrame = KeyFrame(Duration.ZERO, KeyValue(progress, 0))
-        val endKeyFrame = KeyFrame(period.duration, "end", { endFunction() }, KeyValue(progress, 1))
-        mainTimer = Timeline(startKeyFrame, endKeyFrame)
-        mainTimer.cycleCount = Animation.INDEFINITE
+        mainTimer = createTimer(period.duration, progress, this::endFunction)
     }
 
     private fun endFunction() {
