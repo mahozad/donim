@@ -16,9 +16,8 @@ import javafx.util.Duration
 class Time : Text(), Animatable {
 
     private lateinit var animationProperties: AnimationProperties
-    private var timer = Timeline()
-    private var endFunction: () -> Unit = {}
     private var fraction = SimpleDoubleProperty(0.0)
+    private var timer = Timeline()
 
     init { fraction.addListener { _, _, _ -> text = format() } }
 
@@ -32,11 +31,10 @@ class Time : Text(), Animatable {
 
     override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
         animationProperties = properties
-        endFunction = onEnd
         timer.stop()
         timer = createTimer(animationProperties.duration, fraction){
             timer.stop()
-            endFunction()
+            onEnd()
         }
         fraction.value = 0.0
         text = format()

@@ -37,7 +37,6 @@ class CircularProgressBar : Animatable, Canvas() {
     private var color = APP_BASE_COLOR
     private var outerRadius = 0.0
     private var innerRadius = 0.0
-    private var endFunction: () -> Unit = {}
     var title: String = ""
 
     init {
@@ -102,11 +101,10 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
         animationProperties = properties
-        endFunction = onEnd
         timer.stop()
         timer = createTimer(animationProperties.duration, fraction) {
             timer.stop()
-            endFunction()
+            onEnd()
         }
         tick()
     }

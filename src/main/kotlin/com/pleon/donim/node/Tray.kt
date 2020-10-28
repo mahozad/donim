@@ -27,7 +27,6 @@ class Tray : Animatable {
     private var hueShift = 0.0
     private var angle = 0.0
     private var timer = Timeline()
-    private var endFunction: () -> Unit = {}
     private val fraction = SimpleDoubleProperty(0.0)
     private lateinit var animationProperties: AnimationProperties
 
@@ -51,11 +50,10 @@ class Tray : Animatable {
 
     override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
         animationProperties = properties
-        endFunction = onEnd
         timer.stop()
         timer = createTimer(animationProperties.duration, fraction) {
             timer.stop() // Prevents blinking as well
-            endFunction()
+            onEnd()
         }
     }
 
