@@ -27,7 +27,6 @@ import javafx.animation.Animation
 import javafx.animation.KeyFrame
 import javafx.animation.KeyValue
 import javafx.animation.Timeline
-import javafx.application.Platform
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.collections.MapChangeListener
 import javafx.event.EventHandler
@@ -45,6 +44,7 @@ import javafx.util.Duration
 import java.awt.MenuItem
 import java.awt.SystemTray
 import kotlin.system.exitProcess
+import javafx.application.Platform.runLater as runOnJavaFXThread
 
 private val GRACE_DURATION = Duration.seconds(2.0)
 private val ANIMATION_DIRECTION = BACKWARD
@@ -155,8 +155,8 @@ class MainController : BaseController() {
         root.sceneProperty().addListener { _, oldScene, newScene ->
             if (!SystemTray.isSupported() || oldScene != null) return@addListener
             val stage = newScene.window as Stage
-            tray.addActionListener { runOnJavaFxThread { stage.showCentered() } }
-            tray.addMenuItem("Show Window") { runOnJavaFxThread { stage.showCentered() } }
+            tray.addActionListener { runOnJavaFXThread { stage.showCentered() } }
+            tray.addMenuItem("Show Window") { runOnJavaFXThread { stage.showCentered() } }
             tray.addMenuItem("Mute") { toggleMute(it.source as MenuItem) }
             tray.addMenuItem("Exit") { exitProcess(0) }
             tray.show()
@@ -167,8 +167,6 @@ class MainController : BaseController() {
         isMuted = !isMuted
         menuItem.label = if (isMuted) "Unmute" else "Mute"
     }
-
-    private fun runOnJavaFxThread(runnable: Runnable) = Platform.runLater(runnable)
 
     private fun startMainTimer() {
         playIcon.content = ICON_PLAY
