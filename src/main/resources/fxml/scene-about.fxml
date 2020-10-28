@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.pleon.donim.controller.AboutController"
@@ -37,12 +37,7 @@
         </StackPane>
     </AnchorPane>
 
-    <VBox prefHeight="293" alignment="CENTER">
-        <Text styleClass="about" text="Developer: Mahdi Hosseinzadeh">
-            <VBox.margin>
-                <Insets bottom="16"/>
-            </VBox.margin>
-        </Text>
+    <VBox alignment="CENTER" prefHeight="293">
         <Text styleClass="about" text="Written in Kotlin">
             <VBox.margin>
                 <Insets bottom="16"/>
