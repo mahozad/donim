@@ -2,7 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/mahozad/donim/badge.svg?branch=master)][2]
 
 <div align="center">
-  <img src="raw/logo-animated.svg" width="90"/><br>
+  <img src="raw/logo-animated.svg" width="90"/>
+  <br>
   <img src="raw/wordmark.svg" width="90"/>
 </div>
 
