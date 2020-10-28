@@ -72,13 +72,11 @@ class Tray : Animatable {
     override fun resetAnimation() = timer.stop()
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
-        if (isGraceful) {
-            timer.rate = animationProperties.duration * (1 - fraction.value) / graceDuration
-            timer.play() // for when the ending is called while paused
-        } else {
-            timer.jumpTo(animationProperties.duration)
-            endFunction() // maybe not needed?
+        timer.rate = when {
+            isGraceful -> animationProperties.duration * (1 - fraction.value) / graceDuration
+            else -> animationProperties.duration * (1 - fraction.value) / Duration.ONE
         }
+        timer.play() // for when the ending is called while paused
     }
 
     private fun tick() {
