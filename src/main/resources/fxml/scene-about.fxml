@@ -48,17 +48,17 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Timer inspired by TilesFX">
+        <Text styleClass="about" text="Timer Inspired by TilesFX">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Text styleClass="about" text="Icons created with Inkscape">
+        <Text styleClass="about" text="Logo Created with Inkscape">
             <VBox.margin>
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Hyperlink fx:id="link" text="Application Source Code"/>
+        <Hyperlink fx:id="link" text="View Source Code"/>
     </VBox>
 
 </VBox>
