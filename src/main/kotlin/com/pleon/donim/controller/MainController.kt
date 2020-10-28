@@ -216,7 +216,10 @@ class MainController : BaseController() {
         setButtonsStatus(disable = true)
         for (animatable in animatables) animatable.endAnimation(SHOULD_GRACE_ENDING, GRACE_DURATION)
         shouldNotify = false
-        mainTimer.rate = mainTimer.cuePoints["end"]!! * (1 - progress.value) / GRACE_DURATION
+        mainTimer.rate = when {
+            SHOULD_GRACE_ENDING -> mainTimer.cuePoints["end"]!! * (1 - progress.value) / GRACE_DURATION
+            else -> mainTimer.cuePoints["end"]!! * (1 - progress.value) / Duration.ONE
+        }
         mainTimer.play()
     }
 
