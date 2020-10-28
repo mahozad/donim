@@ -61,7 +61,7 @@
         </SVGPath>
         </StackPane>
         <StackPane styleClass="label_container"
-                   AnchorPane.topAnchor="12"
+                   AnchorPane.topAnchor="10"
                    AnchorPane.rightAnchor="16">
             <Text text="F" id="period_label"/>
         </StackPane>

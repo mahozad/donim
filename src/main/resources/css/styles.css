@@ -235,18 +235,18 @@ TextField {
 }
 
 .label_container {
-    -fx-background-color: #eee;
+    -fx-background-color: #e5e5e5;
     -fx-pref-width: 30;
     -fx-alignment: center;
 }
 
 .dark .label_container {
-    -fx-background-color: #444;
+    -fx-background-color: #424242;
 }
 
 #period_label {
     -fx-font-weight: bold;
-    -fx-font-size: 18;
+    -fx-font-size: 17;
     -fx-fill: #777;
 }
 
