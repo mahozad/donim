@@ -58,7 +58,7 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Hyperlink fx:id="link" text="www.mahozad.ir"/>
+        <Hyperlink fx:id="link" text="Application Source Code"/>
     </VBox>
 
 </VBox>

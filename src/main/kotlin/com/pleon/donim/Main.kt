@@ -16,6 +16,7 @@ const val APP_NAME = "Donim"
 
 /** This is the same as the brighter color-stop in the gradient of the logo */
 val APP_BASE_COLOR = Color.hsb(212.0, 0.9, 1.0)!!
+const val APP_SOURCE_PAGE_URI = "https://github.com/mahozad/donim"
 
 lateinit var hostServicesInstance: HostServices
 
