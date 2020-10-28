@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/mahozad/donim.svg?branch=master)][1]
 [![Coverage Status](https://coveralls.io/repos/github/mahozad/donim/badge.svg?branch=master)][2]
 
-# ![logo](logo-animated.svg) Donim
+# ![logo](raw/logo-animated.svg) Donim
 
 ![Main screen](screenshot/main-screen.png)
 
