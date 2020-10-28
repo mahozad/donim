@@ -50,6 +50,7 @@
     </AnchorPane>
 
     <AnchorPane>
+        <!-- The icon is wrapped in a StackPane so the whole region will be clickable -->
         <StackPane styleClass="icon-container"
                    onMouseClicked="#showSettings"
                    AnchorPane.topAnchor="12"
