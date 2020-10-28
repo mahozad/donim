@@ -102,7 +102,6 @@ class MainController : BaseController() {
     }
 
     private fun endFunction() {
-        mainTimer.stop()
         period = period.nextPeriod
         setupMainTimer()
         if (shouldNotify && !isMuted) {
