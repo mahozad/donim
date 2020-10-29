@@ -1,0 +1,12 @@
+name: Update copyright year in license file
+
+# Run every January 1st at 03:00 AM
+on:
+  schedule:
+    - cron: "0 3 1 1 *"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: FantasticFiasco/action-update-license-year@v1
