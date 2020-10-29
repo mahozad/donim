@@ -1,5 +1,6 @@
 package com.pleon.donim
 
+import com.pleon.donim.controller.GRACE_DURATION
 import javafx.scene.paint.Color
 import javafx.util.Duration
 
@@ -22,5 +23,5 @@ interface Animatable {
 
     fun pauseAnimation()
 
-    fun endAnimation(isGraceful: Boolean = true, graceDuration: Duration = Duration.seconds(2.0))
+    fun endAnimation(isGraceful: Boolean = true, graceDuration: Duration = GRACE_DURATION)
 }
