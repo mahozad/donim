@@ -60,7 +60,8 @@ class Tray : Animatable {
 
     override fun pauseAnimation() {
         timer.pause()
-        hueShift = 0.0
+        // Because the icon has the base color by default
+        hueShift = animationProperties.pauseColor.hue - APP_BASE_COLOR.hue
         trayIcon.image = trayImage.rotate(angle).tint(hueShift)
     }
 
