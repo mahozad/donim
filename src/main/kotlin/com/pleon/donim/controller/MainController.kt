@@ -81,7 +81,7 @@ class MainController : BaseController() {
         WORK.nextPeriod = BREAK
         BREAK.nextPeriod = WORK
         animatables = arrayOf(progressBar, time, tray)
-        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        for (animatable in animatables) animatable.resetAnimation(createProperties())
         setupMainTimer()
     }
 
@@ -105,7 +105,7 @@ class MainController : BaseController() {
             beep.play()
         }
         setButtonsStatus(disable = false)
-        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        for (animatable in animatables) animatable.resetAnimation(createProperties())
         for (animatable in animatables) animatable.startAnimation()
         startMainTimer()
     }
@@ -139,7 +139,7 @@ class MainController : BaseController() {
 
             if (mainTimer.status == Animation.Status.STOPPED) {
                 if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
-                    for (animatable in animatables) animatable.setupAnimation(createProperties())
+                    for (animatable in animatables) animatable.resetAnimation(createProperties())
                     setupMainTimer()
                 }
             }
@@ -194,7 +194,7 @@ class MainController : BaseController() {
 
     fun restart() {
         // call setup instead of reset in case the user changed settings
-        for (animatable in animatables) animatable.setupAnimation(createProperties())
+        for (animatable in animatables) animatable.resetAnimation(createProperties())
         for (animatable in animatables) animatable.startAnimation()
         setupMainTimer()
         startMainTimer()

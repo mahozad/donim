@@ -29,13 +29,10 @@ class Time : Text(), Animatable {
 
     fun isFresh() = timer.status == Animation.Status.STOPPED
 
-    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+    override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
         timer.stop()
-        timer = createTimer(animationProperties.duration, fraction){
-            timer.stop()
-            onEnd()
-        }
+        timer = createTimer(animationProperties.duration, fraction){ timer.stop() }
         fraction.value = 0.0
         text = format()
     }
@@ -46,12 +43,6 @@ class Time : Text(), Animatable {
 
     override fun pauseAnimation() {
         timer.pause()
-    }
-
-    override fun resetAnimation() {
-        timer.stop()
-        fraction.value = 0.0
-        text = format()
     }
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {

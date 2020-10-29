@@ -48,13 +48,10 @@ class Tray : Animatable {
         popupMenu.add(menuItem)
     }
 
-    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+    override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
         timer.stop()
-        timer = createTimer(animationProperties.duration, fraction) {
-            timer.stop() // Prevents blinking as well
-            onEnd()
-        }
+        timer = createTimer(animationProperties.duration, fraction) { timer.stop() /* Also prevents blinking */ }
     }
 
     override fun startAnimation() {
@@ -66,8 +63,6 @@ class Tray : Animatable {
         hueShift = 0.0
         trayIcon.image = trayImage.rotate(angle).tint(hueShift)
     }
-
-    override fun resetAnimation() = timer.stop()
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
         timer.rate = when {

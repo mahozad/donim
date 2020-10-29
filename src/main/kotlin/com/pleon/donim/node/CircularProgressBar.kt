@@ -99,13 +99,10 @@ class CircularProgressBar : Animatable, Canvas() {
                 false, CycleMethod.NO_CYCLE, startColor, endColor)
     }
 
-    override fun setupAnimation(properties: AnimationProperties, onEnd: () -> Unit) {
+    override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
         timer.stop()
-        timer = createTimer(animationProperties.duration, fraction) {
-            timer.stop()
-            onEnd()
-        }
+        timer = createTimer(animationProperties.duration, fraction) { timer.stop() }
         tick()
     }
 
@@ -115,12 +112,6 @@ class CircularProgressBar : Animatable, Canvas() {
 
     override fun pauseAnimation() {
         timer.pause()
-        color = animationProperties.pauseColor
-        draw()
-    }
-
-    override fun resetAnimation() {
-        timer.stop()
         color = animationProperties.pauseColor
         draw()
     }
