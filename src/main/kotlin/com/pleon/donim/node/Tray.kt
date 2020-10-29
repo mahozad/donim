@@ -18,6 +18,7 @@ import javax.imageio.ImageIO
 
 private const val START_ANGLE = 0
 private const val END_ANGLE = 180
+private val ICON_BASE_COLOR = APP_BASE_COLOR
 
 class Tray : Animatable {
 
@@ -54,14 +55,11 @@ class Tray : Animatable {
         timer = createTimer(animationProperties.duration, fraction) { timer.stop() /* Also prevents blinking */ }
     }
 
-    override fun startAnimation() {
-        timer.play()
-    }
+    override fun startAnimation() = timer.play()
 
     override fun pauseAnimation() {
         timer.pause()
-        // Because the icon has the base color by default
-        hueShift = animationProperties.pauseColor.hue - APP_BASE_COLOR.hue
+        hueShift = animationProperties.pauseColor.hue - ICON_BASE_COLOR.hue
         trayIcon.image = trayImage.rotate(angle).tint(hueShift)
     }
 
@@ -74,8 +72,7 @@ class Tray : Animatable {
     }
 
     private fun tick() {
-        // Because the icon has the base color by default
-        val distanceBetweenStartAndBaseColor = animationProperties.startColor.hue - APP_BASE_COLOR.hue
+        val distanceBetweenStartAndBaseColor = animationProperties.startColor.hue - ICON_BASE_COLOR.hue
         val colorRange = animationProperties.endColor.hue - animationProperties.startColor.hue
         hueShift = distanceBetweenStartAndBaseColor + colorRange * fraction.value
         angle = interpolate(START_ANGLE, END_ANGLE, fraction.value)
