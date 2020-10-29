@@ -7,7 +7,6 @@ import com.pleon.donim.div
 import com.pleon.donim.plus
 import com.pleon.donim.times
 import com.pleon.donim.util.createTimer
-import javafx.animation.Animation
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.scene.text.Text
@@ -27,23 +26,17 @@ class Time : Text(), Animatable {
         return String.format("%02d:%02d", duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
     }
 
-    fun isFresh() = timer.status == Animation.Status.STOPPED
-
     override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
         timer.stop()
-        timer = createTimer(animationProperties.duration, fraction){ timer.stop() }
+        timer = createTimer(animationProperties.duration, fraction) { timer.stop() }
         fraction.value = 0.0
         text = format()
     }
 
-    override fun startAnimation() {
-        timer.play()
-    }
+    override fun startAnimation() = timer.play()
 
-    override fun pauseAnimation() {
-        timer.pause()
-    }
+    override fun pauseAnimation() = timer.pause()
 
     override fun endAnimation(isGraceful: Boolean, graceDuration: Duration) {
         timer.rate = when {
