@@ -58,7 +58,7 @@
                 <Insets bottom="16"/>
             </VBox.margin>
         </Text>
-        <Hyperlink fx:id="link" text="View Source Code"/>
+        <Hyperlink fx:id="link" text="View Source Code" onAction="#viewSourceCode"/>
     </VBox>
 
 </VBox>
