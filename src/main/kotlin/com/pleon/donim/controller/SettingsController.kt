@@ -5,7 +5,6 @@ import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
 import com.pleon.donim.util.DecorationUtil
 import com.pleon.donim.util.PersistentSettings
-import javafx.beans.value.ObservableStringValue
 import javafx.fxml.FXML
 import javafx.scene.control.TextField
 import javafx.scene.control.TextFormatter
@@ -76,13 +75,6 @@ class SettingsController : BaseController() {
     }
 
     fun close() = closeWindow(false)
+
     fun toggleTheme() = DecorationUtil.toggleTheme()
-
-    fun getObservableFocusDuration(): ObservableStringValue {
-        return focusDuration.textProperty()
-    }
-
-    fun getObservableBreakDuration(): ObservableStringValue {
-        return breakDuration.textProperty()
-    }
 }
