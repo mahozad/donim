@@ -19,7 +19,8 @@ open class BaseController {
     private var windowOffsetX = 0.0
     private var windowOffsetY = 0.0
 
-    @FXML protected open fun initialize() {
+    @FXML
+    protected open fun initialize() {
         DecorationUtil.applyThemeTo(root)
         DecorationUtil.setThemeChangedListener { DecorationUtil.applyThemeTo(root) }
     }
