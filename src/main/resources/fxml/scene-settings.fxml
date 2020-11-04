@@ -59,7 +59,7 @@
                <Insets/>
              </HBox.margin>
            </Label>
-           <TextField fx:id="focusDuration" alignment="CENTER" prefWidth="30.0" styleClass="mono-font">
+           <TextField fx:id="focusDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30.0">
              <HBox.margin>
                <Insets/>
              </HBox.margin>
@@ -83,8 +83,7 @@
                <Insets/>
              </HBox.margin>
            </Label>
-           <TextField fx:id="breakDuration" alignment="CENTER" prefWidth="30.0"
-                      styleClass="mono-font">
+           <TextField fx:id="breakDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30.0">
              <HBox.margin>
                <Insets/>
              </HBox.margin>
