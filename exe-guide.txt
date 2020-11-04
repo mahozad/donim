@@ -1,6 +1,6 @@
 - Download and install Launch4j
 - Now we should build the application uber (fat) jar file (jar containing all app dependencies). There are two ways:
-    - Go to IntelliJ -> Project Structure -> Artifacts -> Add -> JAR from module "Donim.main" and main class "com.pleon.donim.MainKt" and manifest location in src/main/resources and click ok.
+    - Go to IntelliJ -> Project Structure -> Artifacts -> Add -> JAR from module "Donim.main" and main class "ir.mahozad.donim.MainKt" and manifest location in src/main/resources and click ok.
       Now still in Artifacts tab, click on the just-created artifact and in the output layout tab click the plus button -> directory content and select the src/main/resources folder;
       this way the resources (including the manifest) will be included in the jar file and there will be no need to copy contents of resources folder to directory of .exe file.
       Make sure that the manifest is located in src\main\resources so the jar can be executed right away with "java -jar" without further config.
@@ -14,7 +14,7 @@
 - The jar can be shrunk with proguard (https://github.com/Guardsquare/proguard/releases)
 - In launch4j, either import a config file stored next to this guide file or specify at least the following in each tab:
 	- Basic tab: Outputfile, Jar, Icon
-	- (THIS IS OPTIONAL) Classpath tab: Main class (com.pleon.donim.MainKt), Classpath (.)
+	- (THIS IS OPTIONAL) Classpath tab: Main class (ir.mahozad.donim.MainKt), Classpath (.)
 	- JRE tab: Min JRE version (10)
 - Click Save configuration [disk icon] then Build wrapper [gear icon] to make the app .exe file
 - Place everything in app resources folder in the same folder as the .exe file

@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<VBox fx:id="root" alignment="TOP_CENTER" prefWidth="252.0" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pleon.donim.controller.SettingsController">
+<VBox fx:id="root" alignment="TOP_CENTER" prefWidth="252.0" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.mahozad.donim.controller.SettingsController">
 
        <AnchorPane fx:id="title_bar">
 

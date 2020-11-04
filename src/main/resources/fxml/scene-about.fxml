@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.pleon.donim.controller.AboutController"
+      fx:controller="ir.mahozad.donim.controller.AboutController"
       stylesheets="/css/styles.css"
       fx:id="root"
       styleClass="dark"

@@ -15,7 +15,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
-group = "com.pleon"
+group = "ir.mahozad"
 version = "1.0.0-alpha"
 
 repositories {
@@ -25,7 +25,7 @@ repositories {
 
 application {
     // Either Main or MainKt classes are acceptable
-    mainClassName = "com.pleon.donim.Main"
+    mainClassName = "ir.mahozad.donim.Main"
 }
 
 // Configure some settings of dokka. This is totally optional and can be removed.
@@ -69,7 +69,7 @@ tasks.withType<Wrapper> {
 
 tasks.withType<Jar> {
     // Define main class in the manifest of output jar file when generating one
-    manifest.attributes("Main-Class" to "com.pleon.donim.MainKt")
+    manifest.attributes("Main-Class" to "ir.mahozad.donim.MainKt")
 }
 
 tasks.withType<KotlinCompile> {
