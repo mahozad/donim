@@ -49,7 +49,6 @@ private const val ICON_PAUSE = "M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.6
 
 class MainController : BaseController() {
 
-    // For how javafx timeline works see [https://stackoverflow.com/a/36366805/8583692]
     @FXML private lateinit var progressBar: CircularProgressBar
     @FXML private lateinit var playIcon: SVGPath
     @FXML private lateinit var restart: Button

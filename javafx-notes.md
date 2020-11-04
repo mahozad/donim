@@ -53,3 +53,11 @@ To get the controller of a scene do like this:
     val fxmlLoader = FXMLLoader("/fxml/scene-settings.fxml".toURL())
     val settingsController: SettingsController = fxmlLoader.getController()
     val root: Parent = fxmlLoader.load()
+
+---
+
+For how javafx timeline works see [this](https://stackoverflow.com/a/36366805/8583692)
+
+---
+
+// To use spring for dependency injection see [this page](http://www.greggbolinger.com/let-spring-be-your-javafx-controller-factory/)
