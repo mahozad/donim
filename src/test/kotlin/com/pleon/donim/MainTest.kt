@@ -25,9 +25,9 @@ class MainTest {
     @Start
     private fun start(stage: Stage) {
         button = Button("click me!")
-        button.setId("myButton")
-        button.setOnAction { actionEvent -> button.setText("clicked!") }
-        stage.setScene(Scene(StackPane(button), 100.0, 100.0))
+        button.id = "myButton"
+        button.setOnAction { button.text = "clicked!" }
+        stage.scene = Scene(StackPane(button), 100.0, 100.0)
         stage.show()
     }
 

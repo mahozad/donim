@@ -14,8 +14,8 @@ import org.testfx.framework.junit5.Start
 @ExtendWith(ApplicationExtension::class)
 class SceneBuilderTest {
 
-    lateinit var stage: Stage;
-    lateinit var layout: Parent;
+    lateinit var stage: Stage
+    lateinit var layout: Parent
 
     @Start
     fun start(stage: Stage) {

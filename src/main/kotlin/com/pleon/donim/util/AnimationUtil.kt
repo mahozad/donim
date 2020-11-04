@@ -4,7 +4,6 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.IN
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import javafx.animation.*
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Node
 import javafx.stage.Window
@@ -14,7 +13,7 @@ import javafx.util.Duration.ZERO
 object AnimationUtil {
 
     enum class MoveDirection {
-        NONE, BOTTOM, BOTTOM_RIGHT
+        BOTTOM, BOTTOM_RIGHT
     }
 
     enum class FadeMode {
@@ -46,7 +45,7 @@ object AnimationUtil {
         val step = 0.01
         val timeline = Timeline()
         val frameDuration = duration.multiply(step)
-        timeline.keyFrames.add(KeyFrame(frameDuration, EventHandler<ActionEvent> {
+        timeline.keyFrames.add(KeyFrame(frameDuration, {
             if (direction == BOTTOM) {
                 window.y += step.times(15)
             } else if (direction == BOTTOM_RIGHT) {
