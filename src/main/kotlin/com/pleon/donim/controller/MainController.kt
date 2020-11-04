@@ -1,6 +1,7 @@
 package com.pleon.donim.controller
 
 import com.pleon.donim.APP_NAME
+import com.pleon.donim.PersistentSettings
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.extension.div
 import com.pleon.donim.extension.times
@@ -14,7 +15,6 @@ import com.pleon.donim.node.Animatable.AnimationProperties
 import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.node.Time
 import com.pleon.donim.node.Tray
-import com.pleon.donim.settings.PersistentSettings
 import com.pleon.donim.util.*
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT

@@ -1,8 +1,8 @@
 package com.pleon.donim.util
 
+import com.pleon.donim.PersistentSettings
+import com.pleon.donim.Settings
 import com.pleon.donim.exception.SettingNotFoundException
-import com.pleon.donim.settings.PersistentSettings
-import com.pleon.donim.settings.Settings
 import com.pleon.donim.util.DecorationUtil.Theme.DARK
 import com.pleon.donim.util.DecorationUtil.Theme.LIGHT
 import javafx.beans.Observable

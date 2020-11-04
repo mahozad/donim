@@ -1,4 +1,4 @@
-package com.pleon.donim.settings
+package com.pleon.donim
 
 import com.pleon.donim.exception.SettingNotFoundException
 import javafx.collections.FXCollections
