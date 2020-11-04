@@ -8,7 +8,7 @@ import com.pleon.donim.extension.times
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
 import com.pleon.donim.model.Period.BREAK
-import com.pleon.donim.model.Period.WORK
+import com.pleon.donim.model.Period.FOCUS
 import com.pleon.donim.node.Animatable
 import com.pleon.donim.node.Animatable.AnimationDirection.BACKWARD
 import com.pleon.donim.node.Animatable.AnimationProperties
@@ -62,7 +62,7 @@ class MainController : BaseController() {
     private val tray = Tray()
     private val progress = SimpleDoubleProperty(0.0)
     private var mainTimer = Timeline()
-    private var period = WORK
+    private var period = FOCUS
     private var isMuted = false
     private var shouldNotify = true
 
@@ -72,8 +72,8 @@ class MainController : BaseController() {
         setupTrayIcon()
         applyUserPreferences()
         listenForSettingsChanges()
-        WORK.nextPeriod = BREAK
-        BREAK.nextPeriod = WORK
+        FOCUS.nextPeriod = BREAK
+        BREAK.nextPeriod = FOCUS
         animatables = arrayOf(progressBar, time, tray)
         for (animatable in animatables) animatable.resetAnimation(createProperties())
         setupMainTimer()
@@ -112,9 +112,9 @@ class MainController : BaseController() {
 
     private fun applyUserPreferences() {
         try {
-            WORK.setDuration(PersistentSettings.get("focus-duration"))
+            FOCUS.setDuration(PersistentSettings.get("focus-duration"))
         } catch (e: SettingNotFoundException) {
-            WORK.setDuration(DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString())
+            FOCUS.setDuration(DEFAULT_FOCUS_DURATION.toMinutes().toInt().toString())
         }
         try {
             BREAK.setDuration(PersistentSettings.get("break-duration"))
@@ -126,13 +126,13 @@ class MainController : BaseController() {
     private fun listenForSettingsChanges() {
         PersistentSettings.getObservableProperties().addListener(MapChangeListener {
             if (it.key == "focus-duration") {
-                WORK.setDuration(it.valueAdded)
+                FOCUS.setDuration(it.valueAdded)
             } else if (it.key == "break-duration") {
                 BREAK.setDuration(it.valueAdded)
             }
 
             if (mainTimer.status == Animation.Status.STOPPED) {
-                if (it.key == "focus-duration" && period == WORK || it.key == "break-duration" && period == BREAK) {
+                if (it.key == "focus-duration" && period == FOCUS || it.key == "break-duration" && period == BREAK) {
                     for (animatable in animatables) animatable.resetAnimation(createProperties())
                     setupMainTimer()
                 }

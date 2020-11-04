@@ -14,7 +14,7 @@ enum class Period(var duration: Duration,
                   val notificationType: MessageType,
                   val defaultDuration: Duration) {
 
-    WORK(DEFAULT_FOCUS_DURATION,
+    FOCUS(DEFAULT_FOCUS_DURATION,
             hsb(110.0, 0.9, 1.0),
             "You can now use the system",
             MessageType.INFO,

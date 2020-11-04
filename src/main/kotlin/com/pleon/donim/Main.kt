@@ -21,7 +21,6 @@ const val APP_SOURCE_PAGE_URI = "https://github.com/mahozad/donim"
 
 lateinit var hostServicesInstance: HostServices
 
-// TODO: Rename WORK period to FOCUS
 // TODO: Add an option to the app to make its theme follow windows theme.
 //  see https://stackoverflow.com/q/62289/ and https://stackoverflow.com/q/60837862
 
