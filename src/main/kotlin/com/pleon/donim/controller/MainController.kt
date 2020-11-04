@@ -222,11 +222,7 @@ class MainController : BaseController() {
 
     fun showSettings() {
         if (settingsStage.isShowing) return
-
-        val fxmlLoader = FXMLLoader("/fxml/scene-settings.fxml".toURL())
-        // val settingsController: SettingsController = fxmlLoader.getController()
-        val root: Parent = fxmlLoader.load()
-
+        val root: Parent = FXMLLoader.load("/fxml/scene-settings.fxml".toURL())
         settingsStage.isResizable = false
         settingsStage.title = "Settings"
         settingsStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }

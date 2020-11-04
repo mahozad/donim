@@ -45,3 +45,11 @@ contain them) in scene builder
 ---
 
 See javafx.beans.binding.Bindings class for creating useful bindings with its static methods.
+
+---
+
+To get the controller of a scene do like this:
+
+    val fxmlLoader = FXMLLoader("/fxml/scene-settings.fxml".toURL())
+    val settingsController: SettingsController = fxmlLoader.getController()
+    val root: Parent = fxmlLoader.load()
