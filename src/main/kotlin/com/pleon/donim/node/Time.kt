@@ -1,11 +1,10 @@
 package com.pleon.donim.node
 
-import com.pleon.donim.Animatable
-import com.pleon.donim.Animatable.AnimationDirection.FORWARD
-import com.pleon.donim.Animatable.AnimationProperties
-import com.pleon.donim.div
-import com.pleon.donim.plus
-import com.pleon.donim.times
+import com.pleon.donim.extension.div
+import com.pleon.donim.extension.plus
+import com.pleon.donim.extension.times
+import com.pleon.donim.node.Animatable.AnimationDirection.FORWARD
+import com.pleon.donim.node.Animatable.AnimationProperties
 import com.pleon.donim.util.createTimer
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty

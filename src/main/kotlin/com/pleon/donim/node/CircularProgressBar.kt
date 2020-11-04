@@ -1,11 +1,10 @@
 package com.pleon.donim.node
 
 import com.pleon.donim.APP_BASE_COLOR
-import com.pleon.donim.Animatable
-import com.pleon.donim.Animatable.AnimationDirection.FORWARD
-import com.pleon.donim.Animatable.AnimationProperties
-import com.pleon.donim.div
-import com.pleon.donim.times
+import com.pleon.donim.extension.div
+import com.pleon.donim.extension.times
+import com.pleon.donim.node.Animatable.AnimationDirection.FORWARD
+import com.pleon.donim.node.Animatable.AnimationProperties
 import com.pleon.donim.util.createTimer
 import javafx.animation.Animation.Status.RUNNING
 import javafx.animation.Timeline

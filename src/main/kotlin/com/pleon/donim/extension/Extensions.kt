@@ -1,4 +1,4 @@
-package com.pleon.donim
+package com.pleon.donim.extension
 
 import javafx.util.Duration
 

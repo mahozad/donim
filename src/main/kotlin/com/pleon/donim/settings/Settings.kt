@@ -1,4 +1,4 @@
-package com.pleon.donim.util
+package com.pleon.donim.settings
 
 import javafx.collections.ObservableMap
 

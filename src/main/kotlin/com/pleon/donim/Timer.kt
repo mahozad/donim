@@ -1,5 +1,8 @@
 package com.pleon.donim
 
+import com.pleon.donim.extension.length
+import com.pleon.donim.extension.minus
+import com.pleon.donim.extension.plus
 import javafx.animation.Animation.Status.RUNNING
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline

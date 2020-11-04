@@ -3,8 +3,8 @@ package com.pleon.donim.controller
 import com.pleon.donim.exception.SettingNotFoundException
 import com.pleon.donim.model.DEFAULT_BREAK_DURATION
 import com.pleon.donim.model.DEFAULT_FOCUS_DURATION
+import com.pleon.donim.settings.PersistentSettings
 import com.pleon.donim.util.DecorationUtil
-import com.pleon.donim.util.PersistentSettings
 import javafx.fxml.FXML
 import javafx.scene.control.TextField
 import javafx.scene.control.TextFormatter

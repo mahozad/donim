@@ -1,5 +1,6 @@
-package com.pleon.donim
+package com.pleon.donim.node
 
+import com.pleon.donim.APP_BASE_COLOR
 import com.pleon.donim.controller.GRACE_DURATION
 import javafx.scene.paint.Color
 import javafx.util.Duration

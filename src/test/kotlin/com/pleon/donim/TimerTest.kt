@@ -1,5 +1,8 @@
 package com.pleon.donim
 
+import com.pleon.donim.extension.minus
+import com.pleon.donim.extension.plus
+import com.pleon.donim.extension.times
 import javafx.stage.Stage
 import javafx.util.Duration
 import javafx.util.Duration.ONE
