@@ -9,6 +9,7 @@ import javafx.event.EventHandler
 import javafx.scene.Node
 import javafx.stage.Window
 import javafx.util.Duration
+import javafx.util.Duration.ZERO
 
 object AnimationUtil {
 
@@ -22,34 +23,40 @@ object AnimationUtil {
 
     private val interpolator: Interpolator = Interpolator.SPLINE(0.4, 0.2, 0.25, 1.0)
 
-    fun fade(node: Node, fadeMode: FadeMode, delay: Duration, duration: Duration,
-             onFinished: EventHandler<ActionEvent>? = null) {
+    fun fade(node: Node,
+             mode: FadeMode,
+             duration: Duration,
+             delay: Duration = ZERO,
+             onFinish: () -> Unit = {}) {
+
         val fade = FadeTransition(duration, node)
         fade.delay = delay
-        fade.fromValue = if (fadeMode == IN) 0.0 else 1.0
-        fade.toValue = if (fadeMode == IN) 1.0 else 0.0
-        fade.onFinished = onFinished
+        fade.fromValue = if (mode == IN) 0.0 else 1.0
+        fade.toValue = if (mode == IN) 1.0 else 0.0
+        fade.onFinished = EventHandler { onFinish() }
         fade.play()
     }
 
-    fun move(window: Window, moveDirection: MoveDirection,
-             delay: Duration, duration: Duration,
-             onFinished: EventHandler<ActionEvent>? = null) {
+    fun move(window: Window,
+             direction: MoveDirection,
+             duration: Duration,
+             delay: Duration = ZERO,
+             onFinish: () -> Unit = {}) {
 
         val step = 0.01
         val timeline = Timeline()
         val frameDuration = duration.multiply(step)
         timeline.keyFrames.add(KeyFrame(frameDuration, EventHandler<ActionEvent> {
-            if (moveDirection == BOTTOM) {
+            if (direction == BOTTOM) {
                 window.y += step.times(15)
-            } else if (moveDirection == BOTTOM_RIGHT) {
+            } else if (direction == BOTTOM_RIGHT) {
                 window.y += step.times(50)
                 window.x += step.times(50)
             }
         }))
         timeline.delay = delay
         timeline.cycleCount = (1 / step).toInt()
-        timeline.onFinished = onFinished
+        timeline.onFinished = EventHandler { onFinish() }
         timeline.play()
     }
 

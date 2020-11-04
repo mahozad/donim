@@ -5,7 +5,6 @@ import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil
-import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.stage.Stage
@@ -37,12 +36,11 @@ open class BaseController {
     }
 
     protected fun closeWindow(shouldFinishApp: Boolean) {
-        val delay = Duration.millis(0.0)
         val duration = Duration.millis(100.0)
-        fade(root, OUT, delay, duration, EventHandler {
+        fade(root, OUT, duration) {
             (root.scene.window as Stage).close()
             if (shouldFinishApp) exitProcess(0)
-        })
-        move(root.scene.window, BOTTOM, delay, duration)
+        }
+        move(root.scene.window, BOTTOM, duration)
     }
 }

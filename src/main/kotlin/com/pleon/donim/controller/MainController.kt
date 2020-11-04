@@ -25,7 +25,6 @@ import javafx.animation.Animation
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.collections.MapChangeListener
-import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -180,13 +179,12 @@ class MainController : BaseController() {
         if (aboutStage.isShowing) aboutStage.close()
         if (settingsStage.isShowing) settingsStage.close()
 
-        val delay = Duration.millis(0.0)
         val duration = Duration.millis(100.0)
-        fade(root, OUT, delay, duration, EventHandler {
+        fade(root, OUT, duration) {
             root.opacity = 1.0 // Make it opaque again, so it'll reappear properly
             root.scene.window.hide()
-        })
-        move(root.scene.window, BOTTOM_RIGHT, delay, duration)
+        }
+        move(root.scene.window, BOTTOM_RIGHT, duration)
     }
 
     fun restart() {
