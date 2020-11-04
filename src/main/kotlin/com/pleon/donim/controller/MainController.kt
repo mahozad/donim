@@ -16,12 +16,10 @@ import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.node.Time
 import com.pleon.donim.node.Tray
 import com.pleon.donim.util.*
-import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
-import com.pleon.donim.util.AnimationUtil.fade
-import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil.createTransparentStage
 import com.pleon.donim.util.DecorationUtil.showCentered
+import com.pleon.donim.util.FadeMode.OUT
+import com.pleon.donim.util.MoveDirection.BOTTOM_RIGHT
 import javafx.animation.Animation
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty

@@ -1,9 +1,9 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.util.AnimationUtil.FadeMode.IN
-import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.fade
-import com.pleon.donim.util.AnimationUtil.rotate
+import com.pleon.donim.util.FadeMode.IN
+import com.pleon.donim.util.FadeMode.OUT
+import com.pleon.donim.util.fade
+import com.pleon.donim.util.rotate
 import com.pleon.donim.util.toURL
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader

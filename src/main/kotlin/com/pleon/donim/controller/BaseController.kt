@@ -1,10 +1,10 @@
 package com.pleon.donim.controller
 
-import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
-import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM
-import com.pleon.donim.util.AnimationUtil.fade
-import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil
+import com.pleon.donim.util.FadeMode.OUT
+import com.pleon.donim.util.MoveDirection.BOTTOM
+import com.pleon.donim.util.fade
+import com.pleon.donim.util.move
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.stage.Stage
