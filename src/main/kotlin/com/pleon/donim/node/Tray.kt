@@ -6,6 +6,7 @@ import com.pleon.donim.util.AnimationUtil.interpolate
 import com.pleon.donim.util.ImageUtil.rotate
 import com.pleon.donim.util.ImageUtil.tint
 import com.pleon.donim.util.createTimer
+import com.pleon.donim.util.toURL
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.util.Duration
@@ -23,7 +24,7 @@ private val ICON_BASE_COLOR = APP_BASE_COLOR
 class Tray : Animatable {
 
     private val popupMenu = PopupMenu()
-    private val trayImage = ImageIO.read(javaClass.getResource("/img/logo-tray.png"))
+    private val trayImage = ImageIO.read("/img/logo-tray.png".toURL())
     private val trayIcon = TrayIcon(trayImage, APP_NAME, popupMenu)
     private var hueShift = 0.0
     private var angle = 0.0

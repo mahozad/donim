@@ -1,6 +1,7 @@
 package com.pleon.donim
 
 import com.pleon.donim.util.buildTransparentScene
+import com.pleon.donim.util.toURL
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.stage.Stage
@@ -18,7 +19,7 @@ class SceneBuilderTest {
 
     @Start
     fun start(stage: Stage) {
-        this.layout = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
+        this.layout = FXMLLoader.load("/fxml/scene-splash.fxml".toURL())
         this.stage = stage
     }
 

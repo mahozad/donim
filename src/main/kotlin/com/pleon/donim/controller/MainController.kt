@@ -14,16 +14,13 @@ import com.pleon.donim.node.CircularProgressBar
 import com.pleon.donim.node.Time
 import com.pleon.donim.node.Tray
 import com.pleon.donim.times
+import com.pleon.donim.util.*
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.MoveDirection.BOTTOM_RIGHT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.move
 import com.pleon.donim.util.DecorationUtil.createTransparentStage
 import com.pleon.donim.util.DecorationUtil.showCentered
-import com.pleon.donim.util.PersistentSettings
-import com.pleon.donim.util.SnapSide
-import com.pleon.donim.util.createTimer
-import com.pleon.donim.util.snapTo
 import javafx.animation.Animation
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleDoubleProperty
@@ -62,7 +59,7 @@ class MainController : BaseController() {
     @FXML private lateinit var time: Time
 
     private lateinit var animatables: Array<Animatable>
-    private val beep = AudioClip(javaClass.getResource("/sound/beep.mp3").toExternalForm())
+    private val beep = AudioClip("/sound/beep.mp3".toStringURL())
     private val settingsStage = createTransparentStage()
     private val aboutStage = createTransparentStage()
     private val tray = Tray()
@@ -226,7 +223,7 @@ class MainController : BaseController() {
     fun showSettings() {
         if (settingsStage.isShowing) return
 
-        val fxmlLoader = FXMLLoader(javaClass.getResource("/fxml/scene-settings.fxml"))
+        val fxmlLoader = FXMLLoader("/fxml/scene-settings.fxml".toURL())
         // val settingsController: SettingsController = fxmlLoader.getController()
         val root: Parent = fxmlLoader.load()
 
@@ -240,8 +237,7 @@ class MainController : BaseController() {
 
     fun showAbout() {
         if (aboutStage.isShowing) return
-
-        val root = FXMLLoader.load<Parent>(javaClass.getResource("/fxml/scene-about.fxml"))
+        val root: Parent = FXMLLoader.load("/fxml/scene-about.fxml".toURL())
         aboutStage.isResizable = false
         aboutStage.title = "About"
         aboutStage.scene = Scene(root).apply { fill = Color.TRANSPARENT }

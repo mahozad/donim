@@ -4,6 +4,7 @@ import com.pleon.donim.util.AnimationUtil.FadeMode.IN
 import com.pleon.donim.util.AnimationUtil.FadeMode.OUT
 import com.pleon.donim.util.AnimationUtil.fade
 import com.pleon.donim.util.AnimationUtil.rotate
+import com.pleon.donim.util.toURL
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -20,7 +21,7 @@ class SplashController : BaseController() {
 
     override fun initialize() {
         super.initialize()
-        nextRoot = FXMLLoader.load(javaClass.getResource("/fxml/scene-main.fxml"))
+        nextRoot = FXMLLoader.load("/fxml/scene-main.fxml".toURL())
         nextRoot.opacity = 0.0
         val delay = Duration.millis(500.0)
         val duration = Duration.millis(3000.0)

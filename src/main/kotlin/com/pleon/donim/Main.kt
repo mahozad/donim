@@ -2,6 +2,7 @@ package com.pleon.donim
 
 import com.pleon.donim.util.DecorationUtil.showCentered
 import com.pleon.donim.util.buildTransparentScene
+import com.pleon.donim.util.toURL
 import javafx.application.Application
 import javafx.application.HostServices
 import javafx.application.Platform
@@ -47,7 +48,7 @@ class Main : Application() {
         Platform.setImplicitExit(false) // For minimize to tray to work correctly
         hostServicesInstance = this.hostServices
 
-        val root: Parent = FXMLLoader.load(javaClass.getResource("/fxml/scene-splash.fxml"))
+        val root: Parent = FXMLLoader.load("/fxml/scene-splash.fxml".toURL())
         primaryStage.scene = buildTransparentScene(root)
         primaryStage.isResizable = false
         primaryStage.title = APP_NAME
