@@ -2,14 +2,14 @@
     -fx-font-family: Roboto;
     -fx-font-style: normal;
     -fx-font-weight: normal;
-    src: url(/font/roboto/regular.ttf);
+    src: url(/font/roboto/regular.woff);
 }
 
 @font-face {
     -fx-font-family: Droid Sans Mono;
     -fx-font-style: normal;
     -fx-font-weight: normal;
-    src: url(/font/droid-sans-mono.ttf);
+    src: url(/font/droid-sans-mono.woff);
 }
 
 .mono-font {
