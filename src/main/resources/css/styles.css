@@ -12,13 +12,6 @@
     src: url(/font/droid-sans-mono.ttf);
 }
 
-@font-face {
-    -fx-font-family: Material Icons;
-    -fx-font-style: normal;
-    -fx-font-weight: normal;
-    src: url(/font/material-icons.ttf);
-}
-
 .mono-font {
     /* Should be the actual name of the font (open the ttf to view it) */
     -fx-font-family: "Droid Sans Mono";
@@ -26,29 +19,6 @@
     -fx-font-style: normal;
     -fx-font-size: 12px;
 }
-
-.material-icons {
-    /* Should be the actual name of the font (open the ttf to view it) */
-    -fx-font-family: "Material Icons";
-    -fx-font-weight: normal;
-    -fx-font-style: normal;
-    -fx-font-size: 20px;  /* Preferred icon size is 24px */
-    -fx-padding: 2 0 0 0; /* Lower it a little to it is aligned with text */
-}
-
-/* Rules for sizing the icon. */
-.material-icons.md-18 { -fx-font-size: 18px; }
-.material-icons.md-24 { -fx-font-size: 24px; }
-.material-icons.md-36 { -fx-font-size: 36px; }
-.material-icons.md-48 { -fx-font-size: 48px; }
-
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { -fx-text-fill: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { -fx-text-fill: rgba(0, 0, 0, 0.26); }
-
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { -fx-text-fill: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { -fx-text-fill: rgba(255, 255, 255, 0.3); }
 
 * {
     -theme-color: #1985ff;
@@ -225,6 +195,20 @@ TextField {
 
 #title_bar {
     -fx-background-color: -menu-color;
+}
+
+.symbol-container {
+    -fx-pref-width: 24;
+}
+
+.symbol {
+    -fx-fill: #555;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+.dark .symbol {
+    -fx-fill: #aaa;
 }
 
 .btn {
