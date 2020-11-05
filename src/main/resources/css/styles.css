@@ -117,7 +117,7 @@ TextField {
 
 .time {
     -fx-font-size: 36;
-    -fx-fill: #5a5a5a;
+    -fx-fill: #666;
 }
 
 .dark .time {
