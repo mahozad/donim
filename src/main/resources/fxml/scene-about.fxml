@@ -8,57 +8,58 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:id="root"
       fx:controller="ir.mahozad.donim.controller.AboutController"
       stylesheets="/css/styles.css"
-      fx:id="root"
       styleClass="dark"
       prefWidth="252">
 
-    <AnchorPane fx:id="title_bar">
+  <AnchorPane fx:id="title_bar">
 
-        <HBox>
-            <VBox alignment="CENTER">
-                <HBox.margin>
-                    <Insets left="4" right="4"/>
-                </HBox.margin>
-                <ImageView>
-                    <Image url="@/img/logo-header.png" requestedWidth="18" requestedHeight="18"/>
-                </ImageView>
-            </VBox>
-            <Label fx:id="title" prefHeight="25" text="About"/>
-        </HBox>
+    <HBox>
+      <VBox alignment="CENTER">
+        <HBox.margin>
+          <Insets left="4" right="4"/>
+        </HBox.margin>
+        <ImageView>
+          <Image url="@/img/logo-header.png" requestedWidth="18" requestedHeight="18"/>
+        </ImageView>
+      </VBox>
+      <Label id="title" text="About" prefHeight="25"/>
+    </HBox>
 
-        <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#close">
-            <SVGPath fx:id="close_icon"
-                     content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
-            </SVGPath>
-        </StackPane>
-    </AnchorPane>
+    <StackPane fx:id="close" AnchorPane.rightAnchor="0" onMouseClicked="#close">
+      <SVGPath id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z"/>
+    </StackPane>
 
-    <VBox alignment="CENTER" prefHeight="293">
-        <Text styleClass="about" text="Written in Kotlin">
-            <VBox.margin>
-                <Insets bottom="16"/>
-            </VBox.margin>
-        </Text>
-        <Text styleClass="about" text="Powered by JavaFX">
-            <VBox.margin>
-                <Insets bottom="16"/>
-            </VBox.margin>
-        </Text>
-        <Text styleClass="about" text="Timer Inspired by TilesFX">
-            <VBox.margin>
-                <Insets bottom="16"/>
-            </VBox.margin>
-        </Text>
-        <Text styleClass="about" text="Logo Created with Inkscape">
-            <VBox.margin>
-                <Insets bottom="16"/>
-            </VBox.margin>
-        </Text>
-        <Hyperlink fx:id="link" text="View Source Code" onAction="#viewSourceCode"/>
-    </VBox>
+  </AnchorPane>
+
+  <VBox alignment="CENTER" prefHeight="293">
+
+    <Text styleClass="about" text="Written in Kotlin">
+      <VBox.margin>
+        <Insets bottom="16"/>
+      </VBox.margin>
+    </Text>
+    <Text styleClass="about" text="Powered by JavaFX">
+      <VBox.margin>
+        <Insets bottom="16"/>
+      </VBox.margin>
+    </Text>
+    <Text styleClass="about" text="Timer Inspired by TilesFX">
+      <VBox.margin>
+        <Insets bottom="16"/>
+      </VBox.margin>
+    </Text>
+    <Text styleClass="about" text="Logo Created with Inkscape">
+      <VBox.margin>
+        <Insets bottom="16"/>
+      </VBox.margin>
+    </Text>
+    <Hyperlink id="link" text="View Source Code" onAction="#viewSourceCode"/>
+
+  </VBox>
 
 </VBox>

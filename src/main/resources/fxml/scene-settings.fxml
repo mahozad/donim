@@ -6,105 +6,94 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<VBox fx:id="root" alignment="TOP_CENTER" prefWidth="252.0" styleClass="dark" stylesheets="/css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.mahozad.donim.controller.SettingsController">
 
-       <AnchorPane fx:id="title_bar">
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="ir.mahozad.donim.controller.SettingsController"
+      stylesheets="/css/styles.css"
+      styleClass="dark"
+      alignment="TOP_CENTER"
+      prefWidth="252">
 
-           <HBox>
-             <VBox alignment="CENTER">
-               <HBox.margin>
-                 <Insets left="4" right="4" />
-               </HBox.margin>
-               <ImageView>
-                 <Image requestedHeight="18" requestedWidth="18" url="@/img/logo-header.png" />
-               </ImageView>
-             </VBox>
-             <Label fx:id="title" prefHeight="25" text="Settings" />
-           </HBox>
+  <AnchorPane fx:id="title_bar">
 
-           <StackPane fx:id="close" onMouseClicked="#close" AnchorPane.rightAnchor="0">
-            <SVGPath fx:id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
-            </SVGPath>
-        </StackPane>
-    </AnchorPane>
+    <HBox>
+      <VBox alignment="CENTER">
+        <HBox.margin>
+          <Insets right="4" left="4"/>
+        </HBox.margin>
+        <ImageView>
+          <Image url="@/img/logo-header.png" requestedHeight="18" requestedWidth="18"/>
+        </ImageView>
+      </VBox>
+      <Label id="title" text="Settings" prefHeight="25"/>
+    </HBox>
 
+    <StackPane fx:id="close" onMouseClicked="#close" AnchorPane.rightAnchor="0">
+      <SVGPath id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z"/>
+    </StackPane>
 
-       <VBox alignment="CENTER" prefHeight="293" spacing="20.0">
-        <HBox alignment="CENTER_LEFT" spacing="5.0">
-          <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
-          <!-- NOTE: To insert a unicode character: &#x1234;  -->
-          <!-- <Label styleClass="material-icons" text="" /> -->
-          <StackPane styleClass="symbol-container">
-            <SVGPath styleClass="symbol" content="M20 15.31l2.6-2.6c.39-.39.39-1.02 0-1.41L20 8.69V5c0-.55-.45-1-1-1h-3.69l-2.6-2.6c-.39-.39-1.02-.39-1.41 0L8.69 4H5c-.55 0-1 .45-1 1v3.69l-2.6 2.6c-.39.39-.39 1.02 0 1.41L4 15.3V19c0 .55.45 1 1 1h3.69l2.6 2.6c.39.39 1.02.39 1.41 0l2.6-2.6H19c.55 0 1-.45 1-1v-3.69zm-8 1.59V7.1c0-.61.55-1.11 1.15-.99C15.91 6.65 18 9.08 18 12s-2.09 5.35-4.85 5.89c-.6.12-1.15-.38-1.15-.99z" />
-          </StackPane>
-          <ToggleButton fx:id="toggleTheme" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleTheme" prefWidth="170.0" selected="true" styleClass="mono-font" text="Switch to light theme" textAlignment="CENTER">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-            <padding>
-               <Insets top="-0.1" />
-            </padding>
-         </ToggleButton>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-        </HBox>
-         <HBox alignment="CENTER_LEFT" spacing="5.0">
-           <!-- <Label styleClass="material-icons" text="&#xe417;"/> -->
-           <StackPane styleClass="symbol-container">
-             <SVGPath styleClass="symbol" content="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-           </StackPane>
-           <Label styleClass="mono-font" text="Focus duration:">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-           </Label>
-           <TextField fx:id="focusDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30.0">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-             <padding>
-               <Insets top="-0.4"/>
-             </padding>
-           </TextField>
-           <Label styleClass="mono-font" text="min">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-           </Label>
-         </HBox>
-         <HBox alignment="CENTER_LEFT" spacing="5.0">
-           <!-- <Label styleClass="material-icons" text=""/>-->
-           <StackPane styleClass="symbol-container">
-             <SVGPath styleClass="symbol" content="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" />
-           </StackPane>
-           <Label styleClass="mono-font" text="Break duration:">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-           </Label>
-           <TextField fx:id="breakDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30.0">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-             <padding>
-               <Insets top="-0.4"/>
-             </padding>
-           </TextField>
-           <Label styleClass="mono-font" text="min">
-             <HBox.margin>
-               <Insets/>
-             </HBox.margin>
-           </Label>
-         </HBox>
-         <Button defaultButton="true" onAction="#close" styleClass="btn" text="Save">
-           <HBox.margin>
-             <Insets bottom="20" top="20" />
-           </HBox.margin>
-         </Button>
-      <padding>
-         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-      </padding>
-    </VBox>
+  </AnchorPane>
+
+  <VBox alignment="CENTER" prefHeight="293" spacing="20">
+
+    <HBox alignment="CENTER_LEFT" spacing="5">
+      <!-- NOTE: See https://github.com/google/material-design-icons/blob/master/font/MaterialIcons-Regular.codepoints for codepoints -->
+      <!-- NOTE: To insert a unicode character: &#x1234;  -->
+      <!-- <Label styleClass="material-icons" text="" /> -->
+      <StackPane styleClass="symbol-container">
+        <SVGPath styleClass="symbol" content="M20 15.31l2.6-2.6c.39-.39.39-1.02 0-1.41L20 8.69V5c0-.55-.45-1-1-1h-3.69l-2.6-2.6c-.39-.39-1.02-.39-1.41 0L8.69 4H5c-.55 0-1 .45-1 1v3.69l-2.6 2.6c-.39.39-.39 1.02 0 1.41L4 15.3V19c0 .55.45 1 1 1h3.69l2.6 2.6c.39.39 1.02.39 1.41 0l2.6-2.6H19c.55 0 1-.45 1-1v-3.69zm-8 1.59V7.1c0-.61.55-1.11 1.15-.99C15.91 6.65 18 9.08 18 12s-2.09 5.35-4.85 5.89c-.6.12-1.15-.38-1.15-.99z"/>
+      </StackPane>
+      <ToggleButton fx:id="toggleTheme"
+                    styleClass="mono-font"
+                    text="Switch to light theme"
+                    prefWidth="170"
+                    selected="true"
+                    onAction="#toggleTheme">
+        <padding>
+          <Insets top="-0.1"/>
+        </padding>
+      </ToggleButton>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="5">
+      <!-- <Label styleClass="material-icons" text="&#xe417;"/> -->
+      <StackPane styleClass="symbol-container">
+        <SVGPath styleClass="symbol" content="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+      </StackPane>
+      <Label styleClass="mono-font" text="Focus duration:"/>
+      <TextField fx:id="focusDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30">
+        <padding>
+          <Insets top="-0.4"/>
+        </padding>
+      </TextField>
+      <Label styleClass="mono-font" text="min"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="5">
+      <!-- <Label styleClass="material-icons" text=""/>-->
+      <StackPane styleClass="symbol-container">
+        <SVGPath styleClass="symbol" content="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+      </StackPane>
+      <Label styleClass="mono-font" text="Break duration:"/>
+      <TextField fx:id="breakDuration" styleClass="mono-font" alignment="CENTER" prefWidth="30">
+        <padding>
+          <Insets top="-0.4"/>
+        </padding>
+      </TextField>
+      <Label styleClass="mono-font" text="min"/>
+    </HBox>
+
+    <Button styleClass="btn" text="Save" defaultButton="true" onAction="#close">
+      <HBox.margin>
+        <Insets top="20" bottom="20"/>
+      </HBox.margin>
+    </Button>
+
+    <padding>
+      <Insets topRightBottomLeft="10"/>
+    </padding>
+
+  </VBox>
 
 </VBox>

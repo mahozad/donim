@@ -3,16 +3,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      stylesheets="/css/styles.css"
-      fx:id="root"
-      styleClass="dark"
-      prefWidth="252" prefHeight="334"
-      alignment="CENTER"
-      fx:controller="ir.mahozad.donim.controller.SplashController">
 
-    <ImageView fx:id="brand">
-        <Image url="@/img/logo.png" requestedWidth="64" requestedHeight="64"/>
-    </ImageView>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="ir.mahozad.donim.controller.SplashController"
+      stylesheets="/css/styles.css"
+      styleClass="dark"
+      alignment="CENTER"
+      prefWidth="252"
+      prefHeight="334">
+
+  <ImageView fx:id="brand">
+    <Image url="@/img/logo.png" requestedWidth="64" requestedHeight="64"/>
+  </ImageView>
 
 </VBox>

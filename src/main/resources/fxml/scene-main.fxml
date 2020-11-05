@@ -9,103 +9,84 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
+      fx:controller="ir.mahozad.donim.controller.MainController"
       stylesheets="/css/styles.css"
-      styleClass="dark"
-      fx:controller="ir.mahozad.donim.controller.MainController">
+      styleClass="dark">
 
-    <AnchorPane fx:id="title_bar">
+  <AnchorPane fx:id="title_bar">
 
-        <HBox>
-            <VBox alignment="CENTER">
-                <HBox.margin>
-                    <Insets left="4" right="4"/>
-                </HBox.margin>
-                <ImageView>
-                    <Image url="@/img/logo-header.png" requestedWidth="18" requestedHeight="18"/>
-                </ImageView>
-            </VBox>
-            <Label fx:id="title" prefHeight="25" text="Donim"/>
-        </HBox>
-
-        <HBox AnchorPane.rightAnchor="0">
-            <StackPane fx:id="about" onMouseClicked="#showAbout">
-                <SVGPath fx:id="about_icon"
-                         content="m 11,7 v 2 h 2 V 7 Z m 0.98437,4.000132 C 11.432855,11.009402 10.992447,11.496919 11,12.089795 V 17 c -0.01913,1.4537 2.019125,1.4537 2,0 v -4.910205 c 0.0077,-0.606034 -0.451871,-1.099129 -1.015625,-1.089663 z">
-                </SVGPath>
-            </StackPane>
-            <StackPane fx:id="minimize" onMouseClicked="#minimize">
-                <SVGPath fx:id="minimize_icon"
-                         content="m 7,15 a 1.0001,1.0001 0 1 0 0,2 h 10 a 1.0001,1.0001 0 1 0 0,-2 z">
-                </SVGPath>
-            </StackPane>
-            <StackPane fx:id="close" onMouseClicked="#close">
-                <SVGPath fx:id="close_icon"
-                         content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z">
-                </SVGPath>
-            </StackPane>
-        </HBox>
-
-    </AnchorPane>
-
-    <AnchorPane>
-        <!-- The icon is wrapped in a StackPane so the whole region will be clickable -->
-        <StackPane styleClass="icon-container"
-                   onMouseClicked="#showSettings"
-                   AnchorPane.topAnchor="12"
-                   AnchorPane.leftAnchor="16">
-        <SVGPath styleClass="icon"
-                 content="m19.14 12.94c0.04-0.3 0.06-0.61 0.06-0.94 0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14 0.23-0.41 0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39 0.96c-0.5-0.38-1.03-0.7-1.62-0.94l-0.36-2.54c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24 0-0.43 0.17-0.47 0.41l-0.36 2.54c-0.59 0.24-1.13 0.57-1.62 0.94l-2.39-0.96c-0.22-0.08-0.47 0-0.59 0.22l-1.91 3.32c-0.12 0.21-0.08 0.47 0.12 0.61l2.03 1.58c-0.05 0.3-0.09 0.63-0.09 0.94s0.02 0.64 0.07 0.94l-2.03 1.58c-0.18 0.14-0.23 0.41-0.12 0.61l1.92 3.32c0.12 0.22 0.37 0.29 0.59 0.22l2.39-0.96c0.5 0.38 1.03 0.7 1.62 0.94l0.36 2.54c0.05 0.24 0.24 0.41 0.48 0.41h3.84c0.24 0 0.44-0.17 0.47-0.41l0.36-2.54c0.59-0.24 1.13-0.56 1.62-0.94l2.39 0.96c0.22 0.08 0.47 0 0.59-0.22l1.92-3.32c0.12-0.22 0.07-0.47-0.12-0.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z">
-        </SVGPath>
-        </StackPane>
-    </AnchorPane>
-
-    <StackPane>
-        <padding>
-            <Insets top="8" right="6" left="6" bottom="4"/>
-        </padding>
-        <Time fx:id="time" styleClass="time"/>
-        <CircularProgressBar fx:id="progressBar"
-                             width="188"
-                             height="188"
-                             title="SsSs"/>
-        <VBox.margin>
-            <Insets right="16" left="16"/>
-        </VBox.margin>
-    </StackPane>
-
-    <HBox alignment="CENTER">
-        <Button fx:id="restart" styleClass="btn" disable="true" onAction="#restart">
-            <graphic>
-                <SVGPath
-                        styleClass="icon"
-                        content="m 11.819753,5.2504521 c -0.194613,0.00585 -0.383662,0.066288 -0.545574,0.1744215 L 8.1589309,7.5017054 c -0.6163911,0.4110916 -0.6163911,1.3168973 0,1.7279889 l 3.1152481,2.0768317 c 0.690083,0.459854 1.614235,-0.03473 1.614412,-0.863995 V 9.5 c 1.074119,0.2876032 2.030567,1.087688 2.470294,2.149284 0.563686,1.360858 0.252603,2.919434 -0.788953,3.960989 -1.041555,1.041556 -2.60013,1.350611 -3.960989,0.786925 -1.3608583,-0.563687 -2.2431403,-1.885644 -2.2431401,-3.358627 0.01986,-1.404274 -2.0966918,-1.404274 -2.0768319,0 -2e-7,2.307018 1.3955569,4.394404 3.5269639,5.277262 2.1314061,0.882858 4.5910751,0.394133 6.2223831,-1.237175 1.631307,-1.631308 2.12206,-4.093004 1.239203,-6.224411 C 16.518285,9.0212875 14.802923,7.6247063 12.888591,7.3 V 6.288868 C 12.888782,5.7032983 12.405073,5.2333569 11.819753,5.2504521 Z"/>
-            </graphic>
-            <HBox.margin>
-                <Insets right="8" top="20" bottom="20"/>
-            </HBox.margin>
-        </Button>
-        <Button fx:id="play" styleClass="btn" onAction="#pauseResume">
-            <graphic>
-                <SVGPath
-                        fx:id="playIcon"
-                        styleClass="icon"
-                        content="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
-            </graphic>
-            <HBox.margin>
-                <Insets top="20" bottom="20"/>
-            </HBox.margin>
-        </Button>
-        <Button fx:id="skip" styleClass="btn" disable="true" onAction="#skip">
-            <graphic>
-                <SVGPath
-                        styleClass="icon"
-                        content="M7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82zM16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z"/>
-            </graphic>
-            <HBox.margin>
-                <Insets left="8" top="20" bottom="20"/>
-            </HBox.margin>
-        </Button>
+    <HBox>
+      <VBox alignment="CENTER">
+        <HBox.margin>
+          <Insets left="4" right="4"/>
+        </HBox.margin>
+        <ImageView>
+          <Image url="@/img/logo-header.png" requestedWidth="18" requestedHeight="18"/>
+        </ImageView>
+      </VBox>
+      <Label id="title" text="Donim" prefHeight="25"/>
     </HBox>
+
+    <HBox AnchorPane.rightAnchor="0">
+      <StackPane id="about" onMouseClicked="#showAbout">
+        <SVGPath id="about_icon" content="m 11,7 v 2 h 2 V 7 Z m 0.98437,4.000132 C 11.432855,11.009402 10.992447,11.496919 11,12.089795 V 17 c -0.01913,1.4537 2.019125,1.4537 2,0 v -4.910205 c 0.0077,-0.606034 -0.451871,-1.099129 -1.015625,-1.089663 z"/>
+      </StackPane>
+      <StackPane fx:id="minimize" onMouseClicked="#minimize">
+        <SVGPath id="minimize_icon" content="m 7,15 a 1.0001,1.0001 0 1 0 0,2 h 10 a 1.0001,1.0001 0 1 0 0,-2 z"/>
+      </StackPane>
+      <StackPane fx:id="close" onMouseClicked="#close">
+        <SVGPath id="close_icon" content="M 7.9902344,6.9902344 A 1.0001,1.0001 0 0 0 7.2929688,8.7070312 L 10.585938,12 7.2929688,15.292969 a 1.0001,1.0001 0 1 0 1.4140624,1.414062 L 12,13.414062 l 3.292969,3.292969 a 1.0001,1.0001 0 1 0 1.414062,-1.414062 L 13.414062,12 16.707031,8.7070312 A 1.0001,1.0001 0 1 0 15.292969,7.2929688 L 12,10.585938 8.7070312,7.2929688 A 1.0001,1.0001 0 0 0 7.9902344,6.9902344 Z"/>
+      </StackPane>
+    </HBox>
+
+  </AnchorPane>
+
+  <AnchorPane>
+    <!-- The icon is wrapped in a StackPane so the whole region will be clickable -->
+    <StackPane styleClass="icon-container" AnchorPane.topAnchor="12" AnchorPane.leftAnchor="16" onMouseClicked="#showSettings">
+      <SVGPath styleClass="icon" content="m19.14 12.94c0.04-0.3 0.06-0.61 0.06-0.94 0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14 0.23-0.41 0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39 0.96c-0.5-0.38-1.03-0.7-1.62-0.94l-0.36-2.54c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24 0-0.43 0.17-0.47 0.41l-0.36 2.54c-0.59 0.24-1.13 0.57-1.62 0.94l-2.39-0.96c-0.22-0.08-0.47 0-0.59 0.22l-1.91 3.32c-0.12 0.21-0.08 0.47 0.12 0.61l2.03 1.58c-0.05 0.3-0.09 0.63-0.09 0.94s0.02 0.64 0.07 0.94l-2.03 1.58c-0.18 0.14-0.23 0.41-0.12 0.61l1.92 3.32c0.12 0.22 0.37 0.29 0.59 0.22l2.39-0.96c0.5 0.38 1.03 0.7 1.62 0.94l0.36 2.54c0.05 0.24 0.24 0.41 0.48 0.41h3.84c0.24 0 0.44-0.17 0.47-0.41l0.36-2.54c0.59-0.24 1.13-0.56 1.62-0.94l2.39 0.96c0.22 0.08 0.47 0 0.59-0.22l1.92-3.32c0.12-0.22 0.07-0.47-0.12-0.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+    </StackPane>
+  </AnchorPane>
+
+  <StackPane>
+    <Time fx:id="time" styleClass="time"/>
+    <CircularProgressBar fx:id="progressBar" width="188" height="188"/>
+    <VBox.margin>
+      <Insets right="16" left="16"/>
+    </VBox.margin>
+    <padding>
+      <Insets top="8" right="6" left="6" bottom="4"/>
+    </padding>
+  </StackPane>
+
+  <HBox alignment="CENTER">
+    <Button fx:id="restart" styleClass="btn" disable="true" onAction="#restart">
+      <graphic>
+        <SVGPath styleClass="icon" content="m 11.819753,5.2504521 c -0.194613,0.00585 -0.383662,0.066288 -0.545574,0.1744215 L 8.1589309,7.5017054 c -0.6163911,0.4110916 -0.6163911,1.3168973 0,1.7279889 l 3.1152481,2.0768317 c 0.690083,0.459854 1.614235,-0.03473 1.614412,-0.863995 V 9.5 c 1.074119,0.2876032 2.030567,1.087688 2.470294,2.149284 0.563686,1.360858 0.252603,2.919434 -0.788953,3.960989 -1.041555,1.041556 -2.60013,1.350611 -3.960989,0.786925 -1.3608583,-0.563687 -2.2431403,-1.885644 -2.2431401,-3.358627 0.01986,-1.404274 -2.0966918,-1.404274 -2.0768319,0 -2e-7,2.307018 1.3955569,4.394404 3.5269639,5.277262 2.1314061,0.882858 4.5910751,0.394133 6.2223831,-1.237175 1.631307,-1.631308 2.12206,-4.093004 1.239203,-6.224411 C 16.518285,9.0212875 14.802923,7.6247063 12.888591,7.3 V 6.288868 C 12.888782,5.7032983 12.405073,5.2333569 11.819753,5.2504521 Z"/>
+      </graphic>
+      <HBox.margin>
+        <Insets right="8" top="20" bottom="20"/>
+      </HBox.margin>
+    </Button>
+    <Button fx:id="play" styleClass="btn" onAction="#pauseResume">
+      <graphic>
+        <SVGPath fx:id="playIcon" styleClass="icon" content="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+      </graphic>
+      <HBox.margin>
+        <Insets top="20" bottom="20"/>
+      </HBox.margin>
+    </Button>
+    <Button fx:id="skip" styleClass="btn" disable="true" onAction="#skip">
+      <graphic>
+        <SVGPath styleClass="icon" content="M7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82zM16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z"/>
+      </graphic>
+      <HBox.margin>
+        <Insets left="8" top="20" bottom="20"/>
+      </HBox.margin>
+    </Button>
+  </HBox>
+
 </VBox>
