@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "ir.mahozad"
-version = "1.0.0-alpha"
+version = "1.0.0-beta"
 
 repositories {
     jcenter()
