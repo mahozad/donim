@@ -110,6 +110,7 @@ class MainController : BaseController() {
     }
 
     private fun endFunction() {
+        mainTimer.stop() // This is to avoid the endFunction to be called again and again
         if (period == BREAK) {
             deferTransitionToUserReturn()
         } else {
