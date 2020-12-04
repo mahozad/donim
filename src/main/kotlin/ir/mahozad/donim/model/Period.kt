@@ -16,7 +16,7 @@ enum class Period(var duration: Duration,
 
     FOCUS(DEFAULT_FOCUS_DURATION,
             hsb(110.0, 0.9, 1.0),
-            "You can now use the system",
+            "Your focus time started",
             MessageType.INFO,
             DEFAULT_FOCUS_DURATION),
 
