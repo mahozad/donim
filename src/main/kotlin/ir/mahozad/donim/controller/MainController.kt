@@ -41,12 +41,10 @@ import org.jnativehook.mouse.NativeMouseMotionListener
 import java.awt.MenuItem
 import java.awt.SystemTray
 import java.util.logging.Level
+import java.util.logging.LogManager
 import java.util.logging.Logger
 import kotlin.system.exitProcess
 import javafx.application.Platform.runLater as runOnJavaFXThread
-import java.util.logging.LogManager
-
-
 
 
 val GRACE_DURATION: Duration = Duration.seconds(2.0)
@@ -120,7 +118,7 @@ class MainController : BaseController() {
     }
 
     private fun deferTransitionToUserReturn() {
-        time.text = "On hold"
+        time.transitionToHoldState()
         GlobalScreen.addNativeMouseMotionListener(
             object : NativeMouseMotionListener {
                 var shouldReact = true
@@ -130,6 +128,7 @@ class MainController : BaseController() {
                         shouldReact = false
                     }
                     transitionToNextPeriod()
+                    time.transitionToTimeState()
                     GlobalScreen.removeNativeMouseMotionListener(this)
                 }
 

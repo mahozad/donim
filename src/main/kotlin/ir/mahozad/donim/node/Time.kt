@@ -25,6 +25,17 @@ class Time : Text(), Animatable {
         return String.format("%02d:%02d", duration.toMinutes().toInt(), duration.toSeconds().toInt() % 60)
     }
 
+    fun transitionToHoldState() {
+        styleClass.remove("time")
+        styleClass.add("time-text")
+        text = "On hold…"
+    }
+
+    fun transitionToTimeState() {
+        styleClass.remove("time-text")
+        styleClass.add("time")
+    }
+
     override fun resetAnimation(properties: AnimationProperties) {
         animationProperties = properties
         timer.stop()

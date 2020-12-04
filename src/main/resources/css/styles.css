@@ -124,6 +124,16 @@ TextField {
     -fx-fill: #aaa;
 }
 
+.time-text {
+    -fx-font-size: 26;
+    -fx-opacity: 0.9;
+    -fx-fill: #666;
+}
+
+.dark .time-text {
+    -fx-fill: #aaa
+}
+
 #title {
     -fx-text-fill: #454545;
 }
