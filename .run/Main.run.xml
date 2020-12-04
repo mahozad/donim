@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.pleon.donim.Main" />
+    <option name="MAIN_CLASS_NAME" value="ir.mahozad.donim.Main" />
     <module name="Donim.main" />
     <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\javafx-sdk-15\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media,javafx.fxml" />
     <extension name="coverage">

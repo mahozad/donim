@@ -35,10 +35,19 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.SVGPath
 import javafx.stage.Stage
 import javafx.util.Duration
+import org.jnativehook.GlobalScreen
+import org.jnativehook.mouse.NativeMouseEvent
+import org.jnativehook.mouse.NativeMouseMotionListener
 import java.awt.MenuItem
 import java.awt.SystemTray
+import java.util.logging.Level
+import java.util.logging.Logger
 import kotlin.system.exitProcess
 import javafx.application.Platform.runLater as runOnJavaFXThread
+import java.util.logging.LogManager
+
+
+
 
 val GRACE_DURATION: Duration = Duration.seconds(2.0)
 private val ANIMATION_DIRECTION = BACKWARD
@@ -77,6 +86,17 @@ class MainController : BaseController() {
         animatables = arrayOf(progressBar, time, tray)
         for (animatable in animatables) animatable.resetAnimation(createProperties())
         setupMainTimer()
+        setupGlobalEventListener()
+    }
+
+    private fun setupGlobalEventListener() {
+        // Disable the library logs
+        val logger = Logger.getLogger(GlobalScreen::class.java.getPackage().name)
+        LogManager.getLogManager().reset()
+        logger.level = Level.OFF
+        logger.useParentHandlers = false
+
+        GlobalScreen.registerNativeHook()
     }
 
     private fun createProperties(): AnimationProperties {
@@ -92,6 +112,32 @@ class MainController : BaseController() {
     }
 
     private fun endFunction() {
+        if (period == BREAK) {
+            deferTransitionToUserReturn()
+        } else {
+            transitionToNextPeriod()
+        }
+    }
+
+    private fun deferTransitionToUserReturn() {
+        time.text = "On hold"
+        GlobalScreen.addNativeMouseMotionListener(
+            object : NativeMouseMotionListener {
+                var shouldReact = true
+                override fun nativeMouseMoved(e: NativeMouseEvent) {
+                    synchronized(this) {
+                        if (!shouldReact) return
+                        shouldReact = false
+                    }
+                    transitionToNextPeriod()
+                    GlobalScreen.removeNativeMouseMotionListener(this)
+                }
+
+                override fun nativeMouseDragged(e: NativeMouseEvent) {}
+            })
+    }
+
+    private fun transitionToNextPeriod() {
         period = period.nextPeriod
         setupMainTimer()
         if (shouldNotify && !isMuted) {
