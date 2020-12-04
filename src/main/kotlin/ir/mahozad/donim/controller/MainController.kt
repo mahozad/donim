@@ -46,7 +46,6 @@ import java.util.logging.Logger
 import kotlin.system.exitProcess
 import javafx.application.Platform.runLater as runOnJavaFXThread
 
-
 val GRACE_DURATION: Duration = Duration.seconds(2.0)
 private val ANIMATION_DIRECTION = BACKWARD
 private const val SHOULD_GRACE_ENDING = true
@@ -72,6 +71,7 @@ class MainController : BaseController() {
     private var period = FOCUS
     private var isMuted = false
     private var shouldNotify = true
+    private val isSkipped: Boolean get() = !shouldNotify
 
     override fun initialize() {
         super.initialize()
@@ -88,7 +88,7 @@ class MainController : BaseController() {
     }
 
     private fun setupGlobalEventListener() {
-        // Disable the library logs
+        // Disable logs of jNativeHook library
         val logger = Logger.getLogger(GlobalScreen::class.java.getPackage().name)
         LogManager.getLogManager().reset()
         logger.level = Level.OFF
@@ -123,7 +123,7 @@ class MainController : BaseController() {
             object : NativeMouseMotionListener {
                 var shouldReact = true
                 override fun nativeMouseMoved(e: NativeMouseEvent) {
-                    synchronized(this) {
+                    synchronized(shouldReact) {
                         if (!shouldReact) return
                         shouldReact = false
                     }
