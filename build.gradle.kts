@@ -2,13 +2,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.4.20"
     id("application")
     id("org.openjfx.javafxplugin") version "0.0.9"
     // Official kotlin tool to generate kdoc, javadoc, markdown and other types of documentation.
     // Note that dokka includes a javadoc task as well so there's no need to configure or use the
     // traditional javadoc task in gradle.
-    id("org.jetbrains.dokka") version "1.4.10"
+    id("org.jetbrains.dokka") version "1.4.20"
     // A gradle plugin to create fat (uber) jars. The "jar" task only creates a jar of the application
     // itself without embedding the dependency jars in the resulting file. This plugin, on the other hand,
     // creates an uber jar file with the task named "shadowJar".
