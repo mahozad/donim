@@ -28,7 +28,7 @@ class Time : Text(), Animatable {
     fun transitionToHoldState() {
         styleClass.remove("time")
         styleClass.add("time-text")
-        text = "On hold…"
+        text = "On Hold"
     }
 
     fun transitionToTimeState() {
