@@ -37,6 +37,7 @@ import javafx.stage.Stage
 import javafx.util.Duration
 import org.jnativehook.GlobalScreen
 import org.jnativehook.mouse.NativeMouseEvent
+import org.jnativehook.mouse.NativeMouseListener
 import org.jnativehook.mouse.NativeMouseMotionListener
 import java.awt.MenuItem
 import java.awt.SystemTray
@@ -45,6 +46,7 @@ import java.util.logging.LogManager
 import java.util.logging.Logger
 import kotlin.system.exitProcess
 import javafx.application.Platform.runLater as runOnJavaFXThread
+import org.jnativehook.mouse.NativeMouseEvent.BUTTON3 as MIDDLE_BUTTON
 
 val GRACE_DURATION: Duration = Duration.seconds(2.0)
 private val ANIMATION_DIRECTION = BACKWARD
@@ -95,6 +97,13 @@ class MainController : BaseController() {
         logger.useParentHandlers = false
 
         GlobalScreen.registerNativeHook()
+        GlobalScreen.addNativeMouseListener(object : NativeMouseListener {
+            override fun nativeMouseClicked(e: NativeMouseEvent?) {}
+            override fun nativeMousePressed(e: NativeMouseEvent?) {}
+            override fun nativeMouseReleased(e: NativeMouseEvent) {
+                if (e.button == MIDDLE_BUTTON) skip()
+            }
+        })
     }
 
     private fun createProperties(): AnimationProperties {
