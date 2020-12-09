@@ -61,3 +61,8 @@ For how javafx timeline works see [this](https://stackoverflow.com/a/36366805/85
 ---
 
 // To use spring for dependency injection see [this page](http://www.greggbolinger.com/let-spring-be-your-javafx-controller-factory/)
+
+---
+
+Add shortcut of the app .exe file to `C:\Users\X\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+for the app to automatically start on Windows login
