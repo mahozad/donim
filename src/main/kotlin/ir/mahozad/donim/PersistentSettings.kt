@@ -12,7 +12,7 @@ import java.util.*
 
 object PersistentSettings : Settings {
 
-    private const val FILE_NAME = "preferences.properties"
+    private const val FILE_NAME = "preferences.ini"
     private val fileDirectory = getOsSpecificDirectory()
     private val properties = Properties()
     private val observableProperties = FXCollections.observableMap(properties)
