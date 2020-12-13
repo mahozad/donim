@@ -1,10 +1,11 @@
 package ir.mahozad.donim.util
 
+import com.registry.RegistryKey
+import com.registry.RegistryWatcher
 import ir.mahozad.donim.PersistentSettings
 import ir.mahozad.donim.Settings
 import ir.mahozad.donim.exception.SettingNotFoundException
-import ir.mahozad.donim.util.DecorationUtil.Theme.DARK
-import ir.mahozad.donim.util.DecorationUtil.Theme.LIGHT
+import ir.mahozad.donim.util.DecorationUtil.Theme.*
 import javafx.beans.Observable
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.Node
@@ -13,7 +14,8 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.stage.Window
 
-private val DEFAULT_THEME = DARK
+val DEFAULT_THEME = DARK
+private val WINDOWS_THEME_REGISTRY_KEY = RegistryKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize")
 
 enum class SnapSide { LEFT, RIGHT }
 
@@ -38,8 +40,13 @@ fun Stage.snapTo(other: Window, side: SnapSide) {
 
 object DecorationUtil {
 
-    enum class Theme { DARK, LIGHT }
+    enum class Theme(val title: String) {
+        DARK("Dark Theme"),
+        LIGHT("Light Theme"),
+        AUTO("System Theme")
+    }
 
+    private var isThemeAuto = false
     private var theme = SimpleObjectProperty<Theme>()
     private val settings: Settings = PersistentSettings
 
@@ -50,13 +57,42 @@ object DecorationUtil {
         } catch (e: SettingNotFoundException) {
             theme.value = DEFAULT_THEME
         }
+        isThemeAuto = (theme.value == AUTO)
+        if (isThemeAuto) applySystemTheme()
+        listenForSystemThemeChanges()
+    }
+
+    private fun listenForSystemThemeChanges() {
+        RegistryWatcher.addRegistryListener { registryEvent ->
+            val changedKey = registryEvent.key
+            if (changedKey == WINDOWS_THEME_REGISTRY_KEY)
+                if (isThemeAuto) applySystemTheme()
+        }
+        RegistryWatcher.watchKey(WINDOWS_THEME_REGISTRY_KEY)
+    }
+
+    private fun applySystemTheme() {
+        val value = WINDOWS_THEME_REGISTRY_KEY.getValue("AppsUseLightTheme")
+        val actualValue = if (value == null) 1 else value.byteData[0] // 1 (Light) is default value in Windows
+        val isWindowsDark = actualValue.toInt() == 0
+        theme.value = if (isWindowsDark) DARK else LIGHT
     }
 
     fun setThemeChangedListener(listener: (Observable) -> Unit) = theme.addListener(listener)
 
-    fun toggleTheme() {
-        theme.value = if (theme.value == DARK) LIGHT else DARK
-        settings.set("theme", theme.value.name)
+    fun toggleTheme(): Theme {
+        if (isThemeAuto) {
+            isThemeAuto = false
+            theme.value = DARK
+        } else if (theme.value == DARK) {
+            isThemeAuto = false
+            theme.value = LIGHT
+        } else if (theme.value == LIGHT) {
+            isThemeAuto = true
+            applySystemTheme()
+        }
+        settings.set("theme", if (isThemeAuto) AUTO.name else theme.value.name)
+        return if (isThemeAuto) AUTO else theme.value
     }
 
     fun applyThemeTo(node: Node) {

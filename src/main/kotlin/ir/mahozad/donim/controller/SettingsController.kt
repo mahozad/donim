@@ -4,7 +4,9 @@ import ir.mahozad.donim.PersistentSettings
 import ir.mahozad.donim.exception.SettingNotFoundException
 import ir.mahozad.donim.model.DEFAULT_BREAK_DURATION
 import ir.mahozad.donim.model.DEFAULT_FOCUS_DURATION
+import ir.mahozad.donim.util.DEFAULT_THEME
 import ir.mahozad.donim.util.DecorationUtil
+import ir.mahozad.donim.util.DecorationUtil.Theme
 import javafx.fxml.FXML
 import javafx.scene.control.TextField
 import javafx.scene.control.TextFormatter
@@ -46,26 +48,15 @@ class SettingsController : BaseController() {
             // That's fine, do nothing
         }
         try {
-            if (PersistentSettings.get("theme") == DecorationUtil.Theme.DARK.name) {
-                toggleTheme.isSelected = true
-                toggleTheme.text = "Switch to light theme"
-            } else {
-                toggleTheme.isSelected = false
-                toggleTheme.text = "Switch to dark theme"
-            }
+            val themeName = PersistentSettings.get("theme")
+            val theme = Theme.valueOf(themeName)
+            toggleTheme.text = theme.title
         } catch (e: SettingNotFoundException) {
-            // That's fine, do nothing
+            toggleTheme.text = DEFAULT_THEME.title
         }
     }
 
     private fun setupListeners() {
-        toggleTheme.selectedProperty().addListener { observable, oldValue, newValue ->
-            if (newValue == true) {
-                toggleTheme.text = "Switch to light theme"
-            } else {
-                toggleTheme.text = "Switch to dark theme"
-            }
-        }
         focusDuration.textProperty().addListener { _, _, newValue ->
             PersistentSettings.set("focus-duration", newValue)
         }
@@ -76,5 +67,8 @@ class SettingsController : BaseController() {
 
     fun close() = closeWindow(false)
 
-    fun toggleTheme() = DecorationUtil.toggleTheme()
+    fun toggleTheme() {
+        val newTheme = DecorationUtil.toggleTheme()
+        toggleTheme.text = newTheme.title
+    }
 }

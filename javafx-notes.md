@@ -66,3 +66,25 @@ For how javafx timeline works see [this](https://stackoverflow.com/a/36366805/85
 
 Add shortcut of the app .exe file to `C:\Users\X\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
 for the app to automatically start on Windows login
+
+---
+
+To make the app follow windows theme refer to these:
+ https://stackoverflow.com/q/62289/ and https://stackoverflow.com/q/60837862
+ and https://jregistry.sourceforge.io/ and https://stackoverflow.com/q/60321706
+ and https://stackoverflow.com/q/38734615/
+
+---
+
+The jRegistry library which is used to acess windows registry values (system theme etc.)
+requires two dll files (provided along with the library jar file) to work: reg.dll and reg_x64.dll  
+These two files are placed in the `/resources/` directory to be accessed by classpath loader
+and also to be available in the Application jar file (because everything in resources is copied into
+the jar file; see the exe guide for more info).
+At application startup we check to see if these two files are available in the current directory,
+and if not, copy them from the classpath (or jar) to the current directory.  
+See [here](https://stackoverflow.com/q/1611357) and [here](https://stackoverflow.com/q/2546665)
+and [here](https://stackoverflow.com/q/4691095) and [here](https://stackoverflow.com/q/4764347)
+and [here](https://stackoverflow.com/q/9006127) and [here](https://stackoverflow.com/a/24738004)
+and [here](https://stackoverflow.com/q/2937406) and [here](https://github.com/adamheinrich/native-utils)
+and [here](http://www.jdotsoft.com/JarClassLoader.php)

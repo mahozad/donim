@@ -12,6 +12,10 @@ import javafx.scene.image.Image
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import java.io.File
+import java.io.FileOutputStream
+import java.nio.file.Files
+import java.nio.file.Path
 
 const val APP_NAME = "Donim"
 
@@ -21,13 +25,31 @@ const val APP_SOURCE_PAGE_URI = "https://github.com/mahozad/donim"
 
 lateinit var hostServicesInstance: HostServices
 
-// TODO: Add an option to the app to make its theme follow windows theme.
-//  see https://stackoverflow.com/q/62289/ and https://stackoverflow.com/q/60837862
-
-// TODO: Show application version to about screen
+// TODO: Show application version in about screen
 
 fun main(args: Array<String>) {
+    extractRequiredDll("reg.dll")
+    extractRequiredDll("reg_x64.dll")
     Application.launch(Main::class.java, *args)
+}
+
+fun extractRequiredDll(fileName: String) {
+    if (Files.exists(Path.of(fileName))) return
+
+    val input = Main::class.java.getResourceAsStream("/$fileName")
+    val buffer = ByteArray(1024)
+
+    val path = Files.createFile(Path.of(fileName))
+    val output = FileOutputStream(File(path.toUri()))
+    Files.setAttribute(path, "dos:hidden", true)
+
+    var data = input.read(buffer)
+    while (data != -1) {
+        output.write(buffer, 0, data)
+        data = input.read(buffer)
+    }
+    output.close()
+    input.close()
 }
 
 /**
