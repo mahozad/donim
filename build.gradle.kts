@@ -21,6 +21,7 @@ version = "1.0.0-beta"
 repositories {
     jcenter()
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 application {
@@ -78,6 +79,7 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
+    implementation("com.github.Dansoftowner:FXTaskbarProgressBar:v11.3")
     implementation(files("lib/jregistry-1.8.3.jar"))
     implementation("com.1stleg:jnativehook:2.1.0")
     // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin 1.4

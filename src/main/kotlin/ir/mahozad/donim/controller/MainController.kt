@@ -1,5 +1,6 @@
 package ir.mahozad.donim.controller
 
+import com.nativejavafx.taskbar.TaskbarProgressbar
 import ir.mahozad.donim.APP_NAME
 import ir.mahozad.donim.PersistentSettings
 import ir.mahozad.donim.exception.SettingNotFoundException
@@ -85,6 +86,9 @@ class MainController : BaseController() {
         for (animatable in animatables) animatable.resetAnimation(createProperties())
         setupMainTimer()
         setupGlobalEventListener()
+        progress.addListener { _, _, newValue ->
+            TaskbarProgressbar.showCustomProgress(root.scene.window as Stage, (newValue.toDouble() * 100).toLong(), 100, TaskbarProgressbar.Type.ERROR)
+        }
     }
 
     private fun setupGlobalEventListener() {
