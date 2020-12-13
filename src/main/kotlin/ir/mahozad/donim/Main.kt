@@ -2,6 +2,7 @@ package ir.mahozad.donim
 
 import ir.mahozad.donim.util.DecorationUtil.showCentered
 import ir.mahozad.donim.util.buildTransparentScene
+import ir.mahozad.donim.util.extractResource
 import ir.mahozad.donim.util.toURL
 import javafx.application.Application
 import javafx.application.HostServices
@@ -12,10 +13,7 @@ import javafx.scene.image.Image
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import java.io.File
-import java.io.FileOutputStream
-import java.nio.file.Files
-import java.nio.file.Path
+import java.nio.file.FileAlreadyExistsException
 
 const val APP_NAME = "Donim"
 
@@ -28,28 +26,17 @@ lateinit var hostServicesInstance: HostServices
 // TODO: Show application version in about screen
 
 fun main(args: Array<String>) {
-    extractRequiredDll("reg.dll")
-    extractRequiredDll("reg_x64.dll")
+    extractRequiredDllFiles()
     Application.launch(Main::class.java, *args)
 }
 
-fun extractRequiredDll(fileName: String) {
-    if (Files.exists(Path.of(fileName))) return
-
-    val input = Main::class.java.getResourceAsStream("/$fileName")
-    val buffer = ByteArray(1024)
-
-    val path = Files.createFile(Path.of(fileName))
-    val output = FileOutputStream(File(path.toUri()))
-    Files.setAttribute(path, "dos:hidden", true)
-
-    var data = input.read(buffer)
-    while (data != -1) {
-        output.write(buffer, 0, data)
-        data = input.read(buffer)
+fun extractRequiredDllFiles() {
+    try {
+        extractResource("reg.dll")
+        extractResource("reg_x64.dll")
+    } catch (e: FileAlreadyExistsException) {
+        // That's fine, do nothing
     }
-    output.close()
-    input.close()
 }
 
 /**
