@@ -24,3 +24,9 @@
 
 
 also see install4j application for making executable java programs
+
+To use proguard with javafx see the following:
+https://stackoverflow.com/q/20445960
+https://stackoverflow.com/q/28824383
+https://stackoverflow.com/q/29307262
+https://stackoverflow.com/a/54893575
