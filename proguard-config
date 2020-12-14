@@ -1,0 +1,60 @@
+-injars Donim.main.jar
+-outjars out.jar
+
+-libraryjars 'C:\Program Files\AdoptOpenJDK\jdk-11.0.9.101-hotspot\jmods\'(!**.jar;!module-info.class)
+
+-keepkotlinmetadata
+
+-dontskipnonpubliclibraryclassmembers
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-keepattributes SourceFile,LineNumberTable,*Annotation*,Signature,EnclosingMethod
+-dontpreverify
+-ignorewarnings
+
+
+
+# Keep names of fields marked with @FXML, @Inject and @PostConstruct attributes
+-keepclassmembers class * {
+    @javafx.fxml.FXML
+    <fields>;
+    @javax.inject.Inject
+    <fields>;
+    @javax.annotation.PostConstruct
+    <fields>;
+    @javafx.fxml.FXML
+    <methods>;
+    @javax.inject.Inject
+    <methods>;
+    @javax.annotation.PostConstruct
+    <methods>;
+}
+
+-keep class ir.mahozad.donim.**
+
+# Keep - Applications. Keep all application classes, along with their 'main' methods.
+-keepclasseswithmembers public class com.javafx.main.Main,ir.mahozad.donim.** {
+    public static void main(java.lang.String[]);
+}
+
+# Also keep - Enumerations. Keep the special static methods that are required in
+# enumeration classes.
+-keepclassmembers enum  * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# Also keep - Database drivers. Keep all implementations of java.sql.Driver.
+-keep class * extends java.sql.Driver
+
+# Also keep - Swing UI L&F. Keep all extensions of javax.swing.plaf.ComponentUI,
+# along with the special 'createUI' method.
+-keep class * extends javax.swing.plaf.ComponentUI {
+    public static javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent);
+}
+
+# Keep - Native method names. Keep all native class/method names.
+-keepclasseswithmembers,includedescriptorclasses,allowshrinking class * {
+    native <methods>;
+}
