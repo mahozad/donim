@@ -9,7 +9,6 @@
 -dontobfuscate
 -dontusemixedcaseclassnames
 -keepattributes Exceptions,SourceFile,LineNumberTable,*Annotation*,Signature,EnclosingMethod,InnerClasses
--dontpreverify
 -verbose
 -dontnote kotlin.internal.PlatformImplementationsKt,kotlin.reflect.jvm.internal.**
 
