@@ -31,6 +31,8 @@
     <methods>;
 }
 
+-keep class com.sun.javafx.tk.quantum.QuantumToolkit
+
 -keep class ir.mahozad.donim**{
     <fields>;
     <methods>;
