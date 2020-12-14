@@ -3,31 +3,42 @@
 
 -libraryjars 'C:\Program Files\AdoptOpenJDK\jdk-11.0.9.101-hotspot\jmods'(!**.jar;!module-info.class)
 
-#-target 11
 -dontskipnonpubliclibraryclassmembers
 -forceprocessing
 -dontoptimize
 -dontobfuscate
 -dontusemixedcaseclassnames
--keepattributes SourceFile,LineNumberTable,*Annotation*,Signature,EnclosingMethod
+-keepattributes Exceptions,SourceFile,LineNumberTable,*Annotation*,Signature,EnclosingMethod,InnerClasses
 -dontpreverify
+-verbose
+-dontnote kotlin.internal.PlatformImplementationsKt,kotlin.reflect.jvm.internal.**
 
 # Kotlin (see https://stackoverflow.com/q/52689607)
 -keepkotlinmetadata
--keep class kotlin.Metadata { *; }
--dontnote kotlin.internal.PlatformImplementationsKt
--dontnote kotlin.reflect.jvm.internal.**
+-keep class kotlin.Metadata {
+    <fields>;
+    <methods>;
+}
+
+-keepclasseswithmembernames,includedescriptorclasses class * {
+    native <methods>;
+}
 
 # Keep names of fields marked with @FXML attribute
 -keepclassmembers class * {
-    @javafx.fxml.FXML <fields>;
-    @javafx.fxml.FXML <methods>;
+    @javafx.fxml.FXML
+    <fields>;
+    @javafx.fxml.FXML
+    <methods>;
 }
 
--keep class ir.mahozad.donim**
+-keep class ir.mahozad.donim**{
+    <fields>;
+    <methods>;
+}
 
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
--keepclasseswithmembers public class com.javafx.main.*, ir.mahozad.donim.* {
+-keepclasseswithmembers public class com.javafx.main.*,ir.mahozad.donim.*,** {
     public static void main(java.lang.String[]);
 }
 
