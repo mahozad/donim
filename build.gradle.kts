@@ -18,6 +18,24 @@ plugins {
 group = "ir.mahozad"
 version = "1.0.0-beta"
 
+// If your build script needs to use external libraries, you can add them to the script’s classpath in the build script
+// itself. You do this using the buildscript() method, passing in a block which declares the build script classpath.
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // For using proguard gradle task
+        "classpath"("com.guardsquare:proguard-gradle:7.0.1")
+    }
+}
+
+task("myProguardTask", proguard.gradle.ProGuardTask::class) {
+
+}
+
 repositories {
     jcenter()
     mavenCentral()
