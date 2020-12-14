@@ -23,7 +23,7 @@
 -keep class ir.mahozad.donim**
 
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
--keepclasseswithmembers public class com.javafx.main.* {
+-keepclasseswithmembers public class com.javafx.main.*, ir.mahozad.donim.* {
     public static void main(java.lang.String[]);
 }
 
