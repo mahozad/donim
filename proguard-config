@@ -3,8 +3,7 @@
 
 -libraryjars 'C:\Program Files\AdoptOpenJDK\jdk-11.0.9.101-hotspot\jmods'(!**.jar;!module-info.class)
 
--keepkotlinmetadata
-
+#-target 11
 -dontskipnonpubliclibraryclassmembers
 -forceprocessing
 -dontoptimize
@@ -13,6 +12,11 @@
 -keepattributes SourceFile,LineNumberTable,*Annotation*,Signature,EnclosingMethod
 -dontpreverify
 
+# Kotlin (see https://stackoverflow.com/q/52689607)
+-keepkotlinmetadata
+-keep class kotlin.Metadata { *; }
+-dontnote kotlin.internal.PlatformImplementationsKt
+-dontnote kotlin.reflect.jvm.internal.**
 
 # Keep names of fields marked with @FXML attribute
 -keepclassmembers class * {
