@@ -1,4 +1,5 @@
 ### General ###
+# hidden dlls extracted by application
 *.dll
 
 ### Gradle ###
