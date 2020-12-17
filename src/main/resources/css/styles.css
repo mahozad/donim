@@ -200,15 +200,19 @@ TextField {
 }
 
 #close:hover {
-    -fx-background-color: #964444;
+    -fx-background-color: #d4111f;
+}
+
+.dark #close:hover {
+    -fx-background-color: #be0f1c;
 }
 
 #minimize:hover, #about:hover {
-    -fx-background-color: #bbb;
+    -fx-background-color: #ccc;
 }
 
 .dark #minimize:hover, .dark #about:hover {
-    -fx-background-color: #666;
+    -fx-background-color: #606060;
 }
 
 #title_bar {
