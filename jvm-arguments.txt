@@ -1,4 +1,10 @@
-﻿--module-path "C:\Program Files\javafx-sdk-15\lib"
+﻿If you run the application with main class set to `Main` (which contains javafx start() method)
+these JVM arguments are required.
+If you run the application with main class set to `MainKt`(which contains java —and kotlin— main() method)
+then these are not required. I do not know why.
+Also see the comments for gradle `application` task in bulild.gradle.kts to see which class (Main or MainKt) should be used.
+
+--module-path "C:\Program Files\javafx-sdk-15\lib"
 --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media,javafx.fxml
 --add-exports=javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED
 --add-exports=javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED
