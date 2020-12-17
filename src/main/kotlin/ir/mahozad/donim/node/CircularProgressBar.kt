@@ -29,7 +29,7 @@ class CircularProgressBar : Animatable, Canvas() {
     private lateinit var animationProperties: AnimationProperties
     private val fraction = SimpleDoubleProperty(0.0)
     private var timer = Timeline()
-    private val sliceLength = 4             // in degrees
+    private val sliceLength = 3             // in degrees
     private val sliceGap = sliceLength / 2  // in degrees
     private val arcStart = 90               // in degrees
     private var arcEnd = arcStart - 360     // in degrees
