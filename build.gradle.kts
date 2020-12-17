@@ -24,8 +24,15 @@ repositories {
 }
 
 application {
-    // Either Main or MainKt classes are acceptable
-    mainClassName = "ir.mahozad.donim.Main"
+    // Either the class Main (which contains javafx start() method)
+    // or the class MainKt (which contains java —and kotlin— main() method) are acceptable.
+    //
+    // Use MainKt if there are any other statements other than Application.lanuch(), so they are executed.
+    // In our case, extractRequiredDllFiles() is required to copy the dll files and if it is not executed,
+    // the jregistry throws exception and thus the application halts.
+    // I could have moved that call to the start() method of Main and then MainKt or Main wouldn't matter.
+    // I prefer to put it in main() of MainKt.
+    mainClassName = "ir.mahozad.donim.MainKt"
 }
 
 // Configure some settings of dokka. This is totally optional and can be removed.
