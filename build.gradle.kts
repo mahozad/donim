@@ -1,4 +1,5 @@
 import java.net.URL
+import java.util.*
 
 plugins {
     kotlin("jvm") version "1.4.20"
@@ -16,6 +17,7 @@ plugins {
 
 group = "ir.mahozad"
 version = "1.0.0-beta"
+val mainClass = "ir.mahozad.donim.MainKt"
 
 repositories {
     jcenter()
@@ -75,7 +77,9 @@ tasks.wrapper {
 
 tasks.jar {
     // Define main class in the manifest of output jar file when generating one
-    manifest.attributes("Main-Class" to "ir.mahozad.donim.MainKt")
+    manifest.attributes["Main-Class"] = mainClass
+    manifest.attributes["Built-Date"] = Date() // Optional
+    manifest.attributes["Built-By"] = "Mahozad" // Optional
 }
 
 tasks.compileKotlin {
