@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 
 plugins {
@@ -67,19 +66,19 @@ javafx {
     )
 }
 
-tasks.withType<Wrapper> {
+tasks.wrapper {
     // Add a gradle wrapper script to your source folders (by running the wrapper task).
     // The wrapper script when invoked, downloads the defined gradle version, and executes it.
     // By distributing the wrapper with your project, anyone can work with it without needing to install Gradle beforehand
     gradleVersion = "6.6"
 }
 
-tasks.withType<Jar> {
+tasks.jar {
     // Define main class in the manifest of output jar file when generating one
     manifest.attributes("Main-Class" to "ir.mahozad.donim.MainKt")
 }
 
-tasks.withType<KotlinCompile> {
+tasks.compileKotlin {
     // Target version of the generated JVM bytecode (1.6, 1.8, 9, 10, 11 or 12), default is 1.6
     kotlinOptions.jvmTarget = "11"
 }
