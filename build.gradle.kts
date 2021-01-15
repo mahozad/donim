@@ -36,6 +36,20 @@ application {
     mainClassName = "ir.mahozad.donim.MainKt"
 }
 
+javafx {
+    version = "15"
+    // The javafx modules that contain features (classes, functions etc) we are using in our application;
+    // the plugin automatically downloads approperiate jar files for the platform running the tasks
+    // (e.g. javafx.graphic-win varient on Windows)
+    modules(
+            "javafx.base",
+            "javafx.controls",
+            "javafx.graphics",
+            "javafx.media",
+            "javafx.fxml"
+    )
+}
+
 // Configure some settings of dokka. This is totally optional and can be removed.
 tasks.dokkaHtml.configure {
     dokkaSourceSets {
@@ -54,20 +68,6 @@ tasks.dokkaHtml.configure {
             }
         }
     }
-}
-
-javafx {
-    version = "15"
-    // The javafx modules that contain features (classes, functions etc) we are using in our application;
-    // the plugin automatically downloads approperiate jar files for the platform running the tasks
-    // (e.g. javafx.graphic-win varient on Windows)
-    modules(
-            "javafx.base",
-            "javafx.controls",
-            "javafx.graphics",
-            "javafx.media",
-            "javafx.fxml"
-    )
 }
 
 tasks.wrapper {
