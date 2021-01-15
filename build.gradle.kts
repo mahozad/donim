@@ -58,7 +58,9 @@ tasks.dokkaHtml.configure {
 
 javafx {
     version = "15"
-    // The javafx modules that contain features (classes, functions etc) that we are using in our application
+    // The javafx modules that contain features (classes, functions etc) we are using in our application;
+    // the plugin automatically downloads approperiate jar files for the platform running the tasks
+    // (e.g. javafx.graphic-win varient on Windows)
     modules(
             "javafx.base",
             "javafx.controls",
