@@ -104,3 +104,26 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.17.2")
     testImplementation("io.mockk:mockk:1.10.0")
 }
+
+tasks.create("sample-task") {
+// or task("sample-task") or tasks.register("sample-task")
+
+    // You need to tell Gradle which task properties are inputs and which are outputs. If a task
+    // property affects the output, be sure to register it as an input, otherwise the task will be
+    // considered up to date when it’s not. Conversely, don’t register properties as inputs if they
+    // don’t affect the output, otherwise the task will potentially execute when it doesn’t need to.
+    // Gradle takes a fingerprint of the inputs/outputs.
+    // This fingerprint contains the paths of files and a hash of the contents of each file.
+    inputs.files(fileTree("src/templates"))
+    inputs.property("templateData.variables", mapOf("year" to "2013"))
+    outputs.dir("$buildDir/genOutput")
+
+    dependsOn("clean")
+    description = "This description is shown to user when they execute the 'tasks' task"
+    enabled = true // similar to onlyIf
+    onlyIf { "This predicate returen true, run the task actions".isNotEmpty() }
+    println("This statement is always executed because it is run in the configuration phase")
+    doLast {
+        println("Here are the main actions of the task")
+    }
+}
