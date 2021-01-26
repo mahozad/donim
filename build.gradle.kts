@@ -5,6 +5,8 @@ plugins {
     kotlin("jvm") version "1.4.20"
     id("application")
     id("org.openjfx.javafxplugin") version "0.0.9"
+    // A plugin for creating .exe file (based on launch4j but doesn't need it to be installed)
+    id("edu.sc.seis.launch4j") version "2.4.9"
     // Official kotlin tool to generate kdoc, javadoc, markdown and other types of documentation.
     // Note that dokka includes a javadoc task as well so there's no need to configure or use the
     // traditional javadoc task in gradle.
@@ -17,7 +19,7 @@ plugins {
 
 group = "ir.mahozad"
 version = "1.0.0-beta"
-val mainClass = "ir.mahozad.donim.MainKt"
+val donimMainClass = "ir.mahozad.donim.MainKt"
 
 repositories {
     jcenter()
@@ -79,7 +81,7 @@ tasks.wrapper {
 
 tasks.jar {
     // Define main class in the manifest of output jar file when generating one
-    manifest.attributes["Main-Class"] = mainClass
+    manifest.attributes["Main-Class"] = donimMainClass
     manifest.attributes["Built-Date"] = Date() // Optional
     manifest.attributes["Built-By"] = "Mahozad" // Optional
 }
@@ -103,6 +105,14 @@ dependencies {
     testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
     testImplementation("org.assertj:assertj-core:3.17.2")
     testImplementation("io.mockk:mockk:1.10.0")
+}
+
+launch4j {
+    outputDir = "/exe/"
+    outfile = "${productName}.exe"
+    icon = "$projectDir/raw/launcher.ico"
+    mainClassName = donimMainClass
+    jar = "${project.buildDir}/libs/${project.tasks.shadowJar.get().archiveFileName.get()}"
 }
 
 tasks.create("sample-task") {

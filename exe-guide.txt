@@ -22,5 +22,7 @@
     with getResourceAsStream instead of getResource in the code
 - Click Test wrapper [play icon] (or double click .exe)
 
+Alternatively use [gradle-launch4j plugin](https://github.com/TheBoegl/gradle-launch4j)
+to automate generating .exe file by using a simpale Gradle task
 
 also see install4j application for making executable java programs
