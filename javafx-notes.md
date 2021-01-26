@@ -3,6 +3,20 @@ it might be because of URLs used in images or something similar.
 Try to remove the URLs and then restart the IDEA to fix the problem.
 
 ---
+To take a screenshot from a node do this preferably when the scene is completely initialized
+for example by putting this code in a onClick() callback of a button on that scene.
+Note that the class `SwingFXUtils` is in `javafx.swing` module so be sure to add it in gradle.
+
+```Kotlin
+val file = File("snapshot${Random().nextInt()}.png")
+val snapshot = root.scene.snapshot(null)
+val bufferedImage = SwingFXUtils.fromFXImage(snapshot, null)
+val imageRGB = BufferedImage(bufferedImage.width, bufferedImage.height, BufferedImage.TRANSLUCENT)
+val graphics = imageRGB.createGraphics()
+graphics.drawImage(bufferedImage, 0, 0, null)
+ImageIO.write(imageRGB, "png", file)
+```
+---
 
 [Cross-platform tray icon support](https://github.com/dorkbox/SystemTray)
 
