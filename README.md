@@ -18,7 +18,7 @@ It is inspired from the well-known [yin and yang][3] symbol.
 I found a striking similarity between Donim logo and [this][4] (notice the colors!).
 
 ### Screenshots
-![Main screen](screenshot/screenshot.png)
+![Main screen](raw/screenshot/screenshot.png)
 
 Use https://icoconvert.com/ to make icon files
 
