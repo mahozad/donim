@@ -20,7 +20,6 @@ I found a striking similarity between Donim logo and [this][4] (notice the color
 ### Screenshots
 ![Main screen](raw/screenshot/screenshot.png)
 
-Use https://icoconvert.com/ to make icon files
 
 [1]: https://travis-ci.org/mahozad/donim
 [2]: https://coveralls.io/github/mahozad/donim?branch=master
