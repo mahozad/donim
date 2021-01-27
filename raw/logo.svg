@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="grad1" x1="6" x2="21" y1="24" y2="8" gradientUnits="userSpaceOnUse">
       <stop stop-color="#003878" offset="0"/>
@@ -10,8 +9,8 @@
       <stop stop-color="#1984ff" offset="1"/>
     </linearGradient>
   </defs>
-  <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="m16 13c-7 0-11 5-10 11-7-8-1-21 10-21m5 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5z" fill="url(#grad1)" stroke="url(#grad1)"/>
-    <path d="m16 19c7 0 11-5 10-11 7 8 1 21-10 21m-5-5a5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5z" fill="url(#grad2)" stroke="url(#grad2)"/>
+  <g stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="url(#grad1)" stroke="url(#grad1)" d="m16 13c-7 0-11 5-10 11-7-8-1-21 10-21m5 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5z"/>
+    <path fill="url(#grad2)" stroke="url(#grad2)" d="m16 19c7 0 11-5 10-11 7 8 1 21-10 21m-5-5a5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5z"/>
   </g>
 </svg>
