@@ -8,5 +8,3 @@ If you want to use a feature from a specific javafx module (for example javafx-w
 define this module name in gradle build file and also in --add-modules jvm argument.
 
 The official javafx sample for IntelliJ/Eclipse, Gradle/Maven etc: https://github.com/openjfx/samples/tree/master/IDE/IntelliJ
-
-Use https://icoconvert.com/ to make icon files

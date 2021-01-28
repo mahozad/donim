@@ -22,6 +22,14 @@ ImageIO.write(imageRGB, "png", file)
 
 ---
 
+Use https://icoconvert.com/ to make .ico files
+
+See [this](https://docs.microsoft.com/en-us/windows/win32/uxguide/vis-icons) for Windows icon design principles.
+
+For how to create custom (big) start menu icon for the app see [this](https://superuser.com/a/1033361/926959).
+
+---
+
 To localize strings in the app, the main class should load the resource bundle like this:
 
     val resources: ResourceBundle = ResourceBundle.getBundle("messages")
