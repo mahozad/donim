@@ -3,6 +3,6 @@
       ForegroundText="light"
       BackgroundColor="#888888"
       ShowNameOnSquare150x150Logo="on"
-      Square150x150Logo="visual-elements\medium.png"
-      Square70x70Logo="visual-elements\small.png"/>
+      Square150x150Logo="img/logo-tile-medium.png"
+      Square70x70Logo="img/logo-tile-small.png"/>
 </Application>
