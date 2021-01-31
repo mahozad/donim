@@ -134,6 +134,6 @@ tasks.create("sample-task") {
     onlyIf { "This predicate returen true, run the task actions".isNotEmpty() }
     println("This statement is always executed because it is run in the configuration phase")
     doLast {
-        println("Here are the main actions of the task")
+        println("Here are the main actions of the task (run in the execution phase)")
     }
 }
