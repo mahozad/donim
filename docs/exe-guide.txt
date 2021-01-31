@@ -26,3 +26,6 @@ Alternatively use [gradle-launch4j plugin](https://github.com/TheBoegl/gradle-la
 to automate generating .exe file by using a simpale Gradle task
 
 also see install4j application for making executable java programs
+
+For a guide on how to reduce the application jar size refere to this topic:
+  https://community.guardsquare.com/t/help-wanted-on-shrinking-a-jar-kotlin-1-4-javafx-15-java-11/371
