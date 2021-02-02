@@ -53,6 +53,10 @@ javafx {
     )
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform() // enable JUnit5
+}
+
 // Configure some settings of dokka. This is totally optional and can be removed.
 tasks.dokkaHtml.configure {
     dokkaSourceSets {
