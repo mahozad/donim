@@ -20,6 +20,7 @@ plugins {
 group = "ir.mahozad"
 version = "1.0.0-beta"
 val donimMainClass = "ir.mahozad.donim.MainKt"
+val donimMainModule = "ir.mahozad.donim.app"
 
 repositories {
     jcenter()
@@ -35,7 +36,7 @@ application {
     // the jregistry throws exception and thus the application halts.
     // I could have moved that call to the start() method of Main and then MainKt or Main wouldn't matter.
     // I prefer to put it in main() of MainKt.
-    mainClassName = "ir.mahozad.donim.MainKt"
+    mainClassName = donimMainClass
 }
 
 javafx {
