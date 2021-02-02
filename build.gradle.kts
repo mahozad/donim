@@ -129,6 +129,7 @@ tasks.create("sample-task") {
     outputs.dir("$buildDir/genOutput")
 
     dependsOn("clean")
+    group = "The category that the task should appear in (can be existing ones like 'build')"
     description = "This description is shown to user when they execute the 'tasks' task"
     enabled = true // similar to onlyIf
     onlyIf { "This predicate returen true, run the task actions".isNotEmpty() }
