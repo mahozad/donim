@@ -17,8 +17,9 @@ plugins {
     id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
-group = "ir.mahozad"
-version = "1.0.0-beta"
+project.group = "ir.mahozad"
+project.version = "1.0.0-beta"
+project.description = "Donim, a pomodoro application and a break reminder."
 val donimMainClass = "ir.mahozad.donim.MainKt"
 val donimMainModule = "ir.mahozad.donim.app"
 
