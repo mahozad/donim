@@ -54,8 +54,8 @@ javafx {
     )
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform() // enable JUnit5
+tasks.test {
+    useJUnitPlatform() // Enable JUnit 5 runner
 }
 
 // Configure some settings of dokka. This is totally optional and can be removed.
