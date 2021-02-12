@@ -102,7 +102,7 @@ tasks.compileKotlin {
 dependencies {
     implementation(files("lib/jregistry-1.8.3.jar"))
     implementation("com.1stleg:jnativehook:2.1.0")
-    // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin 1.4
+    // implementation(kotlin("stdlib-jdk8")) // Automatically added as of Kotlin Gradle plugin 1.4
     // See https://kotlinlang.org/api/latest/kotlin.test/ for info about the following 2 dependencies
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
