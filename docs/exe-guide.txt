@@ -27,5 +27,8 @@ to automate generating .exe file by using a simpale Gradle task
 
 also see install4j application for making executable java programs
 
-For a guide on how to reduce the application jar size refere to this topic:
-  https://community.guardsquare.com/t/help-wanted-on-shrinking-a-jar-kotlin-1-4-javafx-15-java-11/371
+For shrinking the application jar, there are some options:
+  - Configuring the gradle shadowJar plugin to minimize the jar
+    Tasks.shadowJar { minimize() }
+  - Using proguard either as standalone application or its gradle plugin
+    https://community.guardsquare.com/t/help-wanted-on-shrinking-a-jar-kotlin-1-4-javafx-15-java-11/371
