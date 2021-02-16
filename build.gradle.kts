@@ -85,6 +85,8 @@ tasks.wrapper {
     // The wrapper script when invoked, downloads the defined gradle version, and executes it.
     // By distributing the wrapper with your project, anyone can work with it without needing to install Gradle beforehand
     gradleVersion = "6.6"
+    // Download the full version of the Gradle (with sources and documentation)
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 tasks.jar {
