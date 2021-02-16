@@ -9,7 +9,7 @@ plugins {
     id("edu.sc.seis.launch4j") version "2.4.9"
     // Official kotlin tool to generate kdoc, javadoc, markdown and other types of documentation.
     // Note that dokka includes a javadoc task as well so there's no need to configure or use the
-    // traditional javadoc task in gradle.
+    //  traditional javadoc task in gradle.
     id("org.jetbrains.dokka") version "1.4.20"
     // A gradle plugin to create fat (uber) jars. The "jar" task only creates a jar of the application
     // itself without embedding the dependency jars in the resulting file. This plugin, on the other hand,
@@ -140,14 +140,14 @@ tasks.create("sample-task") {
     // Gradle takes a fingerprint of the inputs/outputs.
     // This fingerprint contains the paths of files and a hash of the contents of each file.
     inputs.files(fileTree("src/templates"))
-    inputs.property("templateData.variables", mapOf("year" to "2013"))
+    inputs.property("templateData.variables", mapOf("year" to "2020"))
     outputs.dir("$buildDir/genOutput")
 
     dependsOn("clean")
     group = "The category that the task should appear in (can be existing ones like 'build')"
-    description = "This description is shown to user when they execute the 'tasks' task"
+    description = "The description shown to user when they execute the 'tasks' task"
     enabled = true // similar to onlyIf
-    onlyIf { "This predicate returen true, run the task actions".isNotEmpty() }
+    onlyIf { "...this predicate returns true, run the task actions".isNotEmpty() }
     println("This statement is always executed because it is run in the configuration phase")
     doLast {
         println("Here are the main actions of the task (run in the execution phase)")
