@@ -1,3 +1,18 @@
+Use [gluon gradle plugin](https://github.com/gluonhq/client-gradle-plugin) to produce application native code so it can directly be executed as a native application on the target platform.
+
+And also [this jlink plugin](https://github.com/beryx/badass-jlink-plugin).
+
+---
+
+See [this sample build file](https://github.com/acejump/TraceJump/blob/89bbe1e7dea13f20234a1410601895d9eba16174/build.gradle.kts) for how to setup jlink plugin and gluon gradle plugin and so on.
+
+---
+
+See [this repository](https://github.com/acejump/TraceJump/blob/master/src/main/kotlin/org/acejump/tracejump/TraceJump.kt)
+for how to create a transparent layer on the screen (can be good for creating a screen dimmer app).
+
+---
+
 If Intellij does not open an fxml file in Scene Builder tab of IDEA and shows error,
 it might be because of URLs used in images or something similar.
 Try to remove the URLs and then restart the IDEA to fix the problem.
@@ -110,3 +125,14 @@ and [here](https://stackoverflow.com/q/4691095) and [here](https://stackoverflow
 and [here](https://stackoverflow.com/q/9006127) and [here](https://stackoverflow.com/a/24738004)
 and [here](https://stackoverflow.com/q/2937406) and [here](https://github.com/adamheinrich/native-utils)
 and [here](http://www.jdotsoft.com/JarClassLoader.php)
+
+---
+
+See this library for an alternative to javafx: https://github.com/JetBrains/skiko
+
+---
+
+See [kotlin coroutines for javafx](https://github.com/Kotlin/kotlinx.coroutines/tree/master/ui) and its
+[guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md) for how to use kotlin coroutines in a javafx application.
+
+---
