@@ -32,3 +32,13 @@ For shrinking the application jar, there are some options:
     Tasks.shadowJar { minimize() }
   - Using proguard either as standalone application or its gradle plugin
     https://community.guardsquare.com/t/help-wanted-on-shrinking-a-jar-kotlin-1-4-javafx-15-java-11/371
+
+
+javafx alternative:
+https://www.jetbrains.com/lp/compose/
+
+To make application executable for all platforms see the SceneBuilder application which is itself a javafx application:
+https://github.com/gluonhq/scenebuilder/blob/master/app/build.gradle#L93
+
+Jpackage is now stable in Java 16:
+https://dzone.com/articles/jpackage-is-production-ready-in-java-16

@@ -136,3 +136,6 @@ See [kotlin coroutines for javafx](https://github.com/Kotlin/kotlinx.coroutines/
 [guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/ui/coroutines-guide-ui.md) for how to use kotlin coroutines in a javafx application.
 
 ---
+
+A similar application:
+https://github.com/roldanjr/pomatez
