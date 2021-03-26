@@ -24,6 +24,7 @@ const val APP_SOURCE_PAGE_URI = "https://github.com/mahozad/donim"
 lateinit var hostServicesInstance: HostServices
 
 // TODO: Show application version in about screen
+// FIXME: If the app is paused/resumed (multiple times?), when the counter reaches 0 it shows "00:00" istead of "on hold"
 
 fun main(args: Array<String>) {
     extractRequiredDllFiles()
