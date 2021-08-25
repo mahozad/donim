@@ -33,16 +33,14 @@
         is the pagefor how/when Github starts to support styles for svg based on Github/OS theme -->
   <style>
     #text {
-      fill: #888;
+      fill: #333;
+    }
+    [data-color-mode=dark] #text {
+      fill: #aaa;
     }
     @media (prefers-color-scheme: dark) {
-      #text {
-        fill: #fff;
-      }
-    }
-    @media (prefers-color-scheme: light) {
-      #text {
-        fill: #000;
+      [data-color-mode=auto] #text {
+        fill: #aaa;
       }
     }
   </style>
