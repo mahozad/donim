@@ -35,11 +35,9 @@
     #text {
       fill: #888;
     }
-    @media (prefers-color-scheme: dark) {
       [data-color-mode=auto] #text, [data-color-mode=dark] #text {
-        fill: #aaa;
+        fill: #fff;
       }
-    }
     @media (prefers-color-scheme: light) {
       [data-color-mode=auto] #text, [data-color-mode=light] #text {
         fill: #333;
