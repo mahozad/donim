@@ -35,12 +35,14 @@
     #text {
       fill: #888;
     }
-      [data-color-mode=auto] #text, [data-color-mode=dark] #text {
+    @media (prefers-color-scheme: dark) {
+      #text {
         fill: #fff;
       }
+    }
     @media (prefers-color-scheme: light) {
-      [data-color-mode=auto] #text, [data-color-mode=light] #text {
-        fill: #333;
+      #text {
+        fill: #000;
       }
     }
   </style>
