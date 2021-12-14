@@ -3,8 +3,9 @@
 
 <div align="center">
 
- ![Logo](raw/readme-header.svg)
- 
+ ![Logo on light](raw/readme-header-on-light.svg#gh-light-mode-only)
+ ![Logo on dark](raw/readme-header-on-dark.svg#gh-dark-mode-only)
+
 </div>
 
 ##
