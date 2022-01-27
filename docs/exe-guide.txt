@@ -42,3 +42,6 @@ https://github.com/gluonhq/scenebuilder/blob/master/app/build.gradle#L93
 
 Jpackage is now stable in Java 16:
 https://dzone.com/articles/jpackage-is-production-ready-in-java-16
+
+We can also create the jar ourselves and then create the exe file ourselves also.
+See [this post](https://stackoverflow.com/a/70864141/8583692).

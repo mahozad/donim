@@ -139,3 +139,8 @@ See [kotlin coroutines for javafx](https://github.com/Kotlin/kotlinx.coroutines/
 
 A similar application:
 https://github.com/roldanjr/pomatez
+https://snapcraft.io/stretchly
+
+---
+
+https://medium.com/graalvm/graalvm-to-level-up-javafx-and-gluon-substrate-7ec77a76c386
