@@ -1,6 +1,19 @@
-Use [gluon gradle plugin](https://github.com/gluonhq/client-gradle-plugin) to produce application native code so it can directly be executed as a native application on the target platform.
-
+Use [GluonFX plugin for Gradle](https://github.com/gluonhq/gluonfx-gradle-plugin) to produce application native code so it can directly be executed as a native application on the target platform.
 And also [this jlink plugin](https://github.com/beryx/badass-jlink-plugin).
+
+Make sure to install graalvm and visual studio see https://docs.gluonhq.com/#platforms_windows for required components
+make sure to add the following entry to the system path:
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\bin\HostX64\x64
+
+make sure to run the gradle task with the x64 native tools command prompt for vs 2019
+make sure to run it as administrator
+make sure to run gradlew clean successfully
+make sure the app runs successfully (with gradlew run)
+make sure to restart the system
+make sure to Run vcvarsall.bat located on your machine for example:
+"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvars[all].bat
+see https://stackoverflow.com/a/65423249/8583692
+see https://stackoverflow.com/a/50242347/8583692
 
 ---
 
