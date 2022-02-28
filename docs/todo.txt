@@ -1,0 +1,11 @@
+- when the timer goes into pending (on hold) state, show a glowing animation
+(from inside of the ring to outside of the ring). We can use clips and masks to 
+restrict the animation to the ring.
+
+- check for OS theme every n seconds (for exmaple, every 5 seconds) to update
+the application theme. This is for when the computer goes to sleep in one theme
+and awakes a few hours later with another theme which seems not to be reflected in 
+the application theme
+
+- add a cancel button in settings screen that reverts the current changes to their previous
+values and closes the settings window
