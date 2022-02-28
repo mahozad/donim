@@ -32,6 +32,8 @@ For shrinking the application jar, there are some options:
     Tasks.shadowJar { minimize() }
   - Using proguard either as standalone application or its gradle plugin
     https://community.guardsquare.com/t/help-wanted-on-shrinking-a-jar-kotlin-1-4-javafx-15-java-11/371
+    https://www.guardsquare.com/manual/setup/gradle
+    https://stackoverflow.com/a/54893575/8583692
 
 
 javafx alternative:
