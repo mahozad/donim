@@ -3,8 +3,10 @@
 
 <div align="center">
 
- ![Logo on light](raw/readme-header-on-light.svg#gh-light-mode-only)
- ![Logo on dark](raw/readme-header-on-dark.svg#gh-dark-mode-only)
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mahozad/donim/master/raw/readme-header-on-dark.svg">
+    <img alt="Donim logo" src="https://raw.githubusercontent.com/mahozad/donim/master/raw/readme-header-on-light.svg">
+  </picture>
 
 </div>
 
