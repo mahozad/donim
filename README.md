@@ -17,12 +17,13 @@
 So it basically means something that consists of two parts (or two halves).
 
 ### The logo
-It is inspired from the well-known [yin and yang][3] symbol.  
-I found a striking similarity between Donim logo and [this][4] or [this][5] (notice the colors)!
+It is inspired from the well-known [yin and yang][3] symbol[^1].
 
 ### Screenshots
 ![Main screen](raw/screenshot/screenshot.png)
 
+
+[^1]: I found a striking similarity between Donim logo and [this][4] or [this][5] (notice the colors)!
 
 [1]: https://travis-ci.org/mahozad/donim
 [2]: https://coveralls.io/github/mahozad/donim?branch=master
